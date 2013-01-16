@@ -20,6 +20,6 @@ if (Session::load('isUser')) {
 		
 		$solr->addDocument($d);
 		$solr->commit();
-		$solr->optimice();
+		$solr->optimize();
 	}
 }
