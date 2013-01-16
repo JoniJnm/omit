@@ -13,7 +13,16 @@ $(document).ready(function() {
 			$.ajax({
 				url: USER_CONTROLLER,
 				type: 'POST',
-				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)
+				dataType: 'test',
+				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario),
+				complete: function(data, textStatus, jqXHR ) {
+					if (data.responseText == "OK") {
+						mensajes.add('info', "Comentario añadido");
+					}
+					else {
+						mensajes.add('alerta', "Hubo un error al intentar enviar el comentario");
+					}
+				}
 			});
 	});
 });
