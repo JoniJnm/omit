@@ -33,12 +33,6 @@ select {
 	padding: 15px;
 	font-size:14px;
 }
-#mensajes {
-	z-index:999;
-	position:fixed;
-	top: 150px;
-	margin:auto;
-}
 #title {
 	border-bottom: 2px solid #000;
 	margin-bottom: 15px;

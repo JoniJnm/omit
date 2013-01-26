@@ -18,8 +18,6 @@ require_once(PHP_FILES.'all.php');
 require_once(PHP_HELPERS.'database.php');
 require_once(PHP_HELPERS.'mensajes.php');
 
-Session::save('isUser', 1);
-
 class Config {
 	var $server = 'localhost';
 	var $user = 'root';
@@ -28,7 +26,7 @@ class Config {
 	var $pre = 'uni_';
 	
 	function &getInstance() {
-		static $class;
+		static $class = null;
 		if (!is_object($class))
 			$class = new Config;
 		return $class;

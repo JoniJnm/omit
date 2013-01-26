@@ -2,8 +2,15 @@
 
 require_once(dirname(__file__).'/config.php');
 
-if (Session::load('isAdmin')) {
+$go = get('go', post('go', 'user'));
+if (!in_array($go, array('user', 'admin'))) $go = 'user';
+
+if ($go == 'admin' && Session::load('isAdmin')) {
 	header('location: '.HTML_URL.'admin.php', true, 301);
+	exit;
+}
+if ($go == 'user' && Session::load('isUser')) {
+	header('location: '.HTML_URL, true, 301);
 	exit;
 }
 
@@ -12,24 +19,28 @@ $error = '';
 if (post('login')) {
 	$user = post('user');
 	$pass = post('pass');
-	if ($user == 'admin' && $pass == 'soto') {
-		Session::save('isAdmin', 1);
-		header('location: '.HTML_URL.'admin.php', true, 301);
-		exit;
+	if ($go == 'admin') {
+		if ($user == 'admin' && $pass == 'soto') {
+			Session::save('isAdmin', 1);
+			header('location: '.HTML_URL.'admin.php', true, 301);
+			exit;
+		}
+	}
+	else {
+		if ($user == 'user' && $pass == 'soto') {
+			Session::save('isUser', 1);
+			header('location: '.HTML_URL, true, 301);
+			exit;
+		}
 	}
 	$error = 'Usuario o contraseña incorrectos.';
 }
-
-$data = getData();
 
 ?>
 <!doctype html>
 <html lang="es">
 <head>
 	<title>Sistema de comentarios - Acceder</title>
-	<script type="text/javascript">
-		var data = <?php echo json_encode($data); ?>;
-	</script>
 	<?php require_once(PHP_TPLS.'header-common.php'); ?>
 	<script type="text/javascript" src="js/login.js"></script>
 	<?php if ($error) : ?>
@@ -70,10 +81,14 @@ $data = getData();
 						<td><button id="acceder">Acceder</button></td>
 					</tr>
 				</table>
+				<input type="hidden" name="go" value="<?php echo $go; ?>" />
 				<input type="hidden" name="login" value="1" />
 			</form>
 		</div>
-		<?php require_once(PHP_TPLS.'footer-admin.php'); ?>
+		<?php 
+		if ($go == 'admin') require_once(PHP_TPLS.'footer-admin.php');
+		else require_once(PHP_TPLS.'footer-front.php');
+		?>
 	</div>
 </body>
 </html>

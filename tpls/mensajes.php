@@ -6,3 +6,4 @@
 		<?php endforeach; ?>
 	<?php endif; ?>
 </div>
+<div id="dialogos"></div>

@@ -1,15 +1,64 @@
+var parte = 0;
+
+function irParte(from, to) {
+	if ($('#parte'+to).length == 0) return;
+	
+	if (from == 1) {
+		var asignatura = $('#asignatura').val();
+		var profesor = $('#profesor').val();
+		if (asignatura <= 0) {
+			mensajes.add('alerta', "Seleccione una asignatura");
+			return;
+		}
+		else if (profesor <= 0) {
+			mensajes.add('alerta', "Seleccione un profesor");
+			return;
+		}
+		mensajes.borrar();
+	}
+	
+	parte = to;
+	if ($('#parte'+from).length == 0) {
+		$('#parte'+to).show();
+	}
+	else {
+		$('#parte'+from).fadeOut('slow', function() {
+			$('#parte'+to).fadeIn();
+		});
+	}
+	if ($('#parte'+(to+1)).length == 0) $('#siguiente').hide();
+	else $('#siguiente').show();
+	
+	if ($('#parte'+(to-1)).length == 0) $('#anterior').hide();
+	else $('#anterior').show();
+}
+
+$(document).ready(function() {
+	irParte(0, 1);
+	$("#siguiente").click(function() {
+		irParte(parte, parte+1);
+	});
+	$("#anterior").click(function() {
+		irParte(parte, parte-1);
+	});
+});
+
 $(document).ready(function() {
 	$('#enviar').click(function() {
 		var asignatura = $('#asignatura').val();
 		var profesor = $('#profesor').val();
 		var comentario = $('#comentario').val();
-		if (asignatura <= 0)
+		if (asignatura <= 0) {
 			mensajes.add('alerta', "Seleccione una asignatura");
-		else if (profesor <= 0)
+		}
+		else if (profesor <= 0) {
 			mensajes.add('alerta', "Seleccione un profesor");
-		else if (comentario.length == 0)
+		}
+		else if (comentario.length == 0) {
 			mensajes.add('alerta', "Introduzca un comentario");
-		else
+		}
+		else {
+			mensajes.borrar();
 			$.ajax({
 				url: USER_CONTROLLER,
 				type: 'POST',
@@ -24,6 +73,7 @@ $(document).ready(function() {
 					}
 				}
 			});
+		}
 	});
 });
 

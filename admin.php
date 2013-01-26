@@ -3,7 +3,7 @@
 require_once(dirname(__file__).'/config.php');
 
 if (!Session::load('isAdmin')) {
-	header('location: '.HTML_URL.'login.php', true, 301);
+	header('location: '.HTML_URL.'login.php?go=admin', true, 301);
 	exit;
 }
 

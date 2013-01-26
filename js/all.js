@@ -8,6 +8,9 @@ $(document).ready(function() {
 	$('input[placeholder], textarea[placeholder]').placeholder();
 	$('textarea, input').addClass('ui-widget ui-state-default ui-corner-all');
 	$('button').button();
+	$('button').click(function() {
+		$(this).removeClass('ui-state-focus');
+	});
 	$('.center').center();
 	mensajes.rende();
 });
@@ -72,22 +75,30 @@ var select = {
 
 var mensajes = {
     add: function(tipo, msg) {
-        $("#mensajes").append('<div class="mensaje-'+tipo+'" style="display:none">'+msg+'</div>');
+		$("#mensajes").html('<div class="mensaje-'+tipo+'" style="display:none">'+msg+'</div>');
 		mensajes.rende();
     },
+	borrar: function() {
+		$("#mensajes").html();
+	},
 	rende: function() {
 		$(".mensaje-alerta").alertStyle();
         $(".mensaje-info").infoStyle();
-        $(".ui-state-error, .ui-state-highlight").fadeIn('slow', function() {
-            var elm = this;
-            setTimeout(function() {
-                $(elm).fadeOut('slow', function() {
-                    $(elm).remove();
-                });
-            }, 3000);
-        });
+		$("html, body").animate({ scrollTop: 0 });
+        $(".ui-state-error, .ui-state-highlight").fadeIn('slow');
 	}
 };
+
+var dialogos = {
+	add: function(title, msg) {
+		$('.ui-dialog').remove();
+		$('#dialogos .dialogo').remove();
+		var html = '<div class="dialogo" title="'+title+'"><p>'+msg+'</p></div>';
+		$('#dialogos').append(html);
+		$('#dialogos .dialogo').dialog();
+	}
+};
+
 (function($) {
     $.fn.alertStyle = function() {
         this.replaceWith(function(i,html){

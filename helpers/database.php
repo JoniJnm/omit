@@ -20,7 +20,7 @@ class database {
 	}
 	
 	function &getInstance() {
-		static $class;
+		static $class = null;
 		if (!is_object($class)) {
 			$config =& config::getInstance();
 			$class = new database($config->server, $config->user, $config->pass, $config->db, $config->pre);
