@@ -59,11 +59,18 @@ $(document).ready(function() {
 		}
 		else {
 			mensajes.borrar();
+			var respuestas = [];
+			$('.satisfaccion_td input').each(function(i, e) {
+				var id = $(e).attr('data-id');
+				var v = $(e).val();
+				respuestas.push(id+":"+v);
+			});
+			respuestas = respuestas.join(';');
 			$.ajax({
 				url: USER_CONTROLLER,
 				type: 'POST',
 				dataType: 'test',
-				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario),
+				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)+"&respuestas="+respuestas,
 				complete: function(data, textStatus, jqXHR ) {
 					if (data.responseText == "OK") {
 						mensajes.add('info', "Comentario añadido");

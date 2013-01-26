@@ -21,14 +21,14 @@ if (post('login')) {
 	$pass = post('pass');
 	if ($go == 'admin') {
 		if ($user == 'admin' && $pass == 'soto') {
-			Session::save('isAdmin', 1);
+			Session::save('isAdmin', $user);
 			header('location: '.HTML_URL.'admin.php', true, 301);
 			exit;
 		}
 	}
 	else {
 		if ($user == 'user' && $pass == 'soto') {
-			Session::save('isUser', 1);
+			Session::save('isUser', $user);
 			header('location: '.HTML_URL, true, 301);
 			exit;
 		}

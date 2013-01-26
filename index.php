@@ -71,7 +71,7 @@ $preguntas = getPreguntasDefault();
 						</tr>
 						<tr>
 							<td class="satisfaccion_td">
-								<input type="hidden" name="respuesta_<?php echo $p->id; ?>" id="respuesta_<?php echo $p->id; ?>" />
+								<input type="hidden" data-id="<?php echo $p->id; ?>" name="respuesta_<?php echo $p->id; ?>" id="respuesta_<?php echo $p->id; ?>" />
 								<span id="satisfaccion_<?php echo $p->id; ?>"></span>
 							</td>
 							<td class="satisfaccion_slider_td">
