@@ -74,6 +74,7 @@ $(document).ready(function() {
 				complete: function(data, textStatus, jqXHR ) {
 					if (data.responseText == "OK") {
 						mensajes.add('info', "Comentario añadido");
+						irParte(parte, 1);
 					}
 					else {
 						mensajes.add('alerta', "Hubo un error al intentar enviar el comentario");
