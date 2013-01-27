@@ -2,33 +2,33 @@
 
 require_once(dirname(__file__).'/config.php');
 
-$go = get('go', post('go', 'user'));
+$go = Request::both('go');
 if (!in_array($go, array('user', 'admin'))) $go = 'user';
 
-if ($go == 'admin' && Session::load('isAdmin')) {
+if ($go == 'admin' && Session::get('isAdmin')) {
 	header('location: '.HTML_URL.'admin.php', true, 301);
 	exit;
 }
-if ($go == 'user' && Session::load('isUser')) {
+if ($go == 'user' && Session::get('isUser')) {
 	header('location: '.HTML_URL, true, 301);
 	exit;
 }
 
 $error = '';
 
-if (post('login')) {
-	$user = post('user');
-	$pass = post('pass');
+if (Request::post('login')) {
+	$user = Request::post('user');
+	$pass = Request::post('pass');
 	if ($go == 'admin') {
 		if ($user == 'admin' && $pass == 'soto') {
-			Session::save('isAdmin', $user);
+			Session::set('isAdmin', $user);
 			header('location: '.HTML_URL.'admin.php', true, 301);
 			exit;
 		}
 	}
 	else {
 		if ($user == 'user' && $pass == 'soto') {
-			Session::save('isUser', $user);
+			Session::set('isUser', $user);
 			header('location: '.HTML_URL, true, 301);
 			exit;
 		}
@@ -41,7 +41,7 @@ if (post('login')) {
 <html lang="es">
 <head>
 	<title>Sistema de comentarios - Acceder</title>
-	<?php require_once(PHP_TPLS.'header-common.php'); ?>
+	<?php load('tpls.header-common'); ?>
 	<script type="text/javascript" src="js/login.js"></script>
 	<?php if ($error) : ?>
 	<script type="text/javascript">
@@ -53,7 +53,7 @@ if (post('login')) {
 </head>
 <body>
 	<div id="main">
-		<?php require_once(PHP_TPLS.'mensajes.php'); ?>
+		<?php load('tpls.mensajes'); ?>
 		<div id="title">
 			<h1>Sistema de comentarios - Acceder</h1>
 		</div>
@@ -86,8 +86,8 @@ if (post('login')) {
 			</form>
 		</div>
 		<?php 
-		if ($go == 'admin') require_once(PHP_TPLS.'footer-admin.php');
-		else require_once(PHP_TPLS.'footer-front.php');
+		if ($go == 'admin') load('tpls.footer-admin');
+		else load('tpls.footer-front');
 		?>
 	</div>
 </body>

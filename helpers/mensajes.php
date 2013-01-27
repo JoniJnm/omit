@@ -1,29 +1,21 @@
 <?php
 
-class Mensaje {
-	var $tipo;
-	var $msg;
-	
-	function __construct($tipo, $msg) {
-		$this->tipo = $tipo;
-		$this->msg = $msg;
-	}
-}
-
 class Mensajes {
 	static $mensajes;
 	static function getMensajes() {
 		if (!is_array(self::$mensajes)) {
-			self::$mensajes = Session::load('mensajes', array());
-			Session::save('mensajes', array());
+			self::$mensajes = Session::get('mensajes', array());
+			Session::set('mensajes', array());
 		}
 		return self::$mensajes;
 	}
 	static function addMensaje($tipo, $msg) {
-		$m = new Mensaje($tipo, $msg);
-		$msgs = Session::load('mensajes', array());
+		$m = new stdclass;
+		$m->tipo = $tipo;
+		$m->msg = $msg;
+		$msgs = Session::get('mensajes', array());
 		$msgs[] = $m;
-		Session::save('mensajes', $msgs, true);
+		Session::set('mensajes', $msgs, true);
 	}
 }
 

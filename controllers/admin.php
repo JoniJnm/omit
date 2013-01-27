@@ -2,21 +2,22 @@
 
 require_once(dirname(dirname(__file__)).'/config.php');
 
-if (Session::load('isAdmin')) {
+if (Session::get('isAdmin')) {
 	$db = Database::getInstance();
-	$task = get('task', post('task'));
+	$task = Request::both('task');
 	if ($task == 'getXML') {
-		$data = getData();
-		require_once(PHP_HELPERS.'xml.php');
+		load('models.uni');
+		load('helpers.xml');
+		$data = Uni::getData();
 		header("Content-Description: File Transfer");
 		header("Content-Disposition: attachment; filename=data.xml");
 		header('Content-Type: application/xml; charset=UTF-8');
-		printXML($data);
+		XML::printUniDataObj($data);
 		exit;
 	}
 	elseif ($task == 'uploadDataXml') {
-		require_once(PHP_HELPERS.'xml.php');
-		$data = getXMLData('xml_data');
+		load('helpers.xml');
+		$data = XML::getXMLFromFileUploaded('xml_data');
 		if ($data) {
 			$db->query('TRUNCATE `#__asignaturas`');
 			$db->query('TRUNCATE `#__cursos`');

@@ -2,13 +2,15 @@
 
 require_once(dirname(__file__).'/config.php');
 
-if (!Session::load('isUser')) {
+if (!Session::get('isUser')) {
 	header('location: '.HTML_URL.'login.php?go=user', true, 301);
 	exit;
 }
 
-$data = getData();
-$preguntas = getPreguntasDefault();
+load('models.uni');
+load('models.preguntas');
+$data = Uni::getData();
+$preguntas = Preguntas::getDefault();
 ?>
 
 <!doctype html>
@@ -18,12 +20,12 @@ $preguntas = getPreguntasDefault();
 	<script type="text/javascript">
 		var data = <?php echo json_encode($data); ?>;
 	</script>
-	<?php require_once(PHP_TPLS.'header-common.php'); ?>
+	<?php load('tpls.header-common'); ?>
 	<script type="text/javascript" src="js/front.js"></script>
 </head>
 <body>
 	<div id="main">
-		<?php require_once(PHP_TPLS.'mensajes.php'); ?>
+		<?php load('tpls.mensajes'); ?>
 		<div id="title">
 			<h1>Sistema de comentarios de asignaturas</h1>
 		</div>
@@ -103,7 +105,7 @@ $preguntas = getPreguntasDefault();
 				</table>
 			</div>
 		</div>
-		<?php require_once(PHP_TPLS.'footer-front.php'); ?>
+		<?php load('tpls.footer-front'); ?>
 	</div>
 </body>
 </html>

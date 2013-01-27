@@ -126,16 +126,16 @@ $(document).ready(function() {
 });
 
 function getSatisfaccion(i) {
-	var vector = ['Muy insatisfecho', 'Insatisfecho', 'Poco satisfecho', 'Satisfecho', 'Muy satisfecho'];
+	var vector = ['Unknown', 'Muy insatisfecho', 'Insatisfecho', 'Poco satisfecho', 'Satisfecho', 'Muy satisfecho'];
 	return vector[i];
 }
 
 $(document).ready(function() {
 	$(".satisfaccion_slider").each(function(i, e) {
 		$(e).slider({
-			value:2,
-			min: 0,
-			max: 4,
+			value:3,
+			min: 1,
+			max: 5,
 			step: 1,
 			slide: function( event, ui ) {
 				$("#satisfaccion_"+$(e).attr('data-id')).html(getSatisfaccion(ui.value));

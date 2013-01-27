@@ -2,27 +2,22 @@
 
 require_once(dirname(__file__).'/config.php');
 
-if (!Session::load('isAdmin')) {
+if (!Session::get('isAdmin')) {
 	header('location: '.HTML_URL.'login.php?go=admin', true, 301);
 	exit;
 }
-
-$data = getData();
 
 ?>
 <!doctype html>
 <html lang="es">
 <head>
 	<title>Sistema de comentarios - Administración</title>
-	<script type="text/javascript">
-		var data = <?php echo json_encode($data); ?>;
-	</script>
-	<?php require_once(PHP_TPLS.'header-common.php'); ?>
+	<?php load('tpls.header-common'); ?>
 	<script type="text/javascript" src="js/admin.js"></script>
 </head>
 <body>
 	<div id="main">
-		<?php require_once(PHP_TPLS.'mensajes.php'); ?>
+		<?php load('tpls.mensajes'); ?>
 		<div id="title">
 			<h1>Sistema de comentarios - Administración</h1>
 		</div>
@@ -33,7 +28,7 @@ $data = getData();
 				<input type="hidden" name="task" value="uploadDataXml" />
 			</form>
 		</div>
-		<?php require_once(PHP_TPLS.'footer-admin.php'); ?>
+		<?php load('tpls.footer-admin'); ?>
 	</div>
 </body>
 </html>
