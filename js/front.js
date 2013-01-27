@@ -74,7 +74,12 @@ $(document).ready(function() {
 				complete: function(data, textStatus, jqXHR ) {
 					if (data.responseText == "OK") {
 						mensajes.add('info', "Comentario añadido");
+						select.refresh('#profesor', 0);
 						irParte(parte, 1);
+						$('#comentario').val('');
+						$(".satisfaccion_slider").each(function(i, e) {
+							$(e).slider('value', 3);
+						});
 					}
 					else {
 						mensajes.add('alerta', "Hubo un error al intentar enviar el comentario");
