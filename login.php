@@ -40,14 +40,16 @@ if (Request::post('login')) {
 <!doctype html>
 <html lang="es">
 <head>
-	<title>Sistema de comentarios - Acceder</title>
 	<?php load('tpls.header-common'); ?>
+	<title>Sistema de comentarios - Acceder</title>
 	<script type="text/javascript" src="js/login.js"></script>
 	<?php if ($error) : ?>
 	<script type="text/javascript">
+	/*<![CDATA[*/
 	$(document).ready(function() {
 		mensajes.add('alerta', '<?php echo $error; ?>');
 	});
+	/*]]>*/
 	</script>
 	<?php endif; ?>
 </head>

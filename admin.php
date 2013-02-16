@@ -11,8 +11,8 @@ if (!Session::get('isAdmin')) {
 <!doctype html>
 <html lang="es">
 <head>
-	<title>Sistema de comentarios - Administración</title>
 	<?php load('tpls.header-common'); ?>
+	<title>Sistema de comentarios - Administración</title>
 	<script type="text/javascript" src="js/admin.js"></script>
 </head>
 <body>

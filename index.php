@@ -16,11 +16,13 @@ $preguntas = Preguntas::getDefault();
 <!doctype html>
 <html lang="es">
 <head>
-	<title>Sistemas de comentarios de asignaturas</title>
 	<script type="text/javascript">
+		/*<![CDATA[*/
 		var data = <?php echo json_encode($data); ?>;
+		/*]]>*/
 	</script>
 	<?php load('tpls.header-common'); ?>
+	<title>Sistemas de comentarios de asignaturas</title>
 	<script type="text/javascript" src="js/front.js"></script>
 </head>
 <body>
