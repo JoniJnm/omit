@@ -1,8 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript">
 	var HTML_URL = '<?php echo HTML_URL; ?>';
+	var ALUMNO_CONTROLLER = '<?php echo ALUMNO_CONTROLLER; ?>';
+	var PROFESOR_CONTROLLER = '<?php echo PROFESOR_CONTROLLER; ?>';
 	var ADMIN_CONTROLLER = '<?php echo ADMIN_CONTROLLER; ?>';
-	var USER_CONTROLLER = '<?php echo USER_CONTROLLER; ?>';
 </script>
 <link type="text/css" rel="stylesheet" href="css/normalize.css" />
 <link type="text/css" rel="stylesheet" href="css/ui-darkness/jquery-ui-1.10.1.custom.min.css" />

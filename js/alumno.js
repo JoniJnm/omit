@@ -67,7 +67,7 @@ $(document).ready(function() {
 			});
 			respuestas = respuestas.join(';');
 			$.ajax({
-				url: USER_CONTROLLER,
+				url: ALUMNO_CONTROLLER,
 				type: 'POST',
 				dataType: 'test',
 				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)+"&respuestas="+respuestas,

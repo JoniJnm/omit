@@ -2,35 +2,30 @@
 
 require_once(dirname(__file__).'/config.php');
 
-$go = Request::both('go');
-if (!in_array($go, array('user', 'admin'))) $go = 'user';
-
-if ($go == 'admin' && Session::get('isAdmin')) {
-	header('location: '.HTML_URL.'admin.php', true, 301);
-	exit;
-}
-if ($go == 'user' && Session::get('isUser')) {
-	header('location: '.HTML_URL, true, 301);
-	exit;
-}
+$userType = User::clearUserType(Request::both('userType'));
+!User::isLoged($userType) or User::toHome($userType);
 
 $error = '';
 
 if (Request::post('login')) {
 	$user = Request::post('user');
 	$pass = Request::post('pass');
-	if ($go == 'admin') {
+	if ($userType == 'admin') {
 		if ($user == 'admin' && $pass == 'soto') {
 			Session::set('isAdmin', $user);
-			header('location: '.HTML_URL.'admin.php', true, 301);
-			exit;
+			User::toHome('admin');
 		}
 	}
-	else {
-		if ($user == 'user' && $pass == 'soto') {
-			Session::set('isUser', $user);
-			header('location: '.HTML_URL, true, 301);
-			exit;
+	elseif ($userType == 'profesor') {
+		if ($user == 'profesor' && $pass == 'soto') {
+			Session::set('isProfesor', $user);
+			User::toHome('profesor');
+		}
+	}
+	elseif ($userType == 'alumno') {
+		if ($user == 'alumno' && $pass == 'soto') {
+			Session::set('isAlumno', $user);
+			User::toHome('alumno');
 		}
 	}
 	$error = 'Usuario o contraseña incorrectos.';
@@ -60,7 +55,7 @@ if (Request::post('login')) {
 			<h1>Sistema de comentarios - Acceder</h1>
 		</div>
 		<div id="content">
-			<form action="login.php" method="post" id="form">
+			<form action="login.php?userType=<?php echo $userType; ?>" method="post" id="form">
 				<table>
 					<tr>
 						<td>Usuario</td>
@@ -83,14 +78,10 @@ if (Request::post('login')) {
 						<td><button id="acceder">Acceder</button></td>
 					</tr>
 				</table>
-				<input type="hidden" name="go" value="<?php echo $go; ?>" />
 				<input type="hidden" name="login" value="1" />
 			</form>
 		</div>
-		<?php 
-		if ($go == 'admin') load('tpls.footer-admin');
-		else load('tpls.footer-front');
-		?>
+		<?php load('tpls.footer'); ?>
 	</div>
 </body>
 </html>

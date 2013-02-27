@@ -21,7 +21,8 @@ DEFINE('PHP_MODELS', PHP_PATH.'/models/');
 DEFINE('PHP_FILES', PHP_PATH.'/php/');
 DEFINE('PHP_TPLS', PHP_PATH.'/tpls/');
 
+DEFINE('ALUMNO_CONTROLLER', HTML_URL.'controllers/alumno.php');
+DEFINE('PROFESOR_CONTROLLER', HTML_URL.'controllers/profesor.php');
 DEFINE('ADMIN_CONTROLLER', HTML_URL.'controllers/admin.php');
-DEFINE('USER_CONTROLLER', HTML_URL.'controllers/user.php');
 
 require_once(PHP_FILES.'all.php');

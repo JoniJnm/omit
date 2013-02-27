@@ -2,10 +2,7 @@
 
 require_once(dirname(__file__).'/config.php');
 
-if (!Session::get('isAdmin')) {
-	header('location: '.HTML_URL.'login.php?go=admin', true, 301);
-	exit;
-}
+User::isLoged('admin') or User::toLogin('admin');
 
 ?>
 <!doctype html>
@@ -28,7 +25,7 @@ if (!Session::get('isAdmin')) {
 				<input type="hidden" name="task" value="uploadDataXml" />
 			</form>
 		</div>
-		<?php load('tpls.footer-admin'); ?>
+		<?php load('tpls.footer'); ?>
 	</div>
 </body>
 </html>

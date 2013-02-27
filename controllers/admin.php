@@ -42,7 +42,6 @@ if (Session::get('isAdmin')) {
 			}
 		}
 		Mensajes::addMensaje('info', '¡Datos cargados!');
-		header('location: '.HTML_URL.'admin.php', true, 301);
-		exit;
+		Redirect::toHome('admin');
 	}
 }
