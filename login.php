@@ -2,6 +2,8 @@
 
 require_once(dirname(__file__).'/config.php');
 
+if (Request::get('salir')) User::salir();
+
 $userType = User::clearUserType(Request::both('userType'));
 !User::isLoged($userType) or User::toHome($userType);
 
@@ -55,6 +57,7 @@ if (Request::post('login')) {
 			<h1>Sistema de comentarios - Acceder</h1>
 		</div>
 		<div id="content">
+			<h2>Acceder como <?php echo $userType; ?></h2>
 			<form action="login.php?userType=<?php echo $userType; ?>" method="post" id="form">
 				<table>
 					<tr>

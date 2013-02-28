@@ -25,4 +25,10 @@ class User {
 		if (!in_array($userType, self::getUserTypes())) $userType = 'alumno';
 		return $userType;
 	}
+	function salir() {
+		$types = self::getUserTypes();
+		foreach ($types as $type) {
+			Session::clear('is'.ucfirst($type));
+		}
+	}
 }

@@ -16,6 +16,11 @@ function load($f, $once=true) {
 	}
 }
 
+$tmp = explode('/', $_SERVER['SCRIPT_NAME']);
+$tmp = $tmp[count($tmp)-1];
+if (strlen($tmp) > 4) $tmp = substr($tmp, 0, -4);
+DEFINE('PHP_SCRIPT', $tmp);
+
 load('helpers.session');
 load('helpers.request');
 load('helpers.mensajes');

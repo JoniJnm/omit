@@ -13,4 +13,7 @@ class Session {
 	static function set($k, $v) {
 		$_SESSION[$k] = serialize($v);
 	}
+	static function clear($k) {
+		unset($_SESSION[$k]);
+	}
 }
