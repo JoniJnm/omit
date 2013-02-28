@@ -11,7 +11,7 @@ function load($f, $once=true) {
 		else require(PHP_PATH.$f);
 	}
 	else {
-		trigger_error("No se ha podido cargar el archivo '".$f."'", E_USER);
+		trigger_error("No se ha podido cargar el archivo '".$f."'", E_ERROR);
 		exit;
 	}
 }
