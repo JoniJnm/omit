@@ -9,7 +9,7 @@ class Solr {
 		
 		$d = new Apache_Solr_Document();
 		$d->fecha = "NOW";
-		$d->usuario = $usuario; //username
+		$d->usuario = $usuario;
 		$d->profesor = $profesor;
 		$d->asignatura = $asignatura;
 		$d->comentario = $comentario;

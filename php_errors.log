@@ -1,0 +1,139 @@
+[05-Mar-2013 18:37:44 UTC] PHP Fatal error:  Maximum function nesting level of '100' reached, aborting! in D:\www\uni\helpers\user.php on line 68
+[05-Mar-2013 18:37:44 UTC] PHP Stack trace:
+[05-Mar-2013 18:37:44 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:37:44 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:37:44 UTC] PHP   3. User->getId() D:\www\uni\models\alumno.php:13
+[05-Mar-2013 18:37:44 UTC] PHP   4. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP   5. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP   6. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP   7. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP   8. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP   9. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  10. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  11. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  12. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  13. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  14. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  15. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  16. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  17. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  18. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:44 UTC] PHP  19. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  20. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  21. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  22. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  23. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  24. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  25. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  26. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  27. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  28. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  29. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  30. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  31. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  32. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  33. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  34. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  35. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  36. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  37. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  38. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  39. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  40. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  41. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  42. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  43. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  44. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  45. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  46. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  47. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  48. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  49. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  50. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  51. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  52. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  53. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  54. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  55. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  56. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  57. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  58. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  59. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  60. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  61. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  62. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  63. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  64. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  65. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  66. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  67. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  68. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  69. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  70. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  71. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  72. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  73. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  74. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  75. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  76. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  77. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  78. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  79. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  80. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  81. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  82. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  83. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  84. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  85. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  86. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  87. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  88. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  89. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  90. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  91. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  92. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  93. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  94. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  95. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  96. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  97. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  98. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:37:45 UTC] PHP  99. User->getId() D:\www\uni\helpers\user.php:68
+[05-Mar-2013 18:47:59 UTC] PHP Fatal error:  Error en la base de datos: <br />
+Query: SELECT id,name AS nombre FROM uni_usuarios WHERE IN (1,2,3,4,6)<br />
+Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IN (1,2,3,4,6)' at line 1 in D:\www\uni\helpers\database.php on line 38
+[05-Mar-2013 18:47:59 UTC] PHP Stack trace:
+[05-Mar-2013 18:47:59 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:47:59 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:47:59 UTC] PHP   3. Database->loadObjectList($query = 'SELECT id,name AS nombre FROM #__usuarios WHERE IN (1,2,3,4,6)') D:\www\uni\models\alumno.php:16
+[05-Mar-2013 18:47:59 UTC] PHP   4. Database->query($query = 'SELECT id,name AS nombre FROM #__usuarios WHERE IN (1,2,3,4,6)') D:\www\uni\helpers\database.php:67
+[05-Mar-2013 18:47:59 UTC] PHP   5. trigger_error('Error en la base de datos: <br />\nQuery: SELECT id,name AS nombre FROM uni_usuarios WHERE IN (1,2,3,4,6)<br />\nError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'IN (1,2,3,4,6)\' at line 1', 256) D:\www\uni\helpers\database.php:38
+[05-Mar-2013 18:48:21 UTC] PHP Notice:  Undefined property: stdClass::$titulacion in D:\www\uni\models\alumno.php on line 32
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP Notice:  Undefined property: stdClass::$titulacion in D:\www\uni\models\alumno.php on line 32
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP Notice:  Undefined property: stdClass::$titulacion in D:\www\uni\models\alumno.php on line 32
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP Notice:  Undefined property: stdClass::$titulacion in D:\www\uni\models\alumno.php on line 32
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP Notice:  Undefined property: stdClass::$titulacion in D:\www\uni\models\alumno.php on line 32
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP Fatal error:  Error en la base de datos: <br />
+Query: SELECT * FROM uni_titulaciones WHERE id IN (,,,,)<br />
+Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',,,)' at line 1 in D:\www\uni\helpers\database.php on line 38
+[05-Mar-2013 18:48:21 UTC] PHP Stack trace:
+[05-Mar-2013 18:48:21 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[05-Mar-2013 18:48:21 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:9
+[05-Mar-2013 18:48:21 UTC] PHP   3. Database->loadObjectList($query = 'SELECT * FROM #__titulaciones WHERE id IN (,,,,)') D:\www\uni\models\alumno.php:34
+[05-Mar-2013 18:48:21 UTC] PHP   4. Database->query($query = 'SELECT * FROM #__titulaciones WHERE id IN (,,,,)') D:\www\uni\helpers\database.php:67
+[05-Mar-2013 18:48:21 UTC] PHP   5. trigger_error('Error en la base de datos: <br />\nQuery: SELECT * FROM uni_titulaciones WHERE id IN (,,,,)<br />\nError: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \',,,)\' at line 1', 256) D:\www\uni\helpers\database.php:38
