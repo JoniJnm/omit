@@ -1,8 +1,8 @@
 <?php
 
-require_once(dirname(__file__).'/config.php');
+require_once(dirname(__file__).'/init/init.php');
 
-User::isLoged('alumno') or User::toLogin('alumno');
+User::getInstance('alumno')->toLoginIfNotLoged();
 
 load('models.uni');
 load('models.preguntas');

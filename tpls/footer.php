@@ -4,8 +4,8 @@
 			$types = User::getUserTypes();
 			$last = $types[count($types)-1];
 			$userType = User::clearUserType(Request::get('userType'));
-			foreach ($types as $type) {
-				if (PHP_SCRIPT == $type || (PHP_SCRIPT == 'login' && $userType == $type))
+			foreach ($types as $k=>$type) {
+				if (PHP_SCRIPT == $type || (PHP_SCRIPT == 'login' && $userType == $k))
 					echo ucfirst($type);
 				else
 					echo '<a href="'.HTML_URL.$type.'.php">'.ucfirst($type).'</a>';

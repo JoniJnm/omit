@@ -1,8 +1,8 @@
 <?php
 
-require_once(dirname(dirname(__file__)).'/config.php');
+require_once(dirname(dirname(__file__)).'/init/init.php');
 
-if (Session::get('isAdmin')) {
+if (User::getInstance('admin')->isLoged()) {
 	$db = Database::getInstance();
 	$task = Request::both('task');
 	if ($task == 'getXML') {
@@ -22,26 +22,26 @@ if (Session::get('isAdmin')) {
 			$db->query('TRUNCATE `#__asignaturas`');
 			$db->query('TRUNCATE `#__cursos`');
 			$db->query('TRUNCATE `#__preguntas`');
-			$db->query('TRUNCATE `#__profesores`');
+			$db->query('TRUNCATE `#__usuarios`');
 			$db->query('TRUNCATE `#__profesores_asignaturas`');
 			$db->query('TRUNCATE `#__titulaciones`');
 			foreach ($data['titulaciones']['titulacion'] as $d) {
-				$db->query('INSERT INTO #__titulaciones (id,nombre) VALUES ("'.addslashes($d['id']).'", "'.addslashes($d['nombre']).'")');
+				$db->query('INSERT INTO #__titulaciones (id,nombre) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['nombre']).')');
 			}
 			foreach ($data['cursos']['curso'] as $d) {
-				$db->query('INSERT INTO #__cursos (id, nombre, titulacion) VALUES ("'.addslashes($d['id']).'", "'.addslashes($d['nombre']).'", "'.addslashes($d['titulacion']).'")');
+				$db->query('INSERT INTO #__cursos (id, nombre, titulacion) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['nombre']).', '.$db->scape($d['titulacion']).')');
 			}
 			foreach ($data['asignaturas']['asignatura'] as $d) {
-				$db->query('INSERT INTO #__asignaturas (id, nombre, curso) VALUES ("'.addslashes($d['id']).'", "'.addslashes($d['nombre']).'", "'.addslashes($d['curso']).'")');
+				$db->query('INSERT INTO #__asignaturas (id, nombre, curso) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['nombre']).', '.$db->scape($d['curso']).')');
 			}
-			foreach ($data['profesores']['profesor'] as $d) {
-				$db->query('INSERT INTO #__profesores (id, nombre) VALUES ("'.addslashes($d['id']).'", "'.addslashes($d['nombre']).'")');
+			foreach ($data['usuarios']['usuario'] as $d) {
+				$db->query('INSERT INTO #__usuarios (id, name, username, pass, type) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['name']).', '.$db->scape($d['username']).', '.$db->scape($d['pass']).', '.$db->scape($d['type']).')');
 			}
 			foreach ($data['profesores_asignaturas']['profesor_asignatura'] as $d) {
-				$db->query('INSERT INTO #__profesores_asignaturas (profesor, asignatura) VALUES ("'.addslashes($d['profesor']).'", "'.addslashes($d['asignatura']).'")');
+				$db->query('INSERT INTO #__profesores_asignaturas (profesor, asignatura) VALUES ('.$db->scape($d['profesor']).', '.$db->scape($d['asignatura']).')');
 			}
 		}
 		Mensajes::addMensaje('info', '¡Datos cargados!');
-		Redirect::toHome('admin');
+		User::getInstance('admin')->toHome();
 	}
 }

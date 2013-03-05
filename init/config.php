@@ -14,7 +14,7 @@ DEFINE('SOLR_PATH', '/solr/');
 
 //config ends
 
-DEFINE('PHP_PATH', dirname(__FILE__).'/');
+DEFINE('PHP_PATH', dirname(dirname(__FILE__)).'/');
 DEFINE('PHP_LIBS', PHP_PATH.'/libs/');
 DEFINE('PHP_HELPERS', PHP_PATH.'/helpers/');
 DEFINE('PHP_MODELS', PHP_PATH.'/models/');
@@ -24,5 +24,3 @@ DEFINE('PHP_TPLS', PHP_PATH.'/tpls/');
 DEFINE('ALUMNO_CONTROLLER', HTML_URL.'controllers/alumno.php');
 DEFINE('PROFESOR_CONTROLLER', HTML_URL.'controllers/profesor.php');
 DEFINE('ADMIN_CONTROLLER', HTML_URL.'controllers/admin.php');
-
-require_once(PHP_FILES.'all.php');

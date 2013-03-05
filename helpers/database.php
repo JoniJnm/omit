@@ -1,28 +1,29 @@
 <?php
 
-class database {
-	private $conect;
+class Database {
+	private $mysqli;
 	private $pre;
 	var $error = "";
 	
 	function __construct($server, $user, $pass, $db, $pre="") {
-		$this->conect = mysql_connect($server, $user, $pass);
-		if (!$this->conect) {
-			$this->error = mysql_error();
-			trigger_error("Error en la base de datos: <br />\n".$this->error, E_USER_ERROR);
-		} 
-		else {
-			$this->error = "";
+		$this->mysqli = new mysqli($server, $user, $pass, $db);
+		if (mysqli_connect_error()) {
+			$this->error = 'Error de Conexión (' . mysqli_connect_errno() . ') '.mysqli_connect_error();
+			trigger_error($this->error, E_USER_ERROR);
 		}
-		mysql_select_db($db, $this->conect);
-		mysql_query("SET NAMES 'utf8'");
+		$this->mysqli->set_charset('utf8');
+		$this->mysqli->query("SET NAMES 'utf8'");
 		$this->pre = $pre;
 	}
 	
-	function &getInstance() {
+	/**
+	 * 
+	 * @return Database
+	 */
+	static function &getInstance() {
 		static $class = null;
 		if (!is_object($class)) {
-			$class = new database(DB_SERVER, DB_USER, DB_PASS, DB_NAME, DB_PREFIX);
+			$class = new self(DB_SERVER, DB_USER, DB_PASS, DB_NAME, DB_PREFIX);
 		}
 		return $class;
 	}
@@ -31,9 +32,9 @@ class database {
 		if ($this->pre) {
 			$query = str_replace("#__", $this->pre, $query);
 		}
-		$return = mysql_query($query, $this->conect);
+		$return = $this->mysqli->query($query);
 		if (!$return) {
-			$this->error = mysql_error($this->conect);
+			$this->error = $this->mysqli->error;
 			trigger_error("Error en la base de datos: <br />\nQuery: ".$query."<br />\nError: ".$this->error, E_USER_ERROR);
 		}
 		else {
@@ -45,30 +46,30 @@ class database {
     function loadObject($query){
 		$cur = $this->query($query);
         $ret = null;
-        if ($object = mysql_fetch_object($cur)) {
+        if ($object = $cur->fetch_object()) {
             $ret = $object;
         }
-        mysql_free_result($cur);
+        $cur->free();
         return $ret;
     }
 	
     function loadResult($query) {
         $cur = $this->query($query);
         $ret = null;
-        if ($row = mysql_fetch_row($cur)) {
+        if ($row = $cur->fetch_row()) {
             $ret = $row[0];
         }
-        mysql_free_result($cur);
+        $cur->free();
         return $ret;
     }
 	
     function loadObjectList($query) {
         $cur = $this->query($query);
         $array = array();
-        while ($row = mysql_fetch_object($cur)) {
+        while ($row = $cur->fetch_object()) {
             $array[] = $row;
         }
-        mysql_free_result($cur);
+        $cur->free();
         return $array;
     }
 
@@ -77,10 +78,14 @@ class database {
 			return null;
 		}
 		$array = array();
-		while ($row = mysql_fetch_row( $cur )) {
+		while ($row = $cur->fetch_row()) {
 			$array[] = $row[$numinarray];
 		}
-		mysql_free_result( $cur );
+		$cur->free();
 		return $array;
+	}
+	
+	function scape($str) {
+		return "'".$this->mysqli->real_escape_string($str)."'";
 	}
 }

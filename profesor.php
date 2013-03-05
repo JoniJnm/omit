@@ -1,8 +1,8 @@
 <?php
 
-require_once(dirname(__file__).'/config.php');
+require_once(dirname(__file__).'/init/init.php');
 
-User::isLoged('profesor') or User::toLogin('profesor');
+User::getInstance('profesor')->toLoginIfNotLoged();
 
 ?>
 <!doctype html>
