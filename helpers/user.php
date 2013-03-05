@@ -65,7 +65,7 @@ class User {
 		return $this->getUsername();
 	}
 	function getId() {
-		return $this->getId();
+		return $this->id;
 	}
 	function login($username, $pass) {
 		$db = Database::getInstance();
