@@ -4,9 +4,9 @@ require_once(dirname(__file__).'/init/init.php');
 
 User::getInstance('alumno')->toLoginIfNotLoged();
 
-load('models.alumno');
+load('models.uni');
 load('models.preguntas');
-$data = Alumno::getUniData();
+$data = Uni::getData();
 $preguntas = Preguntas::getDefault();
 ?>
 
