@@ -14,17 +14,8 @@ class XML {
 			echo '	<'.$k.'>'."\n";
 			foreach ($v as $d) {
 				echo '		<'.self::getIndividual($k).'>'."\n";
-				if ($k == 'profesores_asignaturas') {
-					echo '			<profesor>'.$d->asignatura.'</profesor>'."\n";
-					echo '			<asignatura>'.$d->asignatura.'</asignatura>'."\n";
-				}
-				else {
-					echo '			<id>'.$d->id.'</id>'."\n";
-					echo '			<nombre>'.$d->nombre.'</nombre>'."\n";
-					if ($k == 'cursos')
-						echo '			<titulacion>'.$d->titulacion.'</titulacion>'."\n";
-					elseif ($k == 'asignaturas')
-						echo '			<curso>'.$d->curso.'</curso>'."\n";
+				foreach ($d as $key=>$val) {
+					echo '			<'.$key.'>'.$val.'</'.$key.'>'."\n";
 				}
 				echo '		</'.self::getIndividual($k).'>'."\n";
 			}
@@ -38,8 +29,8 @@ class XML {
 			'titulaciones' => 'titulacion',
 			'cursos' => 'curso',
 			'asignaturas' => 'asignatura',
-			'profesores' => 'profesor',
-			'profesores_asignaturas' => 'profesor_asignatura'
+			'usuarios' => 'usuario',
+			'usuarios_asignaturas' => 'usuario_asignatura'
 		);
 		return $data[$v];
 	}

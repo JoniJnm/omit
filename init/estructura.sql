@@ -32,13 +32,6 @@ CREATE TABLE `uni_preguntas_default` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `uni_profesores_asignaturas`;
-CREATE TABLE `uni_profesores_asignaturas` (
-  `profesor` int(11) NOT NULL,
-  `asignatura` int(11) NOT NULL,
-  UNIQUE KEY `profesor` (`profesor`,`asignatura`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `uni_titulaciones`;
 CREATE TABLE `uni_titulaciones` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,3 +50,10 @@ CREATE TABLE `uni_usuarios` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `uni_usuarios_asignaturas`;
+CREATE TABLE `uni_usuarios_asignaturas` (
+  `usuario` int(11) NOT NULL,
+  `asignatura` int(11) NOT NULL,
+  UNIQUE KEY `profesor` (`usuario`,`asignatura`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

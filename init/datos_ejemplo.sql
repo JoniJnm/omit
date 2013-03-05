@@ -25,16 +25,6 @@ INSERT INTO `uni_preguntas_default` (`id`, `pregunta`) VALUES
 (8, 'El desarrollo de la asignatura me permite un seguimiento y aprendizaje adecuados.'),
 (9, 'Teniendo en cuena todos los apectos mencionados, estoy satisfecho/a con la labor que desarrolla el prodesor.');
 
-INSERT INTO `uni_profesores_asignaturas` (`profesor`, `asignatura`) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8);
-
 INSERT INTO `uni_titulaciones` (`id`, `nombre`) VALUES
 (1, 'Ingeniería del Software'),
 (2, 'Periodismo');
@@ -49,4 +39,23 @@ INSERT INTO `uni_usuarios` (`id`, `name`, `username`, `pass`, `type`) VALUES
 (7, 'Antonio', 'antonio', '09aba14b14c1ddb10346068577d21b6b', 1),
 (8, 'Tomás', 'tomas', '09aba14b14c1ddb10346068577d21b6b', 1),
 (9, 'Administrador', 'admin', '09aba14b14c1ddb10346068577d21b6b', 2),
-(10, 'Jónatan', 'joni', '09aba14b14c1ddb10346068577d21b6b', 0);
+(10, 'Jónatan', 'joni', '09aba14b14c1ddb10346068577d21b6b', 0),
+(11, 'usuario2', 'usuario2', '09aba14b14c1ddb10346068577d21b6b', 0);
+
+INSERT INTO `uni_usuarios_asignaturas` (`usuario`, `asignatura`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(10, 1),
+(10, 2),
+(10, 3),
+(10, 4),
+(10, 6),
+(11, 5),
+(11, 7),
+(11, 8);

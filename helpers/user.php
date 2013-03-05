@@ -50,15 +50,16 @@ class User {
 	static function getUserTypes() {
 		return self::$USER_TYPES;
 	}
-	static function clearUserType($userType) {
+	static function clearUserType($userType, $string=false) {
 		if (is_numeric($userType)) {
-			if (!array_key_exists($userType, self::$USER_TYPES)) $userType = 0;
-			return $userType;
+			if (!array_key_exists($userType, self::$USER_TYPES))
+				$userType = 0;
 		}
 		else {
 			$keys = array_keys(self::$USER_TYPES, $userType, true);
-			return $keys ? $keys[0] : 0;
+			$userType = $keys ? $keys[0] : 0;
 		}
+		return $string ? self::$USER_TYPES[$userType] : $userType;
 	}
 	
 	function getUsername() {
@@ -109,6 +110,7 @@ class User {
 	function logout() {
 		$this->clear();
 		Session::clear(self::$PREFIX_KEY_ALIAS.$this->getUserType());
+		$this->toLogin();
 	}
 	
 	private function clear() {

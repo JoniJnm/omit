@@ -67,7 +67,7 @@ if (Request::post('login')) {
 					<td><button id="acceder">Acceder</button></td>
 				</tr>
 			</table>
-			<form style="display:none" action="login.php?userType=<?php echo $userType; ?>" method="post" id="form">
+			<form id="form" action="login.php?userType=<?php echo $userType; ?>" method="post" autocomplete="off" style="display:none">
 				<input type="hidden" name="username" id="username2" />
 				<input type="hidden" name="pass" id="password2" />
 				<input type="hidden" name="login" value="1" />
