@@ -2,9 +2,10 @@
 
 require_once(dirname(dirname(__file__)).'/init/init.php');
 
-if (User::getInstance('admin')->isLoged()) {
+if (User::getInstance(User::TYPE_ADMIN)->isLoged()) {
 	$db = Database::getInstance();
 	$task = Request::both('task');
+
 	if ($task == 'getXML') {
 		load('models.uni');
 		load('helpers.xml');

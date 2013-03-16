@@ -2,8 +2,6 @@
 
 class Alumno {
 	static function &getUniData() {
-		static $data = null;
-		if (is_array($data)) return $data;
 		$data = array();
 		$db = Database::getInstance();
 		

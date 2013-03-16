@@ -52,24 +52,24 @@ function getProfesores(a) {
 }
 
 var select = {
-	addOptions: function(p, ops) {
+	addOptions: function(id, ops) {
 		var html = '';
 		$.each(ops, function(k, v) {
 			html += '<option value="'+v.id+'">'+v.nombre+'</option>';
 		});
-		$(p).append(html);
+		$(id).append(html);
 	},
-	addOption: function(p, name, value) {
-		$(p).append('<option value="'+value+'">'+name+'</option>');
+	addOption: function(id, name, value) {
+		$(id).append('<option value="'+value+'">'+name+'</option>');
 	},
-	delOptions: function(p) {
-		$(p).children('option').each(function(pos, obj) {
+	delOptions: function(id) {
+		$(id).children('option').each(function(pos, obj) {
 			$(obj).remove();
 		});
 	},
-	refresh: function(p, s) {
-		if (defined(s)) $(p).val(s);
-		$(p).selectmenu('refresh', true);
+	refresh: function(id, value) {
+		if (defined(value)) $(id).val(value);
+		$(id).selectmenu('refresh', true);
 	}
 };
 

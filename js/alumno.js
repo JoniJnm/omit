@@ -2,10 +2,9 @@ var parte = 0;
 
 function irParte(from, to) {
 	if ($('#parte'+to).length == 0) return;
-	
+	var asignatura = $('#asignatura').val();
+	var profesor = $('#profesor').val();
 	if (from == 1) {
-		var asignatura = $('#asignatura').val();
-		var profesor = $('#profesor').val();
 		if (asignatura <= 0) {
 			mensajes.add('alerta', "Seleccione una asignatura");
 			return;
@@ -31,6 +30,16 @@ function irParte(from, to) {
 	
 	if ($('#parte'+(to-1)).length == 0) $('#anterior').hide();
 	else $('#anterior').show();
+	
+	if (from == 1 && to == 2) {
+		$.ajax({
+			url: ALUMNO_CONTROLLER,
+			method: 'post',
+			data: 'task=getPreguntas&asignatura='+asignatura+'&profesor='+profesor,
+			dataType: 'json',
+			success: cargarPreguntas
+		});
+	}
 }
 
 $(document).ready(function() {
@@ -48,6 +57,7 @@ $(document).ready(function() {
 		var asignatura = $('#asignatura').val();
 		var profesor = $('#profesor').val();
 		var comentario = $('#comentario').val();
+		var def = $('#def').val();
 		if (asignatura <= 0) {
 			mensajes.add('alerta', "Seleccione una asignatura");
 		}
@@ -70,7 +80,7 @@ $(document).ready(function() {
 				url: ALUMNO_CONTROLLER,
 				type: 'POST',
 				dataType: 'test',
-				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)+"&respuestas="+respuestas,
+				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)+"&respuestas="+respuestas+'&def='+def,
 				complete: function(data, textStatus, jqXHR ) {
 					if (data.responseText == "OK") {
 						mensajes.add('info', "Comentario añadido");
@@ -136,7 +146,28 @@ function getSatisfaccion(i) {
 	return vector[i];
 }
 
-$(document).ready(function() {
+function cargarPreguntas(data) {
+	$('#def').val(data.def ? 1 : 0);
+	var html = '<table>';
+	var id;
+	for (var i=0;i<data.preguntas.length;i++) {
+		id = data.preguntas[i].id;
+		html += '<tr>';
+			html += '<td class="pregunta" colspan="2">'+(i+1)+' '+data.preguntas[i].pregunta+'</td>';
+		html += '</tr>';
+			html += '<td class="satisfaccion_td">';
+				html += '<input type="hidden" data-id="'+id+'" name="respuesta_'+id+'" id="respuesta_'+id+'" />';
+				html += '<span id="satisfaccion_'+id+'"></span>';
+			html += '</td>';
+			html += '<td class="satisfaccion_slider_td">';
+				html += '<div data-id="'+id+'" class="satisfaccion_slider" style="width:200px"></div>';
+			html += '</td>';
+		html += '<tr>';
+		html += '</tr>';
+	}
+	html += '</table>';
+	$('#preguntas').html(html);
+	
 	$(".satisfaccion_slider").each(function(i, e) {
 		$(e).slider({
 			value:3,
@@ -151,4 +182,4 @@ $(document).ready(function() {
 		$("#satisfaccion_"+$(e).attr('data-id')).html(getSatisfaccion($(e).slider("value")));
 		$("#respuesta_"+$(e).attr('data-id')).val($(e).slider("value"));
 	});
-});
+}

@@ -53,11 +53,11 @@ class Database {
         return $ret;
     }
 	
-    function loadResult($query) {
+    function loadResult($query, $col=0) {
         $cur = $this->query($query);
         $ret = null;
         if ($row = $cur->fetch_row()) {
-            $ret = $row[0];
+            $ret = $row[$col];
         }
         $cur->free();
         return $ret;
@@ -73,13 +73,13 @@ class Database {
         return $array;
     }
 
-    function loadResultArray($query, $numinarray = 0) {
+    function loadResultArray($query, $col = 0) {
 		if (!($cur = $this->query($query))) {
 			return null;
 		}
 		$array = array();
 		while ($row = $cur->fetch_row()) {
-			$array[] = $row[$numinarray];
+			$array[] = $row[$col];
 		}
 		$cur->free();
 		return $array;

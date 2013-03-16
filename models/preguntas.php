@@ -1,13 +1,6 @@
 <?php
 
 class Preguntas {
-	static function &getDefault() {
-		static $data = null;
-		if (is_array($data)) return $data;
-		$db = Database::getInstance();
-		$data = $db->loadObjectList('SELECT * FROM #__preguntas_default');
-		return $data;
-	}
 	static function parsearRespuestas($str) {
 		$respuestas = explode(';', $str);
 		$res = array();

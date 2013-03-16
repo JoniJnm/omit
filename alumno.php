@@ -5,9 +5,7 @@ require_once(dirname(__file__).'/init/init.php');
 User::getInstance('alumno')->toLoginIfNotLoged();
 
 load('models.alumno');
-load('models.preguntas');
 $data = Alumno::getUniData();
-$preguntas = Preguntas::getDefault();
 ?>
 
 <!doctype html>
@@ -65,22 +63,7 @@ $preguntas = Preguntas::getDefault();
 			<div id="parte2" style="display:none">
 				<h2>Marca tu valoración para cada una de las siguiente preguntas:</h2>
 				<div id="preguntas">
-					<table>
-						<?php $i=0;foreach ($preguntas as $p) : ?>
-						<tr>
-							<td class="pregunta" colspan="2"><?php echo (++$i).". ".$p->pregunta; ?></td>
-						</tr>
-						<tr>
-							<td class="satisfaccion_td">
-								<input type="hidden" data-id="<?php echo $p->id; ?>" name="respuesta_<?php echo $p->id; ?>" id="respuesta_<?php echo $p->id; ?>" />
-								<span id="satisfaccion_<?php echo $p->id; ?>"></span>
-							</td>
-							<td class="satisfaccion_slider_td">
-								<div data-id="<?php echo $p->id; ?>" class="satisfaccion_slider" style="width:200px"></div>
-							</td>
-						</tr>
-						<?php endforeach; ?>
-					</table>
+					
 				</div>
 			</div>
 			<div id="parte3" style="display:none">
@@ -92,6 +75,7 @@ $preguntas = Preguntas::getDefault();
 					</tr>
 				</table>
 				<br />
+				<input type="hidden" name="def" id="def" value="0" />
 				<button id="enviar">Enviar</button>
 			</div>
 			<div>
