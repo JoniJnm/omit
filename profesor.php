@@ -30,14 +30,18 @@ $data = Profesor::getAsignaturas();
 					</option>
 					<?php endforeach; ?>
 				</select>
+				<button id="preguntas_boton">Mostrar preguntas</button>
+				<hr />
 				<div id="preguntas_div" style="display:none">
-					<hr />
 					<div id="preguntas">
 
 					</div>
 					<input type="hidden" name="def" id="def" value="0" />
 					<input type="hidden" name="task" value="guardarPreguntas" />
 					<button id="guardar">Guardar</button>
+				</div>
+				<div id="cargando" style="display:none;font-weight:bold">
+					Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />
 				</div>
 			</form>
 		</div>

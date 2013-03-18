@@ -20,6 +20,7 @@ DEFINE('PHP_HELPERS', PHP_PATH.'/helpers/');
 DEFINE('PHP_MODELS', PHP_PATH.'/models/');
 DEFINE('PHP_FILES', PHP_PATH.'/php/');
 DEFINE('PHP_TPLS', PHP_PATH.'/tpls/');
+DEFINE('PHP_JARS', PHP_PATH.'/jars/');
 
 DEFINE('ALUMNO_CONTROLLER', HTML_URL.'controllers/alumno.php');
 DEFINE('PROFESOR_CONTROLLER', HTML_URL.'controllers/profesor.php');

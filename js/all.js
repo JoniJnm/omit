@@ -74,8 +74,12 @@ var select = {
 };
 
 var mensajes = {
-    add: function(tipo, msg) {
-		$("#mensajes").html('<div class="mensaje-'+tipo+'" style="display:none">'+msg+'</div>');
+    alerta: function(msg) {
+		$("#mensajes").html('<div class="mensaje-alerta" style="display:none">'+msg+'</div>');
+		mensajes.rende();
+    },
+	info: function(msg) {
+		$("#mensajes").html('<div class="mensaje-info" style="display:none">'+msg+'</div>');
 		mensajes.rende();
     },
 	borrar: function() {

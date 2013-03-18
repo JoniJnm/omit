@@ -31,7 +31,7 @@ if (Request::post('login')) {
 	<script type="text/javascript">
 	/*<![CDATA[*/
 	$(document).ready(function() {
-		mensajes.add('alerta', '<?php echo $error; ?>');
+		mensajes.alerta('<?php echo $error; ?>');
 	});
 	/*]]>*/
 	</script>

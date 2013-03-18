@@ -6,11 +6,11 @@ function irParte(from, to) {
 	var profesor = $('#profesor').val();
 	if (from == 1) {
 		if (asignatura <= 0) {
-			mensajes.add('alerta', "Seleccione una asignatura");
+			mensajes.alerta("Seleccione una asignatura");
 			return;
 		}
 		else if (profesor <= 0) {
-			mensajes.add('alerta', "Seleccione un profesor");
+			mensajes.alerta("Seleccione un profesor");
 			return;
 		}
 		mensajes.borrar();
@@ -32,6 +32,8 @@ function irParte(from, to) {
 	else $('#anterior').show();
 	
 	if (from == 1 && to == 2) {
+		$('#preguntas').hide();
+		$('#cargando').show();
 		$.ajax({
 			url: ALUMNO_CONTROLLER,
 			method: 'post',
@@ -59,13 +61,13 @@ $(document).ready(function() {
 		var comentario = $('#comentario').val();
 		var def = $('#def').val();
 		if (asignatura <= 0) {
-			mensajes.add('alerta', "Seleccione una asignatura");
+			mensajes.alerta("Seleccione una asignatura");
 		}
 		else if (profesor <= 0) {
-			mensajes.add('alerta', "Seleccione un profesor");
+			mensajes.alerta("Seleccione un profesor");
 		}
 		else if (comentario.length == 0) {
-			mensajes.add('alerta', "Introduzca un comentario");
+			mensajes.alerta("Introduzca un comentario");
 		}
 		else {
 			mensajes.borrar();
@@ -83,7 +85,7 @@ $(document).ready(function() {
 				data: "task=insertarComentario&asignatura="+asignatura+"&profesor="+profesor+"&comentario="+encodeURIComponent(comentario)+"&respuestas="+respuestas+'&def='+def,
 				complete: function(data, textStatus, jqXHR ) {
 					if (data.responseText == "OK") {
-						mensajes.add('info', "Comentario añadido");
+						mensajes.info("Comentario añadido");
 						select.refresh('#profesor', 0);
 						irParte(parte, 1);
 						$('#comentario').val('');
@@ -92,7 +94,7 @@ $(document).ready(function() {
 						});
 					}
 					else {
-						mensajes.add('alerta', "Hubo un error al intentar enviar el comentario");
+						mensajes.alerta("Hubo un error al intentar enviar el comentario");
 					}
 				}
 			});
@@ -182,4 +184,6 @@ function cargarPreguntas(data) {
 		$("#satisfaccion_"+$(e).attr('data-id')).html(getSatisfaccion($(e).slider("value")));
 		$("#respuesta_"+$(e).attr('data-id')).val($(e).slider("value"));
 	});
+	$('#cargando').hide();
+	$('#preguntas').fadeIn();
 }

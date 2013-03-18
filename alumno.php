@@ -65,6 +65,9 @@ $data = Alumno::getUniData();
 				<div id="preguntas">
 					
 				</div>
+				<div id="cargando" style="font-weight:bold">
+					Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />
+				</div>
 			</div>
 			<div id="parte3" style="display:none">
 				<h2>Puedes incluir un comentario sobre cualquier aspecto relacionado con las asignatura o el profesor.</h2>

@@ -14,4 +14,10 @@ class Profesor {
 			)');
 		return $data;
 	}
+	
+	static function getClusters($asignatura) {
+		$id = User::getInstance(User::TYPE_PROFESOR)->getId();
+		exec('java -jar '.PHP_JARS.'cluster.jar asignatura:'.$asignatura.' AND profesor:'.$id, $salida);
+		return $salida;
+	}
 }
