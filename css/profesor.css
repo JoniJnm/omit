@@ -1,0 +1,9 @@
+#comentarios_div .comentario {
+	border: 2px solid;
+    border-radius: 7px;
+	padding: 5px;
+	margin: 7px 0
+}
+#comentarios_info {
+	font-weight:bold
+}

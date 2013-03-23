@@ -30,7 +30,9 @@ select {
 :-ms-input-placeholder {
         color:    #999;
 }
-
+.clear {
+	clear:both
+}
 #main {
 	width: 800px;
 	border: 3px solid;
@@ -43,6 +45,15 @@ select {
 	border-bottom: 2px solid #000;
 	margin-bottom: 15px;
 	color: #F6931F
+}
+#mensajes {
+	position:relative
+}
+#mensajes img {
+	position:absolute;
+	right:5px;
+	top:9px;
+	cursor:pointer
 }
 #footer {
 	border-top: 2px solid;

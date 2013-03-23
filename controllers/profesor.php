@@ -4,7 +4,7 @@ require_once(dirname(dirname(__file__)).'/init/init.php');
 
 if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 	$task = Request::both('task');
-	
+
 	if ($task == 'getAsignaturas') {
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
@@ -42,5 +42,15 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 			}
 		}
 		User::getInstance(User::TYPE_PROFESOR)->toHome();
+	}
+	elseif ($task == 'getComentarios') {
+		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
+		$asignatura = Request::post('asignatura');
+		$start = Request::post('start', 0);
+		if ($asignatura <= 0 || $start < 0) exit;
+		load('models.solr');
+		$r = Solr::getComentarios('*:*', $start, 10);
+		header('Content-type: application/json');
+		echo $r->getRawResponse();
 	}
 }

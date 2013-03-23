@@ -8,7 +8,7 @@
 <link type="text/css" rel="stylesheet" href="css/normalize.css" />
 <link type="text/css" rel="stylesheet" href="css/ui-darkness/jquery-ui-1.10.1.custom.min.css" />
 <link type="text/css" rel="stylesheet" href="css/jquery-ui/jquery.ui.selectmenu.css" />
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="css/all.css" />
 <script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="js/jquery/jquery-ui-1.10.1.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.ui.selectmenu.js"></script>

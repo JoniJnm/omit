@@ -12,6 +12,7 @@ $data = Profesor::getAsignaturas();
 <head>
 	<?php load('tpls.header-common'); ?>
 	<title>Sistema de comentarios - Profesor</title>
+	<link type="text/css" rel="stylesheet" href="css/profesor.css" />
 	<script type="text/javascript" src="js/profesor.js"></script>
 </head>
 <body>
@@ -31,8 +32,9 @@ $data = Profesor::getAsignaturas();
 					<?php endforeach; ?>
 				</select>
 				<button id="preguntas_boton">Mostrar preguntas</button>
+				<button id="comentarios_boton">Mostrar comentarios</button>
 				<hr />
-				<div id="preguntas_div" style="display:none">
+				<div class="seccion" id="preguntas_div" style="display:none">
 					<div id="preguntas">
 
 					</div>
@@ -40,10 +42,26 @@ $data = Profesor::getAsignaturas();
 					<input type="hidden" name="task" value="guardarPreguntas" />
 					<button id="guardar">Guardar</button>
 				</div>
-				<div id="cargando" style="display:none;font-weight:bold">
-					Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />
-				</div>
 			</form>
+			<div class="seccion" id="comentarios_div" style="display:none">
+				<div id="comentarios_info">
+					Mostrando página <span id="comentarios_pagina"></span> de <span id="comentarios_paginas"></span>
+					- <span id="comentarios_encontrados"></span> comentarios totales
+				</div>
+				<div id="comentarios_comentarios"></div>
+				<div id="comentarios_pagination">
+					<div style="float:left;width:50%">
+						<button id="pagina_anterior">Página anterior</button>
+					</div>
+					<div style="float:right;width:50%;text-align:right">
+						<button id="pagina_siguiente">Siguiente página</button>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="seccion" id="cargando" style="display:none;font-weight:bold">
+				Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />
+			</div>
 		</div>
 		<?php load('tpls.footer'); ?>
 	</div>

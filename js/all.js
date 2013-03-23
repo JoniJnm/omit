@@ -83,13 +83,14 @@ var mensajes = {
 		mensajes.rende();
     },
 	borrar: function() {
-		$("#mensajes").html();
+		$("#mensajes").html('');
 	},
 	rende: function() {
+		$("#mensajes").hide();
 		$(".mensaje-alerta").alertStyle();
         $(".mensaje-info").infoStyle();
 		$("html, body").animate({ scrollTop: 0 });
-        $(".ui-state-error, .ui-state-highlight").fadeIn('slow');
+        $("#mensajes").fadeIn();
 	}
 };
 
@@ -103,37 +104,46 @@ var dialogos = {
 	}
 };
 
-(function($) {
-    $.fn.alertStyle = function() {
-        this.replaceWith(function(i,html){
-            var StyledError = "<div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\">";
-            StyledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;margin-top:3px\">";
-            StyledError += "</span><strong>Alerta: </strong>";
-            StyledError += html;
-            StyledError += "</p></div>";
-            return StyledError;
-        });
-    };
-    $.fn.infoStyle = function() {
-        this.replaceWith(function(i,html){
-            var StyledError = "<div class=\"ui-state-highlight ui-corner-all\" style=\"padding: 0 .7em;\">";
-            StyledError += "<p><span class=\"ui-icon ui-icon-info\" style=\"float: left; margin-right: .3em;margin-top:3px\">";
-            StyledError += "</span><strong>Información: </strong>";
-            StyledError += html;
-            StyledError += "</p></div>";
-            return StyledError;
-        });
-    }
+(function ($) {
+	$.fn.alertStyle = function () {
+		this.replaceWith(function (i, html) {
+			var StyledError = "<div class=\"ui-state-error ui-corner-all\" style=\"padding: 0 .7em;\">";
+			StyledError += "<p><span class=\"ui-icon ui-icon-alert\" style=\"float: left; margin-right: .3em;margin-top:3px\">";
+			StyledError += "</span><strong>Alerta: </strong>";
+			StyledError += html;
+			StyledError += "</p>";
+			StyledError += '<img src="imagenes/cerrar.png" onclick="mensajes.borrar()">';
+			StyledError += "</div>";
+			return StyledError;
+		});
+	};
+	$.fn.infoStyle = function () {
+		this.replaceWith(function (i, html) {
+			var StyledError = "<div class=\"ui-state-highlight ui-corner-all\" style=\"padding: 0 .7em;\">";
+			StyledError += "<p><span class=\"ui-icon ui-icon-info\" style=\"float: left; margin-right: .3em;margin-top:3px\">";
+			StyledError += "</span><strong>Información: </strong>";
+			StyledError += html;
+			StyledError += "</p>";
+			StyledError += '<img style="position:absolute;right:5px;top:-5px;" src="imagenes/cerrar.png" onclick="mensajes.borrar()">';
+			StyledError += "</div>";
+			return StyledError;
+		});
+	};
 })(jQuery);
 
-(function($){
-    $.fn.extend({
-        center: function () {
-            return this.each(function() {
-                var top = ($(window).height() - $(this).outerHeight()) / 2;
-                var left = ($(window).width() - $(this).outerWidth()) / 2;
-                $(this).css({position:'absolute', margin:0, top: (top > 0 ? top : 0)+'px', left: (left > 0 ? left : 0)+'px'});
-            });
-        }
-    }); 
+(function ($) {
+	$.fn.extend({
+		center: function () {
+			return this.each(function () {
+				var top = ($(window).height() - $(this).outerHeight()) / 2;
+				var left = ($(window).width() - $(this).outerWidth()) / 2;
+				$(this).css({
+					position: 'absolute',
+					margin: 0,
+					top: (top > 0 ? top : 0) + 'px',
+					left: (left > 0 ? left : 0) + 'px'
+				});
+			});
+		}
+	});
 })(jQuery);
