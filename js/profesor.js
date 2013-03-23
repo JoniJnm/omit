@@ -1,5 +1,8 @@
-var página = 0;
-var rows = 0;
+var comentarios = {
+	pagina:0,
+	rows:0,
+	buscar:''
+};
 
 $(document).ready(function() {
 	$('#asignatura').selectmenu({
@@ -33,16 +36,25 @@ $(document).ready(function() {
 			mensajes.alerta('Selecciona una asignatura');
 			return false;
 		}
+		$('#comentarios_buscar').val('');
 		cargarComentarios('asignatura='+id);
 		return false;
 	});
 	$('#pagina_anterior').click(function() {
-		var start = (pagina-2)*rows;
-		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start);
+		var start = (comentarios.pagina-2)*comentarios.rows;
+		var buscar = encodeURIComponent($('#comentarios_buscar').val());
+		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start+'&buscar='+buscar);
 	});
 	$('#pagina_siguiente').click(function() {
-		var start = pagina*rows;
-		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start);
+		var start = comentarios.pagina*comentarios.rows;
+		var buscar = encodeURIComponent($('#comentarios_buscar').val());
+		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start+'&buscar='+buscar);
+	});
+	$('#comentarios_buscar').keyup(function(e) {
+		if (e.which === 13) {
+			var buscar = encodeURIComponent($('#comentarios_buscar').val());
+			cargarComentarios('asignatura='+$('#asignatura').val()+'&buscar='+buscar);
+		}
 	});
 });
 
@@ -74,20 +86,19 @@ function onLoadAsignaturas(data) {
 function onLoadComentarios(data) {
 	var start = data.response.start;
 	var numFound = data.response.numFound;
-	rows = data.responseHeader.params.rows;
+	comentarios.rows = data.responseHeader.params.rows;
 	var len = data.response.docs.length;
 	var doc;
-	var paginas = Math.ceil(numFound/rows);
-	pagina = (start/rows)+1;
+	var paginas = Math.ceil(numFound/comentarios.rows);
+	comentarios.pagina = (start/comentarios.rows)+1;
 	
-	if (pagina > 1) $('#pagina_anterior').show();
+	if (comentarios.pagina > 1) $('#pagina_anterior').show();
 	else $('#pagina_anterior').hide();
-	if (pagina < paginas) $('#pagina_siguiente').show();
+	if (comentarios.pagina < paginas) $('#pagina_siguiente').show();
 	else $('#pagina_siguiente').hide();
 	
-	
 	$('#comentarios_encontrados').html(numFound);
-	$('#comentarios_pagina').html(pagina);
+	$('#comentarios_pagina').html(comentarios.pagina);
 	$('#comentarios_paginas').html(paginas);
 	
 	$('#comentarios_comentarios').html('');

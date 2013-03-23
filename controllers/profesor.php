@@ -47,9 +47,11 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		$start = Request::post('start', 0);
+		$buscar = urlencode(htmlspecialchars(trim(Request::post('buscar'))));
+		if (!$buscar) $buscar = '*:*';
 		if ($asignatura <= 0 || $start < 0) exit;
 		load('models.solr');
-		$r = Solr::getComentarios('*:*', $start, 10);
+		$r = Solr::getComentarios($buscar, $start, 10);
 		header('Content-type: application/json');
 		echo $r->getRawResponse();
 	}

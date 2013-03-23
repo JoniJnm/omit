@@ -45,10 +45,18 @@ $data = Profesor::getAsignaturas();
 			</form>
 			<div class="seccion" id="comentarios_div" style="display:none">
 				<div id="comentarios_info">
-					Mostrando página <span id="comentarios_pagina"></span> de <span id="comentarios_paginas"></span>
-					- <span id="comentarios_encontrados"></span> comentarios totales
+					<div style="float:left;width:50%">
+						Mostrando página <span id="comentarios_pagina"></span> de <span id="comentarios_paginas"></span>
+						- <span id="comentarios_encontrados"></span> comentarios totales
+					</div>
+				<div style="float:right;width:50%;text-align:right">
+						<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
+					</div>
 				</div>
+				<div class="clear"></div>
+				
 				<div id="comentarios_comentarios"></div>
+				
 				<div id="comentarios_pagination">
 					<div style="float:left;width:50%">
 						<button id="pagina_anterior">Página anterior</button>
