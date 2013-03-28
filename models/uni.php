@@ -15,4 +15,16 @@ class Uni {
 		
 		return $data;
 	}
+	
+	static function getDefaultDesde() {
+		$y = date("Y");
+		$m = date("n");
+		return "01/09/".($m < 9 ? $y-1 : $y);
+	}
+	
+	static function getDefaultHasta() {
+		$y = date("Y");
+		$m = date("n");
+		return "01/09/".($m < 9 ? $y : $y+1);
+	}
 }

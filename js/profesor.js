@@ -7,6 +7,9 @@ var comentarios = {
 $(document).ready(function() {
 	$('#asignatura').selectmenu({
 		change: function() {
+			var id = $('#asignatura').val();
+			if (id > 0) $('#botones_top').fadeIn();
+			else $('#botones_top').fadeOut();
 			$('.seccion').hide();
 		}
 	});
@@ -37,33 +40,41 @@ $(document).ready(function() {
 			return false;
 		}
 		$('#comentarios_buscar').val('');
-		cargarComentarios('asignatura='+id);
+		$('#desde').val(desde_default);
+		$('#hasta').val(hasta_default);
+		cargarComentarios();
 		return false;
 	});
 	$('#pagina_anterior').click(function() {
 		var start = (comentarios.pagina-2)*comentarios.rows;
-		var buscar = encodeURIComponent($('#comentarios_buscar').val());
-		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start+'&buscar='+buscar);
+		cargarComentarios('start='+start);
 	});
 	$('#pagina_siguiente').click(function() {
 		var start = comentarios.pagina*comentarios.rows;
-		var buscar = encodeURIComponent($('#comentarios_buscar').val());
-		cargarComentarios('asignatura='+$('#asignatura').val()+'&start='+start+'&buscar='+buscar);
+		cargarComentarios('start='+start);
 	});
-	$('#comentarios_buscar').keyup(function(e) {
+	$('#comentarios_buscar, #desde, #hasta').keyup(function(e) {
 		if (e.which === 13) {
-			var buscar = encodeURIComponent($('#comentarios_buscar').val());
-			cargarComentarios('asignatura='+$('#asignatura').val()+'&buscar='+buscar);
+			cargarComentarios();
 		}
+	});
+	$('#comentarios_buscar_boton').click(function() {
+		cargarComentarios();
 	});
 });
 
 function cargarComentarios(params) {
 	$('.seccion').hide();
+	$('#comentarios_data').hide();
+	$('#comentarios_div').show();
 	$('#cargando').show();
+	var asignatura = $('#asignatura').val();
+	var desde = $('#desde').val();
+	var hasta = $('#hasta').val();
+	var buscar = encodeURIComponent($('#comentarios_buscar').val());
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getComentarios&'+params,
+		data: 'task=getComentarios&'+params+'&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar,
 		type: 'post',
 		dataType: 'json',
 		success: onLoadComentarios
@@ -106,6 +117,6 @@ function onLoadComentarios(data) {
 		doc = data.response.docs[i];
 		$('#comentarios_comentarios').append('<div class="comentario">'+doc.comentario+'</div>');
 	}
-	$('.seccion').hide();
-	$('#comentarios_div').fadeIn();
+	$('#cargando').hide();
+	$('#comentarios_data').fadeIn();
 }

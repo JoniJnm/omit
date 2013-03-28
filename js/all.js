@@ -12,6 +12,7 @@ $(document).ready(function() {
 		$(this).removeClass('ui-state-focus');
 	});
 	$('.center').center();
+	$('input.date').attr('size', 12).attr('maxlength', 10);
 	mensajes.rende();
 });
 

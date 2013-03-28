@@ -44,13 +44,19 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		User::getInstance(User::TYPE_PROFESOR)->toHome();
 	}
 	elseif ($task == 'getComentarios') {
+		load('models.uni');
+		load('models.solr');
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		$start = Request::post('start', 0);
-		$buscar = urlencode(htmlspecialchars(trim(Request::post('buscar'))));
-		if (!$buscar) $buscar = '*:*';
+		$desde = Request::post('desde', Uni::getDefaultDesde());
+		$hasta = Request::post('hasta', Uni::getDefaultHasta());
+		
+		$buscar = urlencode(trim(Request::post('buscar')));
+		if (!$buscar) $buscar = "*:*";
+		$buscar .= " AND fecha:[".Solr::convertDate($desde)." TO ".Solr::convertDate($hasta)."]";
 		if ($asignatura <= 0 || $start < 0) exit;
-		load('models.solr');
+		
 		$r = Solr::getComentarios($buscar, $start, 10);
 		header('Content-type: application/json');
 		echo $r->getRawResponse();

@@ -36,4 +36,22 @@ class Solr {
 		$r = self::$solr->search($query, $offset, $limit, $params);
 		return $r;
 	}
+	
+	static function convertDate($date) {
+		if (strpos($date, "/") !== false)
+			$date = explode("/", $date);
+		elseif (strpos($date, "-") !== false)
+			$date = explode("-", $date);
+		elseif (strpos($date, " ") !== false)
+			$date = explode(" ", $date);
+		
+		if (count($date) != 3) return ""; //fecha no válida
+		if (strlen($date[0]) == 4) { //formato yyyy-mm-dd a dd-mm-yyyy
+			$tmp = $date[0];
+			$date[0] = $date[2];
+			$date[2] = $tmp;
+		}
+		
+		return $date[2]."-".$date[1]."-".$date[0]."T00:00:00Z";
+	}
 }

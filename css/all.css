@@ -20,6 +20,9 @@ select {
 .ui-selectmenu-button, .ui-selectmenu-menu {
 	font-size:12px
 }
+.ui-button-text-only .ui-button-text {
+    padding: 0.2em 1em;
+}
 .placeholder {color: #999 !important;}
 ::-webkit-input-placeholder {
     color:    #999;
