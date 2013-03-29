@@ -1,7 +1,13 @@
 <?php
 
 class Solr {
-	static $solr = null;
+	const CLUSTER_METHOD = "solr"; //solr o java
+	private static $SPECIAL_CHARS = array('+','-','!','(',')','{','}','[',']','^','"','~','*','?',':',"\\");
+	private static $INVALID_LABELS = array('Other Topics');
+	/**
+	 * @var Apache_Solr_Service 
+	 */
+	static private $solr = null;
 	
 	static private function initSolr() {
 		if (self::$solr === null) {
@@ -38,17 +44,42 @@ class Solr {
 	}
 	
 	static function getClusters($query) {
+		if (self::CLUSTER_METHOD == 'java')
+			return self::getClusters_JAVA($query);
+		else
+			return self::getClusters_SOLR($query);
+	}
+	
+	static private function getClusters_SOLR($query) {
+		self::initSolr();
+		$r = self::$solr->clustering($query);
+		if ($r->getHttpStatus() != 200) return array();
+		$out = array();
+		foreach ($r->clusters as $cluster) {
+			foreach ($cluster->labels as $label) {
+				$o = new stdclass;
+				$o->label = $label;
+				if (in_array($o->label, self::$INVALID_LABELS)) continue;
+				$o->ids = $cluster->docs;
+				$out[] = $o;
+			}
+		}
+		return $out;
+	}
+	
+	static private function getClusters_JAVA($query) {
 		exec('java -jar '.PHP_JARS.'cluster.jar '.utf8_decode($query), $salida);
 		if (!$salida || !is_array($salida)) return array();
 		$out = array();
 		foreach ($salida as $line) {
 			if ($line == '__error') return array();
-			if (!$line || $line == 'Other Topics') continue;
+			if (!$line) continue;
 			if (strpos($line, '|') === false) return array();
 			
 			$data = explode("|", $line);
 			$o = new stdclass;
 			$o->label = $data[0];
+			if (in_array($o->label, self::$INVALID_LABELS)) continue;
 			$o->ids = array();
 			$ids = explode(",", $data[1]);
 			foreach ($ids as $id) {
@@ -75,5 +106,12 @@ class Solr {
 		}
 		
 		return $date[2]."-".$date[1]."-".$date[0]."T00:00:00Z";
+	}
+	
+	static function scapeQuery($query) {
+		$frase = strpos($query, '"') !== false;
+		$query = str_replace(self::$SPECIAL_CHARS, " ", $query);
+		if ($frase) $query = '"'.$query.'"';
+		return $query;
 	}
 }

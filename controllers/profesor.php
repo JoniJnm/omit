@@ -53,7 +53,7 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		$hasta = Request::post('hasta', Uni::getDefaultHasta());
 		
 		$buscar = trim(Request::post('buscar', ''));
-		if ($buscar) $buscar = '"'.$buscar.'"';
+		if ($buscar) $buscar = Solr::scapeQuery($buscar);
 		else $buscar = "*:*";
 		$buscar .= " AND fecha:[".Solr::convertDate($desde)." TO ".Solr::convertDate($hasta)."]";
 		//$buscar .= " AND asignatura:".$asignatura;

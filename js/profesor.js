@@ -122,8 +122,7 @@ function onLoadComentarios(data) {
 	var buscar = $('#comentarios_buscar').val();
 	for (var i=0; i<len; i++) {
 		txt = data.response.docs[i].comentario.toString();
-		var re = new RegExp("("+buscar+")","gi");
-		txt = txt.replace(re, "<span class=\"highlight\">$1</span>");
+		txt = colorear(txt, buscar);
 		$('#comentarios_comentarios').append('<div class="comentario">'+txt+'</div>');
 	}
 	$('#cargando').hide();
@@ -149,6 +148,32 @@ function cargarComentarios(params) {
 	});
 }
 
+function colorear(txt, palabras) {
+	if (!palabras) return txt;
+	try {
+		palabras = palabras.replace(/"/g, "");
+		var re;
+		txt = " "+txt+" ";
+		
+		palabras = palabras.replace(/a|á|A|Á/g, "[a|á|A|Á]");
+		palabras = palabras.replace(/e|é|E|É/g, "[e|é|E|É]");
+		palabras = palabras.replace(/i|í|I|Í/g, "[i|í|I|Í]");
+		palabras = palabras.replace(/o|ó|O|Ó/g, "[o|ó|O|Ó]");
+		palabras = palabras.replace(/u|ú|ü|U|Ú|Ü/g, "[u|ú|ü|U|Ú|Ü]");
+		
+		re = new RegExp("([\\W])("+palabras+")","gi");
+		txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
+		palabras = palabras.split(" ");
+		for (var j=0; j<palabras.length; j++) {
+			if ($.inArray(palabras[j], stopWords) !== -1) continue;
+			re = new RegExp("([\\W])("+palabras[j]+")","gi");
+			txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
+		}
+	}
+	catch(e) {}
+	return txt;
+}
+
 //CLUSTERING
 
 var clusters_data;
@@ -156,6 +181,7 @@ var clusters_data;
 $(document).ready(function() {
 	$('#comentarios_cluster_boton').click(function() {
 		$('#comentarios_data').hide();
+		$('#comentarios_clusters').hide();
 		$('#cargando').show();
 		var asignatura = $('#asignatura').val();
 		var desde = $('#desde').val();
@@ -173,7 +199,7 @@ $(document).ready(function() {
 
 function onLoadClusters(data) {
 	if (parseInt(data.length) === 0) {
-		$('#comentarios_clusters').html('No hay comentarios');
+		$('#comentarios_clusters').html('No se han encontrado comentarios sobre los parámetros de búsqueda.');
 	}
 	else {
 		clusters_data = data;
