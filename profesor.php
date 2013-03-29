@@ -57,11 +57,13 @@ $hasta = Uni::getDefaultHasta();
 				</div>
 			</form>
 			<div class="seccion" id="comentarios_div" style="display:none">
-				<div style="text-align:right">
-					<button id="comentarios_buscar_boton">Buscar</button>
+				<div> 
 					Desde <input class="date" type="text" name="desde" id="desde" />
 					Hasta <input class="date" type="text" name="hasta" id="hasta" />
 					<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
+					<br />
+					<button id="comentarios_buscar_boton">Buscar</button>
+					<button id="comentarios_cluster_boton">Buscar temas</button>
 				</div>
 				<br />
 				<div id="comentarios_data" style="display:none">
@@ -79,6 +81,9 @@ $hasta = Uni::getDefaultHasta();
 						</div>
 						<div class="clear"></div>
 					</div>
+				</div>
+				<div id="comentarios_clusters" style="display:none">
+					
 				</div>
 			</div>
 			<div class="seccion" id="cargando" style="display:none;font-weight:bold">

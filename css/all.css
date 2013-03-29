@@ -23,6 +23,10 @@ select {
 .ui-button-text-only .ui-button-text {
     padding: 0.2em 1em;
 }
+button, .ui-button {
+	margin-bottom:3px;
+	margin-top:3px
+}
 .placeholder {color: #999 !important;}
 ::-webkit-input-placeholder {
     color:    #999;
@@ -36,6 +40,10 @@ select {
 .clear {
 	clear:both
 }
+span.highlight {
+	font-weight:bold;
+	color:red
+}
 #main {
 	width: 800px;
 	border: 3px solid;
@@ -46,7 +54,7 @@ select {
 }
 #title {
 	border-bottom: 2px solid #000;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	color: #F6931F
 }
 #mensajes {

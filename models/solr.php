@@ -37,6 +37,28 @@ class Solr {
 		return $r;
 	}
 	
+	static function getClusters($query) {
+		exec('java -jar '.PHP_JARS.'cluster.jar '.utf8_decode($query), $salida);
+		if (!$salida || !is_array($salida)) return array();
+		$out = array();
+		foreach ($salida as $line) {
+			if ($line == '__error') return array();
+			if (!$line || $line == 'Other Topics') continue;
+			if (strpos($line, '|') === false) return array();
+			
+			$data = explode("|", $line);
+			$o = new stdclass;
+			$o->label = $data[0];
+			$o->ids = array();
+			$ids = explode(",", $data[1]);
+			foreach ($ids as $id) {
+				if ($id) $o->ids[] = $id;
+			}
+			$out[] = $o;
+		}
+		return $out;
+	}
+	
 	static function convertDate($date) {
 		if (strpos($date, "/") !== false)
 			$date = explode("/", $date);

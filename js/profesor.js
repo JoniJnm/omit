@@ -1,8 +1,4 @@
-var comentarios = {
-	pagina:0,
-	rows:0,
-	buscar:''
-};
+// GENERAL
 
 $(document).ready(function() {
 	$('#asignatura').selectmenu({
@@ -13,6 +9,11 @@ $(document).ready(function() {
 			$('.seccion').hide();
 		}
 	});
+});
+
+//PREGUNTAS
+
+$(document).ready(function() {
 	$('#guardar').click(function() {
 		document.getElementById('profesorForm').submit();
 	});
@@ -26,13 +27,37 @@ $(document).ready(function() {
 		$('#cargando').show();
 		$.ajax({
 			url: PROFESOR_CONTROLLER,
-			data: 'task=getAsignaturas&asignatura='+id,
+			data: 'task=getPreguntas&asignatura='+id,
 			type: 'post',
 			dataType: 'json',
-			success: onLoadAsignaturas
+			success: onLoadPreguntas
 		});
 		return false;
 	});
+});
+
+function onLoadPreguntas(data) {
+	var def = !(data.length>0) || !data[0].id;
+	var html = '';
+	for (var i=0; i<data.length; i++) {
+		html += '<div>Pregunta '+(i+1)+' <input style="width:650px" type="text" value="'+data[i].pregunta+'" name="pregunta_'+(data[i].id?data[i].id:(i+1))+'" /></div>';
+	}
+	$('#def').val(def ? 1 : 0);
+	$('#preguntas').html(html);
+	$('#preguntas input').addClass('ui-widget ui-state-default ui-corner-all');
+	$('.seccion').hide();
+	$('#preguntas_div').fadeIn();
+}
+
+//COMENTARIOS
+
+var comentarios = {
+	pagina:0,
+	rows:0,
+	buscar:''
+};
+
+$(document).ready(function() {
 	$('#comentarios_boton').click(function() {
 		var id = parseInt($('#asignatura').val());
 		if (id <= 0) {
@@ -63,8 +88,51 @@ $(document).ready(function() {
 	});
 });
 
+function onLoadComentarios(data) {
+	if (!data || !data.response || !data.response.numFound) {
+		//error en la búsqueda (bad request?)
+		$('#comentarios_comentarios').html('');
+		$('#comentarios_encontrados').html(0);
+		$('#comentarios_pagina').html(1);
+		$('#comentarios_paginas').html(1);
+		$('#cargando').hide();
+		$('#pagina_anterior').hide();
+		$('#pagina_siguiente').hide();
+		$('#comentarios_data').fadeIn();
+		return;
+	}
+	var start = data.response.start;
+	var numFound = data.response.numFound;
+	comentarios.rows = data.responseHeader.params.rows;
+	var len = data.response.docs.length;
+	var paginas = Math.ceil(numFound/comentarios.rows);
+	comentarios.pagina = (start/comentarios.rows)+1;
+	
+	if (comentarios.pagina > 1) $('#pagina_anterior').show();
+	else $('#pagina_anterior').hide();
+	if (comentarios.pagina < paginas) $('#pagina_siguiente').show();
+	else $('#pagina_siguiente').hide();
+	
+	$('#comentarios_encontrados').html(numFound);
+	$('#comentarios_pagina').html(comentarios.pagina);
+	$('#comentarios_paginas').html(paginas);
+	
+	$('#comentarios_comentarios').html('');
+	var txt;
+	var buscar = $('#comentarios_buscar').val();
+	for (var i=0; i<len; i++) {
+		txt = data.response.docs[i].comentario.toString();
+		var re = new RegExp("("+buscar+")","gi");
+		txt = txt.replace(re, "<span class=\"highlight\">$1</span>");
+		$('#comentarios_comentarios').append('<div class="comentario">'+txt+'</div>');
+	}
+	$('#cargando').hide();
+	$('#comentarios_data').fadeIn();
+}
+
 function cargarComentarios(params) {
 	$('.seccion').hide();
+	$('#comentarios_clusters').hide();
 	$('#comentarios_data').hide();
 	$('#comentarios_div').show();
 	$('#cargando').show();
@@ -81,42 +149,54 @@ function cargarComentarios(params) {
 	});
 }
 
-function onLoadAsignaturas(data) {
-	var def = !(data.length>0) || !data[0].id;
-	var html = '';
-	for (var i=0; i<data.length; i++) {
-		html += '<div>Pregunta '+(i+1)+' <input style="width:650px" type="text" value="'+data[i].pregunta+'" name="pregunta_'+(data[i].id?data[i].id:(i+1))+'" /></div>';
+//CLUSTERING
+
+var clusters_data;
+
+$(document).ready(function() {
+	$('#comentarios_cluster_boton').click(function() {
+		$('#comentarios_data').hide();
+		$('#cargando').show();
+		var asignatura = $('#asignatura').val();
+		var desde = $('#desde').val();
+		var hasta = $('#hasta').val();
+		var buscar = encodeURIComponent($('#comentarios_buscar').val());
+		$.ajax({
+			url: PROFESOR_CONTROLLER,
+			data: 'task=getClusters&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar,
+			type: 'post',
+			dataType: 'json',
+			success: onLoadClusters
+		});
+	});
+});
+
+function onLoadClusters(data) {
+	if (parseInt(data.length) === 0) {
+		$('#comentarios_clusters').html('No hay comentarios');
 	}
-	$('#def').val(def ? 1 : 0);
-	$('#preguntas').html(html);
-	$('#preguntas input').addClass('ui-widget ui-state-default ui-corner-all');
-	$('.seccion').hide();
-	$('#preguntas_div').fadeIn();
+	else {
+		clusters_data = data;
+		$('#comentarios_clusters').html('');
+		var html = '';
+		for (var i=0; i<data.length; i++) {
+			html += '<button class="cluster" onclick="cargarComentariosPorCluster(this)">'+data[i].label+'</button> ';
+		}
+		$('#comentarios_clusters').html(html);
+	}
+	$('#comentarios_clusters').fadeIn();
+	$('#cargando').hide();
 }
 
-function onLoadComentarios(data) {
-	var start = data.response.start;
-	var numFound = data.response.numFound;
-	comentarios.rows = data.responseHeader.params.rows;
-	var len = data.response.docs.length;
-	var doc;
-	var paginas = Math.ceil(numFound/comentarios.rows);
-	comentarios.pagina = (start/comentarios.rows)+1;
-	
-	if (comentarios.pagina > 1) $('#pagina_anterior').show();
-	else $('#pagina_anterior').hide();
-	if (comentarios.pagina < paginas) $('#pagina_siguiente').show();
-	else $('#pagina_siguiente').hide();
-	
-	$('#comentarios_encontrados').html(numFound);
-	$('#comentarios_pagina').html(comentarios.pagina);
-	$('#comentarios_paginas').html(paginas);
-	
-	$('#comentarios_comentarios').html('');
-	for (var i=0; i<len; i++) {
-		doc = data.response.docs[i];
-		$('#comentarios_comentarios').append('<div class="comentario">'+doc.comentario+'</div>');
+function cargarComentariosPorCluster(element) {
+	var label = $(element).html();
+	var ids = "";
+	for (var i=0; i<clusters_data.length; i++) {
+		if (clusters_data[i].label !== label) continue;
+		ids = clusters_data[i].ids;
+		break;
 	}
-	$('#cargando').hide();
-	$('#comentarios_data').fadeIn();
+	$('#comentarios_buscar').val('');
+	cargarComentarios("ids="+ids.join(' '));
+	$('#comentarios_buscar').val(label);
 }

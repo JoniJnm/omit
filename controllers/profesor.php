@@ -5,7 +5,7 @@ require_once(dirname(dirname(__file__)).'/init/init.php');
 if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 	$task = Request::both('task');
 
-	if ($task == 'getAsignaturas') {
+	if ($task == 'getPreguntas') {
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		if (!$asignatura) exit;
@@ -43,22 +43,42 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		}
 		User::getInstance(User::TYPE_PROFESOR)->toHome();
 	}
-	elseif ($task == 'getComentarios') {
+	elseif ($task == 'getComentarios' || $task == 'getClusters') {
 		load('models.uni');
 		load('models.solr');
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
-		$start = Request::post('start', 0);
+		if ($asignatura <= 0) exit;
 		$desde = Request::post('desde', Uni::getDefaultDesde());
 		$hasta = Request::post('hasta', Uni::getDefaultHasta());
 		
-		$buscar = urlencode(trim(Request::post('buscar')));
-		if (!$buscar) $buscar = "*:*";
+		$buscar = trim(Request::post('buscar', ''));
+		if ($buscar) $buscar = '"'.$buscar.'"';
+		else $buscar = "*:*";
 		$buscar .= " AND fecha:[".Solr::convertDate($desde)." TO ".Solr::convertDate($hasta)."]";
-		if ($asignatura <= 0 || $start < 0) exit;
+		//$buscar .= " AND asignatura:".$asignatura;
 		
-		$r = Solr::getComentarios($buscar, $start, 10);
+		$ids = trim(Request::post('ids', ''));
+		if ($ids) {
+			$buscar .= " AND id:(".$ids.")";
+		}
+		
 		header('Content-type: application/json');
-		echo $r->getRawResponse();
+		
+		if ($task == 'getComentarios') {
+			$start = Request::post('start', 0);
+			if ($start < 0) exit;
+			try {
+				$r = Solr::getComentarios($buscar, $start, 10);
+				echo $r->getRawResponse();
+			}
+			catch(Exception $e) {
+				echo json_encode(array());
+			}
+		}
+		else {
+			$clusters = Solr::getClusters($buscar);
+			echo json_encode($clusters);
+		}
 	}
 }
