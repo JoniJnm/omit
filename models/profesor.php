@@ -14,4 +14,15 @@ class Profesor {
 			)');
 		return $data;
 	}
+	
+	static function getPreguntas($profesor, $asignatura) {
+		$db = Database::getInstance();
+		$data = $db->loadObjectList('
+			SELECT id, pregunta FROM #__preguntas 
+			WHERE profesor='.$db->scape($profesor).' AND asignatura='.$db->scape($asignatura).'
+		');
+		if (!$data)
+			$data = $db->loadObjectList('SELECT pregunta FROM #__preguntas_default');
+		return $data;
+	}
 }

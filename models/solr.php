@@ -4,6 +4,7 @@ class Solr {
 	const CLUSTER_METHOD = "solr"; //solr o java
 	private static $SPECIAL_CHARS = array('+','-','!','(',')','{','}','[',']','^','"','~','*','?',':',"\\");
 	private static $INVALID_LABELS = array('Other Topics');
+	private static $MESES = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nom', 'Dic');
 	/**
 	 * @var Apache_Solr_Service 
 	 */
@@ -50,9 +51,70 @@ class Solr {
 			return self::getClusters_SOLR($query);
 	}
 	
+	static function getRespuestas($profesor, $asignatura) {
+		self::initSolr();
+		$query = "profesor:$profesor AND asignatura:$asignatura AND respuesta:*";
+		$query = "profesor:1 AND asignatura:1 AND respuesta:*";
+		$r = self::$solr->search($query, 0, 1000, array('fl' => 'fecha respuesta'));
+		$data = array();
+		foreach ($r->response->docs as $doc) {
+			$fecha = $doc->fecha;
+			$respuestas = $doc->respuesta;
+			$mes = self::getMonthBYFecha($fecha);
+			if (!isset($data[$mes])) {
+				for ($i=0; $i<count($respuestas); $i++) {
+					$data[$mes][$i] = new stdclass;
+					$data[$mes][$i]->respuestas = array();
+					$data[$mes][$i]->count = 0;
+					$data[$mes][$i]->suma = 0;
+				}
+			}
+			foreach ($respuestas as $i=>$res) {
+				$res = explode(':', $res);
+				$data[$mes][$i]->respuestas[] = $res[1];
+				$data[$mes][$i]->suma += $res[1];
+				$data[$mes][$i]->count++;
+			}
+		}
+		foreach ($data as $mes => $val) {
+			foreach ($val as $i=>$d) {
+				$data[$mes][$i]->media = $d->suma/$d->count;
+			}
+		}
+		$out = new stdclass;
+		$out->meses = array();
+		$out->series = array();
+		foreach ($data as $mes => $val) {
+			$out->meses[] = $mes.' ('.$val[0]->count.')';
+			foreach ($val as $i=>$d) {
+				if (!isset($out->series[$i])) {
+					$out->series[$i] = new stdclass;
+					$out->series[$i]->name = "Preg ".($i+1);
+					$out->series[$i]->data = array();
+				}
+				$data[$mes][$i]->media = $d->suma/$d->count;
+				$out->series[$i]->data[] = $data[$mes][$i]->media;
+			}
+		}
+		load('models.profesor');
+		$preg = Profesor::getPreguntas($profesor, $asignatura);
+		$out->preguntas = array();
+		foreach ($preg as $p) {
+			$out->preguntas[] = $p->pregunta;
+		}
+		return $out;
+	}
+	
+	static private function getMonthBYFecha($fecha) {
+		$fecha = substr($fecha, 0, 10);
+		$fecha = explode('-', $fecha);
+		$mes = intval($fecha[1]);
+		return self::$MESES[$mes];
+	}
+	
 	static private function getClusters_SOLR($query) {
 		self::initSolr();
-		$r = self::$solr->clustering($query);
+		$r = self::$solr->clustering($query, 1000, array('fl' => 'id'));
 		if ($r->getHttpStatus() != 200) return array();
 		$out = array();
 		foreach ($r->clusters as $cluster) {

@@ -220,3 +220,49 @@ function cargarComentariosPorCluster(element) {
 	$('#comentarios_buscar').val(label)
 	cargarComentarios();
 }
+
+
+// Estadísticas
+
+$(document).ready(function() {
+	$('#estadisticas_boton').click(function() {
+		$('.seccion').hide();
+		$('#estadisticas_grafico').html('');
+		$('#estadisticas_preguntas').html('');
+		$('#estadisticas_div').show();
+		$('#cargando').show();
+		cargarGrafico();
+		return false;
+	});
+});
+
+function cargarGrafico() {
+	var asignatura = $('#asignatura').val();
+	$.ajax({
+		url: PROFESOR_CONTROLLER,
+		data: 'task=getRespuestas&asignatura='+asignatura,
+		type: 'post',
+		dataType: 'json',
+		success: onLoadRespuestas
+	});
+}
+
+function onLoadRespuestas(data) {
+	$('#cargando').hide();
+	mostrarGrafico('Valoraciones de los usuarios', '', data.meses, 'Valoración', data.series);
+	var html = '';
+	for (var i=0; i<data.preguntas.length; i++) {
+		html += '<div>Preg '+(i+1)+': '+data.preguntas[i]+'</div>';
+	}
+	$('#estadisticas_preguntas').html(html);
+}
+
+function mostrarGrafico(titulo, subtitulo, categorias, ejey, datos) {
+	var g = column_grafic;
+	g.title.text = titulo;
+	g.subtitle.text = subtitulo;
+	g.xAxis.categories = categorias;
+	g.yAxis.title.text = ejey;
+	g.series = datos;
+	$('#estadisticas_grafico').highcharts(g);
+}

@@ -9,14 +9,8 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		if (!$asignatura) exit;
-		$db = Database::getInstance();
-		$data = $db->loadObjectList('
-			SELECT id, pregunta FROM #__preguntas 
-			WHERE profesor='.$db->scape($profesor).' AND asignatura='.$db->scape($asignatura).'
-		');
-		if (!$data)
-			$data = $db->loadObjectList('SELECT pregunta FROM #__preguntas_default');
-		header('Content-type: application/json');
+		load('models.profesor');
+		$data = Profesor::getPreguntas($profesor, $asignatura);
 		echo json_encode($data);
 	}
 	elseif ($task == 'guardarPreguntas') {
@@ -80,5 +74,14 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 			$clusters = Solr::getClusters($buscar);
 			echo json_encode($clusters);
 		}
+	}
+	elseif ($task == 'getRespuestas') {
+		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
+		$asignatura = Request::post('asignatura');
+		if ($asignatura <= 0) exit;
+		load('models.solr');
+		$data = solr::getRespuestas($profesor, $asignatura);
+		header('Content-type: application/json');
+		echo json_encode($data);
 	}
 }

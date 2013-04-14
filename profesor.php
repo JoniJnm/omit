@@ -18,6 +18,8 @@ $hasta = Uni::getDefaultHasta();
 	<title>Sistema de comentarios - Profesor</title>
 	<link type="text/css" rel="stylesheet" href="css/profesor.css" />
 	<script type="text/javascript" src="js/profesor.js"></script>
+	<script type="text/javascript" src="js/highcharts/highcharts.js"></script>
+	<script type="text/javascript" src="js/highcharts/graficos/column.js"></script>
 	<script type="text/javascript">
 		var desde_default = "<?php echo $desde; ?>";
 		var hasta_default = "<?php echo $hasta; ?>";
@@ -41,8 +43,9 @@ $hasta = Uni::getDefaultHasta();
 					<?php endforeach; ?>
 				</select>
 				<span id="botones_top" style="display:none">
-					<button id="preguntas_boton">Mostrar preguntas</button>
-					<button id="comentarios_boton">Mostrar comentarios</button>
+					<button id="preguntas_boton">Preguntas</button>
+					<button id="comentarios_boton">Comentarios</button>
+					<button id="estadisticas_boton">Estadísticas</button>
 				</span>
 				<hr />
 				<div class="seccion" id="preguntas_div" style="display:none">
@@ -64,7 +67,7 @@ $hasta = Uni::getDefaultHasta();
 					<img src="imagenes/lupa.png" alt="lupa" />
 					<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
 					<br />
-					<button id="comentarios_buscar_boton">Buscar</button>
+					<button id="comentarios_buscar_boton">Buscar comentarios</button>
 					<button id="comentarios_cluster_boton">Buscar temas</button>
 				</div>
 				<br />
@@ -88,11 +91,15 @@ $hasta = Uni::getDefaultHasta();
 					
 				</div>
 			</div>
+			<div class="seccion" id="estadisticas_div" style="display:none">
+				<div id="estadisticas_grafico"></div>
+				<div id="estadisticas_preguntas"></div>
+			</div>
 			<div class="seccion" id="cargando" style="display:none;font-weight:bold">
 				Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />
 			</div>
 		</div>
 		<?php load('tpls.footer'); ?>
-	</div>
+	</div>	
 </body>
 </html>
