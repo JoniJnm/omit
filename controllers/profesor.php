@@ -35,6 +35,8 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 				}
 			}
 		}
+		load('models.solr');
+		Solr::delValoraciones($profesor, $asignatura);
 		User::getInstance(User::TYPE_PROFESOR)->toHome();
 	}
 	elseif ($task == 'getComentarios' || $task == 'getClusters') {

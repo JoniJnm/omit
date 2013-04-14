@@ -34,6 +34,24 @@ class Solr {
 		self::$solr->commit();
 		self::$solr->optimize();
 	}
+	static function delValoraciones($profesor, $asignatura) {
+		self::initSolr();
+		$query = "profesor:$profesor AND asignatura:$asignatura AND respuesta:*";
+		$r = self::$solr->search($query, 0, 10000);
+		foreach ($r->response->docs as $doc) {
+			$d = new Apache_Solr_Document();
+			$d->fecha = $doc->fecha;
+			$d->usuario = $doc->usuario;
+			$d->profesor = $doc->profesor;
+			$d->asignatura = $doc->asignatura;
+			$d->comentario = $doc->comentario;
+			$d->respuesta = array();
+			$d->id = $doc->id;
+			self::$solr->addDocument($d);
+		}
+		self::$solr->commit();
+		self::$solr->optimize();
+	}
 	/**
 	 * 
 	 * @return Apache_Solr_Response

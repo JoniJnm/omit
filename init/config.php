@@ -10,7 +10,7 @@ DEFINE("DB_PREFIX", "uni_");
 
 DEFINE('SOLR_SERVER', 'localhost');
 DEFINE('SOLR_PORT', 8983);
-DEFINE('SOLR_PATH', '/solr/');
+DEFINE('SOLR_PATH', '/solr/collection1/');
 
 //config ends
 

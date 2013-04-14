@@ -57,6 +57,7 @@ $hasta = Uni::getDefaultHasta();
 						<input type="hidden" name="def" id="def" value="0" />
 						<input type="hidden" name="task" value="guardarPreguntas" />
 						<button id="guardar">Guardar</button>
+						<span style="color:red">Se perderán las valoraciones actuales si se modifican las preguntas</span>
 					</div>
 				</div>
 			</form>
