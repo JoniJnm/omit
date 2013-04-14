@@ -52,7 +52,7 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		if ($buscar) $buscar = Solr::scapeQuery($buscar);
 		else $buscar = "*:*";
 		$buscar .= " AND fecha:[".Solr::convertDate($desde)." TO ".Solr::convertDate($hasta)."]";
-		//$buscar .= " AND asignatura:".$asignatura;
+		//$buscar .= " AND asignatura:".$asignatura; //TODO: Eliminar Descomentar línea
 		
 		$ids = trim(Request::post('ids', ''));
 		if ($ids) {

@@ -118,12 +118,24 @@ function onLoadComentarios(data) {
 	$('#comentarios_paginas').html(paginas);
 	
 	$('#comentarios_comentarios').html('');
-	var txt;
+	var txt, valoraciones, v;
 	var buscar = $('#comentarios_buscar').val();
 	for (var i=0; i<len; i++) {
 		txt = data.response.docs[i].comentario.toString();
 		txt = colorear(txt, buscar);
-		$('#comentarios_comentarios').append('<div class="comentario">'+txt+'</div>');
+		if (data.response.docs[i].respuesta.length > 0) {
+			valoraciones = '<div class="valoraciones"><span>Valoraciones</span>: ';
+			for (var j=0; j<data.response.docs[i].respuesta.length; j++) {
+				v = data.response.docs[i].respuesta[j];
+				v = v.split(':');
+				valoraciones += v[1]+' ';
+			}
+			valoraciones += '</div>';
+		}
+		else {
+			valoraciones = '';
+		}
+		$('#comentarios_comentarios').append('<div class="comentario">'+txt+valoraciones+'</div>');
 	}
 	$('#cargando').hide();
 	$('#comentarios_data').fadeIn();
