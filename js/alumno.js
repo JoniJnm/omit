@@ -1,4 +1,5 @@
 var parte = 0;
+var preguntas_cargadas = false;
 
 function irParte(from, to) {
 	if ($('#parte'+to).length == 0) return;
@@ -33,16 +34,38 @@ function irParte(from, to) {
 	
 	if (from == 1 && to == 2) {
 		$('#preguntas').hide();
-		$('#cargando').show();
-		$.ajax({
-			url: ALUMNO_CONTROLLER,
-			method: 'post',
-			data: 'task=getPreguntas&asignatura='+asignatura+'&profesor='+profesor,
-			dataType: 'json',
-			success: cargarPreguntas
-		});
+		$('#cargando').hide();
+		preguntas_cargadas = false;
+		$('#preguntasSi')[0].checked = false;
+		$('#preguntasNo')[0].checked = true;
+		$('#preguntasRadio').buttonset('refresh');
 	}
 }
+
+$(document).ready(function() {
+	$('#preguntasSi').next().click(function() {
+		if (preguntas_cargadas) {
+			$('#preguntas').show();
+		}
+		else {
+			preguntas_cargadas = true;
+			$('#cargando').show();
+			var asignatura = $('#asignatura').val();
+			var profesor = $('#profesor').val();
+			$.ajax({
+				url: ALUMNO_CONTROLLER,
+				method: 'post',
+				data: 'task=getPreguntas&asignatura='+asignatura+'&profesor='+profesor,
+				dataType: 'json',
+				success: cargarPreguntas
+			});
+		}
+	});
+	$('#preguntasNo').next().click(function() {
+		$('#preguntas').hide();
+		$('#cargando').hide();
+	});
+});
 
 $(document).ready(function() {
 	irParte(0, 1);
@@ -72,11 +95,13 @@ $(document).ready(function() {
 		else {
 			mensajes.borrar();
 			var respuestas = [];
-			$('.satisfaccion_td input').each(function(i, e) {
-				var id = $(e).attr('data-id');
-				var v = $(e).val();
-				respuestas.push(id+":"+v);
-			});
+			if ($('#preguntasSi')[0].checked) {
+				$('.satisfaccion_td input').each(function(i, e) {
+					var id = $(e).attr('data-id');
+					var v = $(e).val();
+					respuestas.push(id+":"+v);
+				});
+			}
 			respuestas = respuestas.join(';');
 			$.ajax({
 				url: ALUMNO_CONTROLLER,
@@ -186,4 +211,38 @@ function cargarPreguntas(data) {
 	});
 	$('#cargando').hide();
 	$('#preguntas').fadeIn();
+}
+
+//--
+
+function getTitulaciones() {
+	return data.titulaciones;
+}
+function getCursos(t) {
+	var out = [];
+	$.each(data.cursos, function(k, v) {
+		if (v.titulacion == t)
+			out.push(v);
+	});
+	return out;
+}
+function getAsignaturas(c) {
+	var out = [];
+	$.each(data.asignaturas, function(k, v) {
+		if (v.curso == c)
+			out.push(v);
+	});
+	return out;
+}
+function getProfesores(a) {
+	var out = [];
+	$.each(data.profesores_asignaturas, function(k, v) {
+		if (v.asignatura == a) {
+			$.each(data.profesores, function(k2, v2) {
+				if (v2.id == v.profesor)
+					out.push(v2);
+			});
+		}
+	});
+	return out;
 }

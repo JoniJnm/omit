@@ -61,6 +61,7 @@ $hasta = Uni::getDefaultHasta();
 				<div> 
 					Desde <input class="date" type="text" name="desde" id="desde" />
 					Hasta <input class="date" type="text" name="hasta" id="hasta" />
+					<img src="imagenes/lupa.png" alt="lupa" />
 					<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
 					<br />
 					<button id="comentarios_buscar_boton">Buscar</button>

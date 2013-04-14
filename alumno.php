@@ -62,6 +62,13 @@ $data = Alumno::getUniData();
 			</div>
 			<div id="parte2" style="display:none">
 				<h2>Marca tu valoración para cada una de las siguiente preguntas:</h2>
+				<div>
+					Valorar preguntas
+					<span class="radio" id="preguntasRadio">
+						<input type="radio" id="preguntasSi" name="preguntas" /><label for="preguntasSi">Sí</label>
+						<input type="radio" id="preguntasNo" name="preguntas" /><label for="preguntasNo">No</label>
+					</span>
+				</div>
 				<div id="preguntas">
 					
 				</div>

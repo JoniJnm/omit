@@ -2,6 +2,7 @@
 
 class Preguntas {
 	static function parsearRespuestas($str) {
+		if (!$str) return array();
 		$respuestas = explode(';', $str);
 		$res = array();
 		foreach ($respuestas as $r) {

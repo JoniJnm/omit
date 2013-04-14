@@ -154,19 +154,14 @@ function colorear(txt, palabras) {
 		palabras = palabras.replace(/"/g, "");
 		var re;
 		txt = " "+txt+" ";
-		
-		palabras = palabras.replace(/a|á|A|Á/g, "[a|á|A|Á]");
-		palabras = palabras.replace(/e|é|E|É/g, "[e|é|E|É]");
-		palabras = palabras.replace(/i|í|I|Í/g, "[i|í|I|Í]");
-		palabras = palabras.replace(/o|ó|O|Ó/g, "[o|ó|O|Ó]");
-		palabras = palabras.replace(/u|ú|ü|U|Ú|Ü/g, "[u|ú|ü|U|Ú|Ü]");
-		
-		re = new RegExp("([\\W])("+palabras+")","gi");
+		var palabras_regrex = colorear_regrex(palabras);
+		re = new RegExp("([\\W])("+palabras_regrex+")","gi");
 		txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
 		palabras = palabras.split(" ");
+		palabras_regrex = palabras_regrex.split(" ");
 		for (var j=0; j<palabras.length; j++) {
 			if ($.inArray(palabras[j], stopWords) !== -1) continue;
-			re = new RegExp("([\\W])("+palabras[j]+")","gi");
+			re = new RegExp("([\\W])("+palabras_regrex[j]+")","gi");
 			txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
 		}
 	}
@@ -174,9 +169,16 @@ function colorear(txt, palabras) {
 	return txt;
 }
 
-//CLUSTERING
+function colorear_regrex(str) {
+	str = str.replace(/a|á|A|Á/g, "[a|á|A|Á]");
+	str = str.replace(/e|é|E|É/g, "[e|é|E|É]");
+	str = str.replace(/i|í|I|Í/g, "[i|í|I|Í]");
+	str = str.replace(/o|ó|O|Ó/g, "[o|ó|O|Ó]");
+	str = str.replace(/u|ú|ü|U|Ú|Ü/g, "[u|ú|ü|U|Ú|Ü]");
+	return str;
+}
 
-var clusters_data;
+//CLUSTERING
 
 $(document).ready(function() {
 	$('#comentarios_cluster_boton').click(function() {
@@ -202,7 +204,6 @@ function onLoadClusters(data) {
 		$('#comentarios_clusters').html('No se han encontrado comentarios sobre los parámetros de búsqueda.');
 	}
 	else {
-		clusters_data = data;
 		$('#comentarios_clusters').html('');
 		var html = '';
 		for (var i=0; i<data.length; i++) {
@@ -216,13 +217,6 @@ function onLoadClusters(data) {
 
 function cargarComentariosPorCluster(element) {
 	var label = $(element).html();
-	var ids = "";
-	for (var i=0; i<clusters_data.length; i++) {
-		if (clusters_data[i].label !== label) continue;
-		ids = clusters_data[i].ids;
-		break;
-	}
-	$('#comentarios_buscar').val('');
-	cargarComentarios("ids="+ids.join(' '));
-	$('#comentarios_buscar').val(label);
+	$('#comentarios_buscar').val(label)
+	cargarComentarios();
 }

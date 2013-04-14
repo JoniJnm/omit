@@ -79,9 +79,6 @@ class User {
 			Session::set(self::$PREFIX_KEY_ALIAS.$this->getUserType(), $this->id);
 			return true;
 		}
-		else {
-			die('SELECT id,name FROM #__usuarios WHERE username='.$db->scape($username).' AND pass='.$db->scape($pass));
-		}
 		return false;
 	}
 	function isLoged() {

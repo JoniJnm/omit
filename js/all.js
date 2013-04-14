@@ -12,44 +12,14 @@ $(document).ready(function() {
 		$(this).removeClass('ui-state-focus');
 	});
 	$('.center').center();
+	$('.radio').buttonset();
+	$('.radio').disableSelection();
 	$('input.date').attr('size', 12).attr('maxlength', 10);
 	mensajes.rende();
 });
 
 function defined(v) {
 	return typeof(v) != 'undefined';
-}
-
-function getTitulaciones() {
-	return data.titulaciones;
-}
-function getCursos(t) {
-	var out = [];
-	$.each(data.cursos, function(k, v) {
-		if (v.titulacion == t)
-			out.push(v);
-	});
-	return out;
-}
-function getAsignaturas(c) {
-	var out = [];
-	$.each(data.asignaturas, function(k, v) {
-		if (v.curso == c)
-			out.push(v);
-	});
-	return out;
-}
-function getProfesores(a) {
-	var out = [];
-	$.each(data.profesores_asignaturas, function(k, v) {
-		if (v.asignatura == a) {
-			$.each(data.profesores, function(k2, v2) {
-				if (v2.id == v.profesor)
-					out.push(v2);
-			});
-		}
-	});
-	return out;
 }
 
 var select = {
@@ -147,4 +117,13 @@ var dialogos = {
 			});
 		}
 	});
+})(jQuery);
+
+(function($){
+    $.fn.disableSelection = function() {
+        return this
+                 .attr('unselectable', 'on')
+                 .css('user-select', 'none')
+                 .on('selectstart', false);
+    };
 })(jQuery);

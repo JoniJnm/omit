@@ -12,7 +12,7 @@ if (User::getInstance(User::TYPE_ALUMNO)->isLoged()) {
 		$usuario = User::getInstance('alumno');
 		$respuestas = Preguntas::parsearRespuestas(Request::post('respuestas'));
 		
-		if ($asignatura > 0 && $profesor > 0 && $comentario && $usuario && $respuestas) {
+		if ($asignatura > 0 && $profesor > 0 && $comentario && $usuario) {
 			load('models.solr');
 			Solr::addComentario($usuario->getId(), $profesor, $asignatura, $comentario, $respuestas);
 			echo "OK";

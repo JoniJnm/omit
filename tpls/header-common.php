@@ -1,4 +1,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="shortcut icon" href="imagenes/favicon.ico" type="image/x-icon" />
 <script type="text/javascript">
 	var HTML_URL = '<?php echo HTML_URL; ?>';
 	var ALUMNO_CONTROLLER = '<?php echo ALUMNO_CONTROLLER; ?>';

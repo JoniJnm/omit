@@ -57,10 +57,9 @@ class Solr {
 		$out = array();
 		foreach ($r->clusters as $cluster) {
 			foreach ($cluster->labels as $label) {
+				if (in_array($label, self::$INVALID_LABELS)) continue;
 				$o = new stdclass;
 				$o->label = $label;
-				if (in_array($o->label, self::$INVALID_LABELS)) continue;
-				$o->ids = $cluster->docs;
 				$out[] = $o;
 			}
 		}
@@ -74,17 +73,10 @@ class Solr {
 		foreach ($salida as $line) {
 			if ($line == '__error') return array();
 			if (!$line) continue;
-			if (strpos($line, '|') === false) return array();
+			if (in_array($line, self::$INVALID_LABELS)) continue;
 			
-			$data = explode("|", $line);
 			$o = new stdclass;
-			$o->label = $data[0];
-			if (in_array($o->label, self::$INVALID_LABELS)) continue;
-			$o->ids = array();
-			$ids = explode(",", $data[1]);
-			foreach ($ids as $id) {
-				if ($id) $o->ids[] = $id;
-			}
+			$o->label = $line;
 			$out[] = $o;
 		}
 		return $out;

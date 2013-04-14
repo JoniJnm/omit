@@ -1,5 +1,6 @@
 textarea, input {
-	background: none #555555 !important
+	background: none #CCC !important;
+	color: #000 !important
 }
 textarea {
 	padding: 5px
@@ -27,15 +28,15 @@ button, .ui-button {
 	margin-bottom:3px;
 	margin-top:3px
 }
-.placeholder {color: #999 !important;}
+.placeholder {color: #353535 !important;}
 ::-webkit-input-placeholder {
-    color:    #999;
+    color:    #353535;
 }
 :-moz-placeholder {
-    color:    #999;
+    color:    #353535;
 }
 :-ms-input-placeholder {
-        color:    #999;
+        color:    #353535;
 }
 .clear {
 	clear:both
