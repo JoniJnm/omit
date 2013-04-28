@@ -118,24 +118,36 @@ function onLoadComentarios(data) {
 	$('#comentarios_paginas').html(paginas);
 	
 	$('#comentarios_comentarios').html('');
-	var txt, valoraciones, v;
+	var txt, extra, v, doc;
 	var buscar = $('#comentarios_buscar').val();
 	for (var i=0; i<len; i++) {
-		txt = data.response.docs[i].comentario.toString();
+		doc = data.response.docs[i];
+		txt = doc.comentario.toString();
 		txt = colorear(txt, buscar);
-		if (data.response.docs[i].respuesta.length > 0) {
-			valoraciones = '<div class="valoraciones"><span>Valoraciones</span>: ';
-			for (var j=0; j<data.response.docs[i].respuesta.length; j++) {
-				v = data.response.docs[i].respuesta[j];
+		extra = '';
+		if (doc.respuesta.length > 0) {
+			extra += '<div class="valoraciones"><span class="title">Valoraciones</span>: ';
+			for (var j=0; j<doc.respuesta.length; j++) {
+				v = doc.respuesta[j];
 				v = v.split(':');
-				valoraciones += v[1]+' ';
+				extra += v[1]+' ';
 			}
-			valoraciones += '</div>';
+			extra += '</div>';
 		}
-		else {
-			valoraciones = '';
+		if (doc.opinion) {
+			extra += '<div class="opinion"><span class="title">Opinión</span>: ';
+			if (doc.opinion.neg > doc.opinion.pos) {
+				extra += '<span class="negativa">negativa</span>';
+			}
+			else {
+				extra += '<span class="positiva">positiva</span>';
+			}
+			extra += '</div>';
 		}
-		$('#comentarios_comentarios').append('<div class="comentario">'+txt+valoraciones+'</div>');
+		if (extra) {
+			extra = '<div class="comentario_extra">'+extra+'</div>';
+		}
+		$('#comentarios_comentarios').append('<div class="comentario">'+txt+extra+'</div>');
 	}
 	$('#cargando').hide();
 	$('#comentarios_data').fadeIn();

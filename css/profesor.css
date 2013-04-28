@@ -7,9 +7,23 @@
 #comentarios_info {
 	font-weight:bold
 }
-.valoraciones {
+.comentario_extra {
+	text-align:right;
+	margin-top: 5px;
+}
+.valoraciones, .opinion {
+	display:inline-block;
 	text-align:right
 }
-.valoraciones span {
+.valoraciones .title, .opinion .title {
 	font-weight: bold
+}
+.opinion {
+	margin-left: 10px;
+}
+.opinion .positiva {
+	color: green;
+}
+.opinion .negativa {
+	color: red
 }

@@ -42,6 +42,7 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 	elseif ($task == 'getComentarios' || $task == 'getClusters') {
 		load('models.uni');
 		load('models.solr');
+		load('helpers.opinion');
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		if ($asignatura <= 0) exit;
@@ -66,7 +67,11 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 			if ($start < 0) exit;
 			try {
 				$r = Solr::getComentarios($buscar, $start, 10);
-				echo $r->getRawResponse();
+				$data = json_decode($r->getRawResponse(), true);
+				foreach ($data['response']['docs'] as &$doc) {
+					$doc['opinion'] = Opinion::clasificar($doc['comentario']);
+				}
+				echo json_encode($data);
 			}
 			catch(Exception $e) {
 				echo json_encode(array());
