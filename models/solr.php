@@ -1,7 +1,6 @@
 <?php
 
 class Solr {
-	const CLUSTER_METHOD = "solr"; //solr o java
 	private static $SPECIAL_CHARS = array('+','-','!','(',')','{','}','[',']','^','"','~','*','?',':',"\\");
 	private static $INVALID_LABELS = array('Other Topics');
 	private static $MESES = array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nom', 'Dic');
@@ -63,10 +62,19 @@ class Solr {
 	}
 	
 	static function getClusters($query) {
-		if (self::CLUSTER_METHOD == 'java')
-			return self::getClusters_JAVA($query);
-		else
-			return self::getClusters_SOLR($query);
+		self::initSolr();
+		$r = self::$solr->clustering($query, 1000, array('fl' => 'id'));
+		if ($r->getHttpStatus() != 200) return array();
+		$out = array();
+		foreach ($r->clusters as $cluster) {
+			foreach ($cluster->labels as $label) {
+				if (in_array($label, self::$INVALID_LABELS)) continue;
+				$o = new stdclass;
+				$o->label = $label;
+				$out[] = $o;
+			}
+		}
+		return $out;
 	}
 	
 	static function getRespuestas($profesor, $asignatura) {
@@ -128,38 +136,6 @@ class Solr {
 		$fecha = explode('-', $fecha);
 		$mes = intval($fecha[1]);
 		return self::$MESES[$mes];
-	}
-	
-	static private function getClusters_SOLR($query) {
-		self::initSolr();
-		$r = self::$solr->clustering($query, 1000, array('fl' => 'id'));
-		if ($r->getHttpStatus() != 200) return array();
-		$out = array();
-		foreach ($r->clusters as $cluster) {
-			foreach ($cluster->labels as $label) {
-				if (in_array($label, self::$INVALID_LABELS)) continue;
-				$o = new stdclass;
-				$o->label = $label;
-				$out[] = $o;
-			}
-		}
-		return $out;
-	}
-	
-	static private function getClusters_JAVA($query) {
-		exec('java -jar '.PHP_JARS.'cluster.jar '.utf8_decode($query), $salida);
-		if (!$salida || !is_array($salida)) return array();
-		$out = array();
-		foreach ($salida as $line) {
-			if ($line == '__error') return array();
-			if (!$line) continue;
-			if (in_array($line, self::$INVALID_LABELS)) continue;
-			
-			$o = new stdclass;
-			$o->label = $line;
-			$out[] = $o;
-		}
-		return $out;
 	}
 	
 	static function convertDate($date) {
