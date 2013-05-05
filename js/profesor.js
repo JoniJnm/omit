@@ -86,6 +86,10 @@ $(document).ready(function() {
 	$('#comentarios_buscar_boton').click(function() {
 		cargarComentarios();
 	});
+	for (var i=0; i<OPINION.length; i++) {
+		select.addOption('#comentarios_opinion', ucfirst(OPINION[i]), i);
+	}
+	$('#comentarios_opinion').selectmenu();
 });
 
 function onLoadComentarios(data) {
@@ -134,19 +138,12 @@ function onLoadComentarios(data) {
 			}
 			extra += '</div>';
 		}
-		if (doc.opinion) {
-			extra += '<div class="opinion"><span class="title">Opinión</span>: ';
-			if (doc.opinion.neg > doc.opinion.pos) {
-				extra += '<span class="negativa">negativa</span>';
-			}
-			else {
-				extra += '<span class="positiva">positiva</span>';
-			}
-			extra += '</div>';
-		}
-		if (extra) {
-			extra = '<div class="comentario_extra">'+extra+'</div>';
-		}
+		
+		extra += '<div class="opinion"><span class="title">Opinión</span>: ';
+		extra += '<span class="'+OPINION[doc.opinion]+'">'+OPINION[doc.opinion]+'</span>';
+		extra += '</div>';
+		
+		extra = '<div class="comentario_extra">'+extra+'</div>';
 		$('#comentarios_comentarios').append('<div class="comentario">'+txt+extra+'</div>');
 	}
 	$('#cargando').hide();
@@ -154,6 +151,7 @@ function onLoadComentarios(data) {
 }
 
 function cargarComentarios(params) {
+	if (!params) params = '';
 	$('.seccion').hide();
 	$('#comentarios_clusters').hide();
 	$('#comentarios_data').hide();
@@ -163,9 +161,10 @@ function cargarComentarios(params) {
 	var desde = $('#desde').val();
 	var hasta = $('#hasta').val();
 	var buscar = encodeURIComponent($('#comentarios_buscar').val());
+	var opinion = $('#comentarios_opinion').val();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getComentarios&'+params+'&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar,
+		data: 'task=getComentarios&'+params+'&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar+'&opinion='+opinion,
 		type: 'post',
 		dataType: 'json',
 		success: onLoadComentarios

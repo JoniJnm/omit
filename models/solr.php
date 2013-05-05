@@ -16,6 +16,7 @@ class Solr {
 		}
 	}
 	static function addComentario($usuario, $profesor, $asignatura, $comentario, $respuestas) {
+		load('helpers.opinion');
 		self::initSolr();
 		$r = self::$solr->search('*:*', 0, 1, array('sort' => 'id desc', 'fl' => 'id'));
 		$id = $r->response->numFound > 0 ? $r->response->docs[0]->id + 1 : 1;
@@ -26,6 +27,7 @@ class Solr {
 		$d->profesor = $profesor;
 		$d->asignatura = $asignatura;
 		$d->comentario = str_replace("\n", "<br />", htmlspecialchars($comentario));
+		$d->opinion = Opinion::clasificar($d->comentario);
 		$d->respuesta = $respuestas;
 		$d->id = $id;
 		

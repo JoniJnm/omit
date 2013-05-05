@@ -1,13 +1,19 @@
 <?php
 class Opinion {
-	const DATA_FILE = 'opinion_data.txt';
-	const TOKENIZE_FROM = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
-	const TOKENIZE_TO = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+	const NEUTRAL = 0;
+	const POSITIVO = 1;
+	const NEGATIVO = 2;
+	
+	private static $MIN_DISTANCIA = 1000;
+	private static $DATA_FILE = 'opinion_data.txt';
+	private static $TOKENIZE_FROM = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
+	private static $TOKENIZE_TO = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
+	
 	private $data = array();
 	static private $instance = null;
 	
 	private function __construct() {
-		$file = dirname(__FILE__).'/'.self::DATA_FILE;
+		$file = dirname(__FILE__).'/'.self::$DATA_FILE;
 		$this->cargarDiccionario($file);
 	}
 	
@@ -31,7 +37,9 @@ class Opinion {
 				else throw new Exception('Valor incorrecto para opinion ',print_r($obj, true));
 			}
 		}
-		return (object)array('pos' => $pos, 'neg' => $neg);
+		$diff = abs($pos-$neg);
+		if ($diff < self::$MIN_DISTANCIA) return self::NEUTRAL;
+		return $pos > $neg ? self::POSITIVO : self::NEGATIVO;
 	}
 	
 	private function cargarDiccionario($file) {
@@ -46,6 +54,6 @@ class Opinion {
 	}
 	
 	private function tokenize($word) {
-		return strtolower(strtr($word, self::TOKENIZE_FROM, self::TOKENIZE_TO));
+		return strtolower(strtr($word, self::$TOKENIZE_FROM, self::$TOKENIZE_TO));
 	}
 }

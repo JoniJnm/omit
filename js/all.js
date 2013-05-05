@@ -127,3 +127,6 @@ var dialogos = {
                  .on('selectstart', false);
     };
 })(jQuery);
+
+//https://raw.github.com/kvz/phpjs/master/functions/strings/ucfirst.js
+function ucfirst(b){b+="";var a=b.charAt(0).toUpperCase();return a+b.substr(1)};
