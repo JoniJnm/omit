@@ -4,7 +4,7 @@ class Opinion {
 	const POSITIVO = 1;
 	const NEGATIVO = 2;
 	
-	private static $MIN_DISTANCIA = 1000;
+	private static $MIN_DIFF = 0.2; //20%
 	private static $DATA_FILE = 'opinion_data.txt';
 	private static $TOKENIZE_FROM = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ';
 	private static $TOKENIZE_TO = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr';
@@ -38,7 +38,8 @@ class Opinion {
 			}
 		}
 		$diff = abs($pos-$neg);
-		if ($diff < self::$MIN_DISTANCIA) return self::NEUTRAL;
+		$max = $pos > $neg ? $pos : $neg;
+		if ($diff < $max*self::$MIN_DIFF) return self::NEUTRAL;
 		return $pos > $neg ? self::POSITIVO : self::NEGATIVO;
 	}
 	
@@ -49,7 +50,7 @@ class Opinion {
 			if (!$line) continue;
 			$line = explode("\t", $line);
 			$word = $this->tokenize($line[0]);
-			$this->data[$word] = (object)array('tipo' => $line[2], 'peso' => round($line[1]/1000));
+			$this->data[$word] = (object)array('tipo' => $line[2], 'peso' => $line[1]);
 		}
 	}
 	
