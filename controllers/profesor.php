@@ -21,6 +21,7 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		$prefix = 'pregunta_';
 		$prefix_len = strlen($prefix);
 		
+		$preg = 0;
 		foreach ($_POST as $key=>$val) {
 			if (substr($key, 0, $prefix_len) == $prefix) {
 				if (Request::post('def')) {
@@ -33,6 +34,8 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 						set pregunta='.$db->scape($val).', profesor='.$db->scape($profesor).', asignatura='.$db->scape($asignatura).'
 						WHERE id='.$db->scape($id));
 				}
+				$preg++;
+				if ($preg >= 10) break;
 			}
 		}
 		load('models.solr');

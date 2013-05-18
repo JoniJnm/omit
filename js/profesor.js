@@ -4,8 +4,10 @@ $(document).ready(function() {
 	$('#asignatura').selectmenu({
 		change: function() {
 			var id = $('#asignatura').val();
-			if (id > 0) $('#botones_top').fadeIn();
-			else $('#botones_top').fadeOut();
+			if (id > 0)
+				$('#botones_top').fadeIn();
+			else
+				$('#botones_top').fadeOut();
 			$('.seccion').hide();
 		}
 	});
@@ -14,8 +16,31 @@ $(document).ready(function() {
 //PREGUNTAS
 
 $(document).ready(function() {
-	$('#guardar').click(function() {
-		document.getElementById('profesorForm').submit();
+	$('#preguntas_editar').click(function() {
+		$('span.pregunta').hide();
+		$('input.pregunta').show();
+		$('#preguntas_editar').hide();
+		$('#preguntas_parent').show();
+		return false;
+	});
+	$('#preguntas_guardar').click(function() {
+		$("#preguntas_confirmacion").show();
+		$("#preguntas_confirmacion").dialog({
+			resizable: false,
+			height: 225,
+			width: 400,
+			modal: true,
+			buttons: {
+				"Continuar": function() {
+					$(this).dialog("close");
+					document.getElementById('profesorForm').submit();
+				},
+				Cancel: function() {
+					$(this).dialog("close");
+				}
+			}
+		});
+		return false;
 	});
 	$('#preguntas_boton').click(function() {
 		var id = parseInt($('#asignatura').val());
@@ -27,7 +52,7 @@ $(document).ready(function() {
 		$('#cargando').show();
 		$.ajax({
 			url: PROFESOR_CONTROLLER,
-			data: 'task=getPreguntas&asignatura='+id,
+			data: 'task=getPreguntas&asignatura=' + id,
 			type: 'post',
 			dataType: 'json',
 			success: onLoadPreguntas
@@ -37,11 +62,13 @@ $(document).ready(function() {
 });
 
 function onLoadPreguntas(data) {
-	var def = !(data.length>0) || !data[0].id;
-	var html = '';
-	for (var i=0; i<data.length; i++) {
-		html += '<div>Pregunta '+(i+1)+' <input style="width:650px" type="text" value="'+data[i].pregunta+'" name="pregunta_'+(data[i].id?data[i].id:(i+1))+'" /></div>';
+	var def = !(data.length > 0) || !data[0].id;
+	var len = data.length;
+	var html = '<table>';
+	for (var i = 0; i < 10; i++) {
+		html += '<tr><td class="pregunta">Pregunta ' + (i + 1) + '</td><td><span class="pregunta">' + (i < len ? data[i].pregunta : '-') + '</span><input class="pregunta" style="display:none" type="text" value="' + (i < len ? data[i].pregunta : '') + '" name="pregunta_' + (i < len && data[i].id ? data[i].id : (i + 1)) + '" /></td></tr>';
 	}
+	html += '</table>';
 	$('#def').val(def ? 1 : 0);
 	$('#preguntas').html(html);
 	$('#preguntas input').addClass('ui-widget ui-state-default ui-corner-all');
@@ -52,9 +79,9 @@ function onLoadPreguntas(data) {
 //COMENTARIOS
 
 var comentarios = {
-	pagina:0,
-	rows:0,
-	buscar:''
+	pagina: 0,
+	rows: 0,
+	buscar: ''
 };
 
 $(document).ready(function() {
@@ -71,12 +98,12 @@ $(document).ready(function() {
 		return false;
 	});
 	$('#pagina_anterior').click(function() {
-		var start = (comentarios.pagina-2)*comentarios.rows;
-		cargarComentarios('start='+start);
+		var start = (comentarios.pagina - 2) * comentarios.rows;
+		cargarComentarios('start=' + start);
 	});
 	$('#pagina_siguiente').click(function() {
-		var start = comentarios.pagina*comentarios.rows;
-		cargarComentarios('start='+start);
+		var start = comentarios.pagina * comentarios.rows;
+		cargarComentarios('start=' + start);
 	});
 	$('#comentarios_buscar, #desde, #hasta').keyup(function(e) {
 		if (e.which === 13) {
@@ -86,7 +113,7 @@ $(document).ready(function() {
 	$('#comentarios_buscar_boton').click(function() {
 		cargarComentarios();
 	});
-	for (var i=0; i<OPINION.length; i++) {
+	for (var i = 0; i < OPINION.length; i++) {
 		select.addOption('#comentarios_opinion', ucfirst(OPINION[i]), i);
 	}
 	$('#comentarios_opinion').selectmenu();
@@ -109,49 +136,43 @@ function onLoadComentarios(data) {
 	var numFound = data.response.numFound;
 	comentarios.rows = data.responseHeader.params.rows;
 	var len = data.response.docs.length;
-	var paginas = Math.ceil(numFound/comentarios.rows);
-	comentarios.pagina = (start/comentarios.rows)+1;
-	
-	if (comentarios.pagina > 1) $('#pagina_anterior').show();
-	else $('#pagina_anterior').hide();
-	if (comentarios.pagina < paginas) $('#pagina_siguiente').show();
-	else $('#pagina_siguiente').hide();
-	
+	var paginas = Math.ceil(numFound / comentarios.rows);
+	comentarios.pagina = (start / comentarios.rows) + 1;
+
+	if (comentarios.pagina > 1)
+		$('#pagina_anterior').show();
+	else
+		$('#pagina_anterior').hide();
+	if (comentarios.pagina < paginas)
+		$('#pagina_siguiente').show();
+	else
+		$('#pagina_siguiente').hide();
+
 	$('#comentarios_encontrados').html(numFound);
 	$('#comentarios_pagina').html(comentarios.pagina);
 	$('#comentarios_paginas').html(paginas);
-	
+
 	$('#comentarios_comentarios').html('');
-	var txt, extra, v, doc;
+	var txt, extra, doc;
 	var buscar = $('#comentarios_buscar').val();
-	for (var i=0; i<len; i++) {
+	for (var i = 0; i < len; i++) {
 		doc = data.response.docs[i];
 		txt = doc.comentario.toString();
 		txt = colorear(txt, buscar);
-		extra = '';
-		if (doc.respuesta.length > 0) {
-			extra += '<div class="valoraciones"><span class="title">Valoraciones</span>: ';
-			for (var j=0; j<doc.respuesta.length; j++) {
-				v = doc.respuesta[j];
-				v = v.split(':');
-				extra += v[1]+' ';
-			}
-			extra += '</div>';
-		}
-		
-		extra += '<div class="opinion"><span class="title">Opinión</span>: ';
-		extra += '<span class="'+OPINION[doc.opinion]+'">'+OPINION[doc.opinion]+'</span>';
+		extra = '<div class="opinion"><span class="title">Opinión</span>: ';
+		extra += '<span class="' + OPINION[doc.opinion] + '">' + OPINION[doc.opinion] + '</span>';
 		extra += '</div>';
-		
-		extra = '<div class="comentario_extra">'+extra+'</div>';
-		$('#comentarios_comentarios').append('<div class="comentario">'+txt+extra+'</div>');
+
+		extra = '<div class="comentario_extra">' + extra + '</div>';
+		$('#comentarios_comentarios').append('<div class="comentario">' + txt + extra + '</div>');
 	}
 	$('#cargando').hide();
 	$('#comentarios_data').fadeIn();
 }
 
 function cargarComentarios(params) {
-	if (!params) params = '';
+	if (!params)
+		params = '';
 	$('.seccion').hide();
 	$('#comentarios_clusters').hide();
 	$('#comentarios_data').hide();
@@ -164,7 +185,7 @@ function cargarComentarios(params) {
 	var opinion = $('#comentarios_opinion').val();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getComentarios&'+params+'&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar+'&opinion='+opinion,
+		data: 'task=getComentarios&' + params + '&asignatura=' + asignatura + '&desde=' + desde + '&hasta=' + hasta + '&buscar=' + buscar + '&opinion=' + opinion,
 		type: 'post',
 		dataType: 'json',
 		success: onLoadComentarios
@@ -172,23 +193,26 @@ function cargarComentarios(params) {
 }
 
 function colorear(txt, palabras) {
-	if (!palabras) return txt;
+	if (!palabras)
+		return txt;
 	try {
 		palabras = palabras.replace(/"/g, "");
 		var re;
-		txt = " "+txt+" ";
+		txt = " " + txt + " ";
 		var palabras_regrex = colorear_regrex(palabras);
-		re = new RegExp("([\\W])("+palabras_regrex+")","gi");
+		re = new RegExp("([\\W])(" + palabras_regrex + ")", "gi");
 		txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
 		palabras = palabras.split(" ");
 		palabras_regrex = palabras_regrex.split(" ");
-		for (var j=0; j<palabras.length; j++) {
-			if ($.inArray(palabras[j], stopWords) !== -1) continue;
-			re = new RegExp("([\\W])("+palabras_regrex[j]+")","gi");
+		for (var j = 0; j < palabras.length; j++) {
+			if ($.inArray(palabras[j], stopWords) !== -1)
+				continue;
+			re = new RegExp("([\\W])(" + palabras_regrex[j] + ")", "gi");
 			txt = txt.replace(re, "$1<span class=\"highlight\">$2</span>");
 		}
 	}
-	catch(e) {}
+	catch (e) {
+	}
 	return txt;
 }
 
@@ -212,9 +236,10 @@ $(document).ready(function() {
 		var desde = $('#desde').val();
 		var hasta = $('#hasta').val();
 		var buscar = encodeURIComponent($('#comentarios_buscar').val());
+		var opinion = $('#comentarios_opinion').val();
 		$.ajax({
 			url: PROFESOR_CONTROLLER,
-			data: 'task=getClusters&asignatura='+asignatura+'&desde='+desde+'&hasta='+hasta+'&buscar='+buscar,
+			data: 'task=getClusters&asignatura=' + asignatura + '&desde=' + desde + '&hasta=' + hasta + '&buscar=' + buscar + '&opinion=' + opinion,
 			type: 'post',
 			dataType: 'json',
 			success: onLoadClusters
@@ -229,8 +254,8 @@ function onLoadClusters(data) {
 	else {
 		$('#comentarios_clusters').html('');
 		var html = '';
-		for (var i=0; i<data.length; i++) {
-			html += '<button class="cluster" onclick="cargarComentariosPorCluster(this)">'+data[i].label+'</button> ';
+		for (var i = 0; i < data.length; i++) {
+			html += '<button class="cluster" onclick="cargarComentariosPorCluster(this)">' + data[i].label + '</button> ';
 		}
 		$('#comentarios_clusters').html(html);
 	}
@@ -263,7 +288,7 @@ function cargarGrafico() {
 	var asignatura = $('#asignatura').val();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getRespuestas&asignatura='+asignatura,
+		data: 'task=getRespuestas&asignatura=' + asignatura,
 		type: 'post',
 		dataType: 'json',
 		success: onLoadRespuestas
@@ -274,8 +299,8 @@ function onLoadRespuestas(data) {
 	$('#cargando').hide();
 	mostrarGrafico('Valoraciones de los usuarios', '', data.meses, 'Valoración', data.series);
 	var html = '';
-	for (var i=0; i<data.preguntas.length; i++) {
-		html += '<div>Preg '+(i+1)+': '+data.preguntas[i]+'</div>';
+	for (var i = 0; i < data.preguntas.length; i++) {
+		html += '<div>Preg ' + (i + 1) + ': ' + data.preguntas[i] + '</div>';
 	}
 	$('#estadisticas_preguntas').html(html);
 }

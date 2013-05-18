@@ -59,8 +59,14 @@ $hasta = Uni::getDefaultHasta();
 					<div>
 						<input type="hidden" name="def" id="def" value="0" />
 						<input type="hidden" name="task" value="guardarPreguntas" />
-						<button id="guardar">Guardar</button>
-						<span style="color:red">Se perderán las valoraciones actuales si se modifican las preguntas</span>
+						<button id="preguntas_editar">Editar</button>
+						<span id="preguntas_parent" style="display:none">				
+							<button id="preguntas_guardar">Guardar</button>
+							<span style="color:red">Se perderán las valoraciones actuales si se modifican las preguntas</span>
+						</span>
+					</div>
+					<div id="preguntas_confirmacion" title="¿Desea continuar?" style="display:none">
+						<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Se perderán las valoraciones actuales si se modifican las preguntas</p>
 					</div>
 				</div>
 			</form>

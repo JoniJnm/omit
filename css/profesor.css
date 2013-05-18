@@ -27,3 +27,27 @@
 .opinion .negativa {
 	color: red
 }
+
+#preguntas {
+	padding-left: 15px;
+}
+span.pregunta {
+	font-weight:bold;
+}
+input.pregunta {
+	font-weight:bold;
+	width: 685px
+}
+td.pregunta {
+	width:85px;
+	vertical-align:top
+}
+.satisfaccion_td {
+	color: #F6931F;
+	white-space: nowrap;
+	width: 1px;
+	padding-left:20px;
+}
+.satisfaccion_slider_td {
+	padding-left:15px;
+}
