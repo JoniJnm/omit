@@ -79,7 +79,7 @@ class Solr {
 		return $out;
 	}
 	
-	static function getRespuestas($profesor, $asignatura) {
+	static function &getRespuestas($profesor, $asignatura) {
 		self::initSolr();
 		$query = "profesor:$profesor AND asignatura:$asignatura AND respuesta:*";
 		$query = "profesor:1 AND asignatura:1 AND respuesta:*"; //TODO: Eliminar linea
@@ -109,26 +109,17 @@ class Solr {
 				$data[$mes][$i]->media = $d->suma/$d->count;
 			}
 		}
-		$out = new stdclass;
-		$out->meses = array();
-		$out->series = array();
+		$out = array();
 		foreach ($data as $mes => $val) {
-			$out->meses[] = $mes.' ('.$val[0]->count.')';
+			$obj = new stdclass;
+			$obj->mes = array($mes.' ('.$val[0]->count.')');
 			foreach ($val as $i=>$d) {
-				if (!isset($out->series[$i])) {
-					$out->series[$i] = new stdclass;
-					$out->series[$i]->name = "Preg ".($i+1);
-					$out->series[$i]->data = array();
-				}
+				$obj->series[$i] = new stdclass;
+				$obj->series[$i]->name = "Preg ".($i+1);
 				$data[$mes][$i]->media = $d->suma/$d->count;
-				$out->series[$i]->data[] = $data[$mes][$i]->media;
+				$obj->series[$i]->data = array($data[$mes][$i]->media);
 			}
-		}
-		load('models.profesor');
-		$preg = Profesor::getPreguntas($profesor, $asignatura);
-		$out->preguntas = array();
-		foreach ($preg as $p) {
-			$out->preguntas[] = $p->pregunta;
+			$out[] = $obj;
 		}
 		return $out;
 	}

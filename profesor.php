@@ -48,10 +48,14 @@ $hasta = Uni::getDefaultHasta();
 				<span id="botones_top" style="display:none">
 					<button id="preguntas_boton">Preguntas</button>
 					<button id="comentarios_boton">Comentarios</button>
-					<button id="estadisticas_boton">Estadísticas</button>
 				</span>
 				<hr />
 				<div class="seccion" id="preguntas_div" style="display:none">
+					<div id="preguntas_estadisticas_parent">
+						<button id="preguntas_estadisticas_grafico_anterior">Mes anterior</button>
+						<button id="preguntas_estadisticas_grafico_siguiente">Mes Siguiente</button>
+						<div id="preguntas_estadisticas_grafico"></div>
+					</div>
 					<div id="preguntas">
 
 					</div>
@@ -60,6 +64,7 @@ $hasta = Uni::getDefaultHasta();
 						<input type="hidden" name="def" id="def" value="0" />
 						<input type="hidden" name="task" value="guardarPreguntas" />
 						<button id="preguntas_editar">Editar</button>
+						<button id="preguntas_estadisticas">Estadísticas</button>
 						<span id="preguntas_parent" style="display:none">				
 							<button id="preguntas_guardar">Guardar</button>
 							<span style="color:red">Se perderán las valoraciones actuales si se modifican las preguntas</span>
@@ -78,7 +83,6 @@ $hasta = Uni::getDefaultHasta();
 					<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
 					<br />
 					<button id="comentarios_buscar_boton">Buscar comentarios</button>
-					<button id="comentarios_cluster_boton">Buscar temas</button>
 					Opinión <select id="comentarios_opinion" name="comentarios_opinion">
 						<option value="-1">Todas</option>
 					</select>
@@ -86,8 +90,14 @@ $hasta = Uni::getDefaultHasta();
 				<br />
 				<div id="comentarios_data" style="display:none">
 					<div id="comentarios_info">
-						Mostrando página <span id="comentarios_pagina"></span> de <span id="comentarios_paginas"></span>
-						- <span id="comentarios_encontrados"></span> comentarios totales
+						<div>
+							Mostrando página <span id="comentarios_pagina"></span> de <span id="comentarios_paginas"></span>
+							- <span id="comentarios_encontrados"></span> comentarios totales
+						</div>
+						<div>
+							<button id="comentarios_cluster_boton">Buscar temas</button>
+							<button id="comentarios_estadisticas">Estadísticas</button>
+						</div>
 					</div>
 					<div id="comentarios_comentarios"></div>
 					<div id="comentarios_pagination">
@@ -103,10 +113,6 @@ $hasta = Uni::getDefaultHasta();
 				<div id="comentarios_clusters" style="display:none">
 					
 				</div>
-			</div>
-			<div class="seccion" id="estadisticas_div" style="display:none">
-				<div id="estadisticas_grafico"></div>
-				<div id="estadisticas_preguntas"></div>
 			</div>
 			<div class="seccion" id="cargando" style="display:none;font-weight:bold">
 				Cargando... <img style="vertical-align:middle" src="imagenes/ajax.gif" alt="" />

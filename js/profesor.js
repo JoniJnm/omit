@@ -16,6 +16,25 @@ $(document).ready(function() {
 //PREGUNTAS
 
 $(document).ready(function() {
+	$('#preguntas_boton').click(function() {
+		$('#preguntas_estadisticas_parent').hide();
+		$('#preguntas_estadisticas').show();
+		var id = parseInt($('#asignatura').val());
+		if (id <= 0) {
+			mensajes.alerta('Selecciona una asignatura');
+			return false;
+		}
+		$('.seccion').hide();
+		$('#cargando').show();
+		$.ajax({
+			url: PROFESOR_CONTROLLER,
+			data: 'task=getPreguntas&asignatura=' + id,
+			type: 'post',
+			dataType: 'json',
+			success: onLoadPreguntas
+		});
+		return false;
+	});
 	$('#preguntas_editar').click(function() {
 		$('span.pregunta').hide();
 		$('input.pregunta').show();
@@ -39,23 +58,6 @@ $(document).ready(function() {
 					$(this).dialog("close");
 				}
 			}
-		});
-		return false;
-	});
-	$('#preguntas_boton').click(function() {
-		var id = parseInt($('#asignatura').val());
-		if (id <= 0) {
-			mensajes.alerta('Selecciona una asignatura');
-			return false;
-		}
-		$('.seccion').hide();
-		$('#cargando').show();
-		$.ajax({
-			url: PROFESOR_CONTROLLER,
-			data: 'task=getPreguntas&asignatura=' + id,
-			type: 'post',
-			dataType: 'json',
-			success: onLoadPreguntas
 		});
 		return false;
 	});
@@ -270,16 +272,25 @@ function cargarComentariosPorCluster(element) {
 }
 
 
-// Estadísticas
+// Estadísticas (preguntas)
+var preg_std;
+var preg_std_i;
 
 $(document).ready(function() {
-	$('#estadisticas_boton').click(function() {
-		$('.seccion').hide();
-		$('#estadisticas_grafico').html('');
-		$('#estadisticas_preguntas').html('');
-		$('#estadisticas_div').show();
+	$('#preguntas_estadisticas').click(function() {
 		$('#cargando').show();
+		$('#preguntas_estadisticas').hide();
 		cargarGrafico();
+		return false;
+	});
+	$('#preguntas_estadisticas_grafico_anterior').click(function() {
+		preg_std_i--;
+		cargarGraficoData();
+		return false;
+	});
+	$('#preguntas_estadisticas_grafico_siguiente').click(function() {
+		preg_std_i++;
+		cargarGraficoData();
 		return false;
 	});
 });
@@ -297,12 +308,16 @@ function cargarGrafico() {
 
 function onLoadRespuestas(data) {
 	$('#cargando').hide();
-	mostrarGrafico('Valoraciones de los usuarios', '', data.meses, 'Valoración', data.series);
-	var html = '';
-	for (var i = 0; i < data.preguntas.length; i++) {
-		html += '<div>Preg ' + (i + 1) + ': ' + data.preguntas[i] + '</div>';
-	}
-	$('#estadisticas_preguntas').html(html);
+	$('#preguntas_estadisticas_parent').show();
+	preg_std_i = 0;
+	preg_std = data;
+	cargarGraficoData();
+}
+
+function cargarGraficoData() {
+	if (preg_std_i >= preg_std.length) preg_std_i = 0;
+	if (preg_std_i < 0) preg_std_i = preg_std.length-1;
+	mostrarGrafico('Valoraciones de los usuarios', '', preg_std[preg_std_i].mes, 'Valoración', preg_std[preg_std_i].series);
 }
 
 function mostrarGrafico(titulo, subtitulo, categorias, ejey, datos) {
@@ -312,5 +327,5 @@ function mostrarGrafico(titulo, subtitulo, categorias, ejey, datos) {
 	g.xAxis.categories = categorias;
 	g.yAxis.title.text = ejey;
 	g.series = datos;
-	$('#estadisticas_grafico').highcharts(g);
+	$('#preguntas_estadisticas_grafico').highcharts(g);
 }
