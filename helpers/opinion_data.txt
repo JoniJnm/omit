@@ -1,3 +1,5 @@
+muy	3	mod	1
+no	-1	mod	3
 abarraganamiento	1	neg
 abarrancarse	2	neg
 abatido	1	neg
@@ -270,6 +272,7 @@ brutalizar	1	neg
 bruto	2	neg
 bufon	5	neg
 bullir	1	neg
+bueno	5	pos
 bulo	4	neg
 burlarse	1	neg
 caballeroso	2	pos

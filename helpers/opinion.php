@@ -28,15 +28,34 @@ class Opinion {
 		preg_match_all('/[\w]+/', $str, $words);
 		$pos = 0;
 		$neg = 0;
+		$mods = array();
 		foreach ($words[0] as $word) {
 			$word = $this->tokenize($word);
 			if (isset($this->data[$word])) {
 				$obj = $this->data[$word];
-				if ($obj->tipo == 'pos') $pos += $obj->peso;
-				elseif ($obj->tipo == 'neg') $neg += $obj->peso;
-				else throw new Exception('Valor incorrecto para opinion ',print_r($obj, true));
+				if ($obj->tipo == 'mod') {
+					$mods[] = (object)array('peso' => $this->data[$word]->peso, 'contador' => $this->data[$word]->contador+1);
+				}
+				else {
+					$peso = $obj->peso;
+					foreach ($mods as $mod) {
+						$peso *= $mod->peso;
+					}
+					if ($obj->tipo == 'pos') $pos += $peso;
+					elseif ($obj->tipo == 'neg') $neg += $peso;
+					else throw new Exception('Valor incorrecto para opinion ',print_r($obj, true));
+				}
+			}
+			if (trim($word)) {
+				$aux = array();
+				foreach ($mods as $mod) {
+					$mod->contador--;
+					if ($mod->contador > 0) $aux[] = $mod;
+				}
+				$mods = $aux;
 			}
 		}
+		return array($pos, $neg);
 		$diff = abs($pos-$neg);
 		$max = $pos > $neg ? $pos : $neg;
 		if ($diff < $max*self::$MIN_DIFF) return self::NEUTRAL;
@@ -51,6 +70,7 @@ class Opinion {
 			$line = explode("\t", $line);
 			$word = $this->tokenize($line[0]);
 			$this->data[$word] = (object)array('tipo' => $line[2], 'peso' => $line[1]);
+			if ($line[2] == 'mod') $this->data[$word]->contador = $line[3];
 		}
 	}
 	
