@@ -80,10 +80,9 @@ class Solr {
 	}
 	
 	static function &getRespuestas($profesor, $asignatura) {
-		self::initSolr();
 		$query = "profesor:$profesor AND asignatura:$asignatura AND respuesta:*";
 		$query = "profesor:1 AND asignatura:1 AND respuesta:*"; //TODO: Eliminar linea
-		$r = self::$solr->search($query, 0, 1000, array('fl' => 'fecha respuesta'));
+		$r = self::getComentarios($query, 0, 1000, array('fl' => 'fecha respuesta'));
 		$data = array();
 		foreach ($r->response->docs as $doc) {
 			$fecha = $doc->fecha;

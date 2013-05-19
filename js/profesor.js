@@ -93,6 +93,7 @@ $(document).ready(function() {
 			mensajes.alerta('Selecciona una asignatura');
 			return false;
 		}
+		$('#comentarios_estadisticas').hide();
 		$('#comentarios_buscar').val('');
 		$('#desde').val(desde_default);
 		$('#hasta').val(hasta_default);
@@ -119,6 +120,11 @@ $(document).ready(function() {
 		select.addOption('#comentarios_opinion', ucfirst(OPINION[i]), i);
 	}
 	$('#comentarios_opinion').selectmenu();
+	$('#comentarios_estadisticas_boton').click(function() {
+		if ($('#comentarios_estadisticas').css('display') == 'none')
+			cargarOpiniones();
+		return false;
+	});
 });
 
 function onLoadComentarios(data) {
@@ -172,26 +178,55 @@ function onLoadComentarios(data) {
 	$('#comentarios_data').fadeIn();
 }
 
-function cargarComentarios(params) {
-	if (!params)
-		params = '';
-	$('.seccion').hide();
-	$('#comentarios_clusters').hide();
-	$('#comentarios_data').hide();
-	$('#comentarios_div').show();
-	$('#cargando').show();
+function cargarComentariosParams() {
 	var asignatura = $('#asignatura').val();
 	var desde = $('#desde').val();
 	var hasta = $('#hasta').val();
 	var buscar = encodeURIComponent($('#comentarios_buscar').val());
 	var opinion = $('#comentarios_opinion').val();
+	return 'asignatura=' + asignatura + '&desde=' + desde + '&hasta=' + hasta + '&buscar=' + buscar + '&opinion=' + opinion
+}
+function cargarComentarios(params) {
+	if (!params) params = '';
+	$('.seccion').hide();
+	$('#comentarios_estadisticas').hide();
+	$('#comentarios_clusters').hide();
+	$('#comentarios_data').hide();
+	$('#comentarios_div').show();
+	$('#cargando').show();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getComentarios&' + params + '&asignatura=' + asignatura + '&desde=' + desde + '&hasta=' + hasta + '&buscar=' + buscar + '&opinion=' + opinion,
+		data: 'task=getComentarios&'+params+'&'+cargarComentariosParams(),
 		type: 'post',
 		dataType: 'json',
 		success: onLoadComentarios
 	});
+}
+
+function cargarOpiniones() {
+	$('#comentarios_estadisticas_ajax_img').show();
+	$.ajax({
+		url: PROFESOR_CONTROLLER,
+		data: 'task=getComentarios&'+cargarComentariosParams(),
+		type: 'post',
+		dataType: 'json',
+		success: onLoadOpiniones
+	});
+}
+
+function onLoadOpiniones(data) {
+	$('#comentarios_estadisticas_ajax_img').hide();
+	var info = [];
+	for (var i=0; i<OPINION.length; i++) {
+		info[i] = 0;
+	}
+	for (var i=0; i<data.response.docs.length; i++) {
+		info[data.response.docs[i].opinion]++;
+	}
+	for (var i=0; i<OPINION.length; i++) {
+		$('#opinion_'+OPINION[i]).html(info[i]);
+	}
+	$('#comentarios_estadisticas').fadeIn();
 }
 
 function colorear(txt, palabras) {

@@ -21,10 +21,13 @@
 .opinion {
 	margin-left: 10px;
 }
-.opinion .positiva {
+.neutral {
+	color: black;
+}
+.positiva {
 	color: green;
 }
-.opinion .negativa {
+.negativa {
 	color: red
 }
 

@@ -42,7 +42,7 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		Solr::delValoraciones($profesor, $asignatura);
 		User::getInstance(User::TYPE_PROFESOR)->toHome();
 	}
-	elseif ($task == 'getComentarios' || $task == 'getClusters') {
+	elseif ($task == 'getComentarios' || $task == 'getClusters' || $task == 'getOpiniones') {
 		load('models.uni');
 		load('models.solr');
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
@@ -68,17 +68,16 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		if ($task == 'getComentarios') {
 			$start = Request::post('start', 0);
 			if ($start < 0) exit;
-			try {
-				$r = Solr::getComentarios($buscar, $start, 10);
-				echo $r->getRawResponse();
-			}
-			catch(Exception $e) {
-				echo json_encode(array());
-			}
+			$r = Solr::getComentarios($buscar, $start, 10);
+			echo $r->getRawResponse();
 		}
-		else {
+		elseif ($task == 'getClusters') {
 			$clusters = Solr::getClusters($buscar);
 			echo json_encode($clusters);
+		}
+		elseif ($task == 'getOpiniones') {
+			$r = Solr::getComentarios($buscar, 0, 100000, array('fl' => 'opinion'));
+			echo $r->getRawResponse();
 		}
 	}
 	elseif ($task == 'getRespuestas') {
