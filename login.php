@@ -4,8 +4,9 @@ require_once(dirname(__file__).'/init/init.php');
 
 $userType = Request::both('userType');
 $user = User::getInstance($userType);
-if (Request::get('salir'))
-	$user->logout();
+if (Request::get('salir')) {
+	User::logout($userType);
+}
 $user->toHomeIfLoged();
 
 $error = '';

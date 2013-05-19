@@ -104,10 +104,18 @@ class User {
 	function toLogin() {
 		Redirect::_('login.php?userType='.$this->getUserTypeName());
 	}
-	function logout() {
-		$this->clear();
-		Session::clear(self::$PREFIX_KEY_ALIAS.$this->getUserType());
-		$this->toLogin();
+	static function logout($userType) {
+		$loged = false;
+		$types = User::getUserTypes();
+		foreach ($types as $type) {
+			$loged = User::getInstance($type)->isLoged();
+			if ($loged) break;
+		}
+		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_ALUMNO);
+		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_PROFESOR);
+		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_ADMIN);
+		if ($loged) Mensajes::addInfo("Te has desconectado correctamente");
+		self::getInstance($userType)->toLogin();
 	}
 	
 	private function clear() {

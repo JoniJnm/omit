@@ -12,8 +12,8 @@
 				if ($type != $last)
 					echo ' | ';
 			}
-			if (PHP_SCRIPT != 'login')
-				echo ' | <a href="'.HTML_URL.'login.php?userType='.User::clearUserType(PHP_SCRIPT, true).'&salir=1">Salir</a>';
+			$userType = PHP_SCRIPT == 'login' ? Request::get('userType') : PHP_SCRIPT;
+			echo ' | <a href="'.HTML_URL.'login.php?userType='.User::clearUserType($userType, true).'&salir=1">Salir</a>';
 		?>
 	</div>
 	<div style="float:right;width:300px;text-align:right">Jónatan Núñez - Soto Montalvo &copy; 2012 - 2013</div>
