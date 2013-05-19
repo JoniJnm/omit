@@ -2,7 +2,7 @@
 
 require_once(dirname(__file__).'/init/init.php');
 
-User::getInstance('alumno')->toLoginIfNotLoged();
+User::getInstance(User::TYPE_ALUMNO)->toLoginIfNotLoged();
 
 load('models.alumno');
 $data = Alumno::getUniData();

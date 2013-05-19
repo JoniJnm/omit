@@ -2,7 +2,7 @@
 
 require_once(dirname(__file__).'/init/init.php');
 
-User::getInstance('profesor')->toLoginIfNotLoged();
+User::getInstance(User::TYPE_PROFESOR)->toLoginIfNotLoged();
 load('models.profesor');
 load('models.uni');
 
@@ -37,6 +37,11 @@ $opinion = array('neutral', 'positiva', 'negativa');
 			<h1>Sistema de comentarios - Profesor</h1>
 		</div>
 		<div id="content">
+			<form id="csv_upload_form" method="post" action="<?php echo PROFESOR_CONTROLLER; ?>" enctype="multipart/form-data">
+				<input type="file" id="csv_data_file" name="csv_file" style="display:none" onchange="$('#csv_upload_form').submit()" />
+				<input type="hidden" name="asignatura" id="csv_upload_asignatura" />
+				<input type="hidden" name="task" value="uploadDataCsv" />
+			</form>
 			<form id="profesorForm" method="post" action="<?php echo PROFESOR_CONTROLLER; ?>">
 				<select style="width:250px" id="asignatura" name="asignatura">
 					<option value="0">Selecciona una asignatura</option>
@@ -49,6 +54,7 @@ $opinion = array('neutral', 'positiva', 'negativa');
 				<span id="botones_top" style="display:none">
 					<button id="preguntas_boton">Preguntas</button>
 					<button id="comentarios_boton">Comentarios</button>
+					<button id="cargar_alumnos_boton">Cargar alumnos</button>
 				</span>
 				<hr />
 				<div class="seccion" id="preguntas_div" style="display:none">

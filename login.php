@@ -11,9 +11,9 @@ $user->toHomeIfLoged();
 $error = '';
 
 if (Request::post('login')) {
-	$username = Request::post('username');
+	$email = Request::post('email');
 	$pass = Request::post('pass');
-	if ($user->login($username, $pass)) {
+	if ($user->login($email, $pass)) {
 		$user->toHome();
 	}
 	$error = 'Usuario o contraseña incorrectos.';
@@ -47,9 +47,9 @@ if (Request::post('login')) {
 			<h2>Acceder como <?php echo $userType; ?></h2>
 			<table>
 				<tr>
-					<td>Usuario</td>
+					<td>Email</td>
 					<td>
-						<input type="text" name="username" id="username1" />
+						<input type="text" name="email" id="email1" />
 					</td>
 				</tr>
 				<tr>
@@ -68,7 +68,7 @@ if (Request::post('login')) {
 				</tr>
 			</table>
 			<form id="form" action="login.php?userType=<?php echo $userType; ?>" method="post" autocomplete="off" style="display:none">
-				<input type="hidden" name="username" id="username2" />
+				<input type="hidden" name="email" id="email2" />
 				<input type="hidden" name="pass" id="password2" />
 				<input type="hidden" name="login" value="1" />
 			</form>

@@ -9,7 +9,7 @@ if (User::getInstance(User::TYPE_ALUMNO)->isLoged()) {
 		$asignatura = intval(Request::post('asignatura'));
 		$profesor = intval(Request::post('profesor'));
 		$comentario = trim(Request::post('comentario'));
-		$usuario = User::getInstance('alumno');
+		$usuario = User::getInstance(User::TYPE_ALUMNO);
 		$respuestas = Preguntas::parsearRespuestas(Request::post('respuestas'));
 		
 		if ($asignatura > 0 && $profesor > 0 && $comentario && $usuario) {

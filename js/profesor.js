@@ -61,6 +61,16 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	$('#cargar_alumnos_boton').click(function() {
+		var id = parseInt($('#asignatura').val());
+		if (id <= 0) {
+			mensajes.alerta('Selecciona una asignatura');
+			return false;
+		}
+		$('#csv_upload_asignatura').val(id);
+		$('#csv_data_file').click();
+		return false;
+	});
 });
 
 function onLoadPreguntas(data) {

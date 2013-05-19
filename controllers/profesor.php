@@ -89,4 +89,45 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 		header('Content-type: application/json');
 		echo json_encode($data);
 	}
+	elseif ($task == 'uploadDataCsv') {
+		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
+		$asignatura = Request::post('asignatura');
+		if ($asignatura <= 0) exit;
+		if (substr($_FILES['csv_file']['name'], -4) != '.csv') {
+			Mensajes::addAlerta("Sólo se admiten ficheros csv");
+			User::getInstance(User::TYPE_PROFESOR)->toHome();
+		}
+		$data = @file_get_contents($_FILES['csv_file']['tmp_name']);
+		$lines = explode("\n", $data);
+		$len = count($lines);
+		if ($len < 14) {
+			Mensajes::addAlerta("Formato de archivo csv no soportado");
+			User::getInstance(User::TYPE_PROFESOR)->toHome();
+		}
+		$users = array();
+		for ($i=13; $i<$len; $i++) {
+			$line = explode(';', $lines[$i]);
+			$trim = " \t\n\r\0\x0B ";
+			if (count($line) != 17 || !trim($line[7], $trim)) break;
+			$users[] = (object)array(
+				'apellido1' => utf8_encode(trim($line[1], $trim)),
+				'apellido2' => utf8_encode(trim($line[2], $trim)),
+				'nombre' => utf8_encode(trim($line[3], $trim)),
+				'dni' => utf8_encode(trim($line[4], $trim)),
+				'email' => utf8_encode(trim($line[7], $trim))
+			);
+		}
+		if (!count($users)) {
+			Mensajes::addAlerta("Formato de archivo csv no soportado");
+			User::getInstance(User::TYPE_PROFESOR)->toHome();
+		}
+		$db = Database::getInstance();
+		foreach ($users as $user) {
+			$db->query('INSERT IGNORE INTO #__usuarios (email, apellido1, apellido2, nombre, pass, type) VALUES ('.$db->scape($user->email).', '.$db->scape($user->apellido1).', '.$db->scape($user->apellido2).', '.$db->scape($user->nombre).', '.$db->scape(md5($user->dni)).', '.User::TYPE_ALUMNO.') ON DUPLICATE KEY UPDATE apellido1=VALUES(apellido1), apellido2=VALUES(apellido2), nombre=VALUES(nombre)');
+			$id = $db->loadResult('SELECT id FROM #__usuarios WHERE email='.$db->scape($user->email));
+			$db->query('INSERT IGNORE INTO #__usuarios_asignaturas (usuario, asignatura) VALUES ('.$db->scape($id).', '.$db->scape($asignatura).')');
+		}
+		Mensajes::addInfo("Se han cargado ".count($users)." alumnos");
+		User::getInstance(User::TYPE_PROFESOR)->toHome();
+	}
 }

@@ -36,13 +36,13 @@ if (User::getInstance(User::TYPE_ADMIN)->isLoged()) {
 				$db->query('INSERT INTO #__asignaturas (id, nombre, curso) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['nombre']).', '.$db->scape($d['curso']).')');
 			}
 			foreach ($data['usuarios']['usuario'] as $d) {
-				$db->query('INSERT INTO #__usuarios (id, name, username, pass, type) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['name']).', '.$db->scape($d['username']).', '.$db->scape($d['pass']).', '.$db->scape($d['type']).')');
+				$db->query('INSERT INTO #__usuarios (id, email, apellido1, apellido2, nombre, pass, type) VALUES ('.$db->scape($d['id']).', '.$db->scape($d['email']).', '.$db->scape($d['apellido1']).', '.$db->scape($d['apellido2']).', '.$db->scape($d['nombre']).', '.$db->scape($d['pass']).', '.$db->scape($d['type']).')');
 			}
-			foreach ($data['profesores_asignaturas']['profesor_asignatura'] as $d) {
-				$db->query('INSERT INTO #__profesores_asignaturas (profesor, asignatura) VALUES ('.$db->scape($d['profesor']).', '.$db->scape($d['asignatura']).')');
+			foreach ($data['usuarios_asignaturas']['usuario_asignatura'] as $d) {
+				$db->query('INSERT INTO #__usuarios_asignaturas (usuario, asignatura) VALUES ('.$db->scape($d['usuario']).', '.$db->scape($d['asignatura']).')');
 			}
 		}
-		Mensajes::addMensaje('info', '¡Datos cargados!');
-		User::getInstance('admin')->toHome();
+		Mensajes::addInfo('¡Datos cargados!');
+		User::getInstance(User::TYPE_ADMIN)->toHome();
 	}
 }

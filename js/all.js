@@ -95,7 +95,7 @@ var dialogos = {
 			StyledError += "</span><strong>Información: </strong>";
 			StyledError += html;
 			StyledError += "</p>";
-			StyledError += '<img style="position:absolute;right:5px;top:-5px;" src="imagenes/cerrar.png" onclick="mensajes.borrar()">';
+			StyledError += '<img src="imagenes/cerrar.png" onclick="mensajes.borrar()">';
 			StyledError += "</div>";
 			return StyledError;
 		});

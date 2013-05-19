@@ -2,7 +2,7 @@
 
 require_once(dirname(__file__).'/init/init.php');
 
-User::getInstance('admin')->toLoginIfNotLoged();
+User::getInstance(User::TYPE_ADMIN)->toLoginIfNotLoged();
 
 ?>
 <!doctype html>

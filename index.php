@@ -6,4 +6,4 @@ $types = User::getUserTypes();
 foreach ($types as $type) {
 	User::getInstance($type)->toHomeIfLoged();
 }
-User::getInstance('alumno')->toLogin();
+User::getInstance(user::TYPE_ALUMNO)->toLogin();

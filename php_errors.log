@@ -1,0 +1,9 @@
+[19-May-2013 14:14:24 UTC] PHP Fatal error:  Error en la base de datos: <br />
+Query: SELECT id,name AS nombre FROM uni_usuarios WHERE id IN (1,2)<br />
+Error: Unknown column 'name' in 'field list' in D:\www\uni\helpers\database.php on line 38
+[19-May-2013 14:14:24 UTC] PHP Stack trace:
+[19-May-2013 14:14:24 UTC] PHP   1. {main}() D:\www\uni\alumno.php:0
+[19-May-2013 14:14:24 UTC] PHP   2. Alumno::getUniData() D:\www\uni\alumno.php:8
+[19-May-2013 14:14:24 UTC] PHP   3. Database->loadObjectList($query = 'SELECT id,name AS nombre FROM #__usuarios WHERE id IN (1,2)') D:\www\uni\models\alumno.php:14
+[19-May-2013 14:14:24 UTC] PHP   4. Database->query($query = 'SELECT id,name AS nombre FROM #__usuarios WHERE id IN (1,2)') D:\www\uni\helpers\database.php:67
+[19-May-2013 14:14:24 UTC] PHP   5. trigger_error('Error en la base de datos: <br />\nQuery: SELECT id,name AS nombre FROM uni_usuarios WHERE id IN (1,2)<br />\nError: Unknown column \'name\' in \'field list\'', 256) D:\www\uni\helpers\database.php:38

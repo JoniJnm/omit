@@ -9,9 +9,9 @@ class User {
 	private static $PREFIX_KEY_ALIAS = "user_";
 	private static $instances = array();
 	
-	private $username;
-	private $name;
 	private $id;
+	private $email;
+	private $nombre;
 	private $loged;
 	private $userType;
 	
@@ -32,11 +32,11 @@ class User {
 			$obj = new self($userType);
 			if ($id) {
 				$db = Database::getInstance();
-				$r = $db->loadObject('SELECT username,name FROM #__usuarios WHERE id='.$db->scape($id).' AND type='.$db->scape($userType));
+				$r = $db->loadObject('SELECT email,nombre FROM #__usuarios WHERE id='.$db->scape($id).' AND type='.$db->scape($userType));
 				if ($r) {
 					$obj->id = $id;
-					$obj->name = $r->name;
-					$obj->username = $r->username;
+					$obj->email = $r->email;
+					$obj->nombre = $r->nombre;
 					$obj->loged = true;
 				}
 				else {
@@ -68,13 +68,13 @@ class User {
 	function getId() {
 		return $this->id;
 	}
-	function login($username, $pass) {
+	function login($email, $pass) {
 		$db = Database::getInstance();
-		$obj = $db->loadObject('SELECT id,name FROM #__usuarios WHERE username='.$db->scape($username).' AND pass='.$db->scape($pass));
+		$obj = $db->loadObject('SELECT id,nombre FROM #__usuarios WHERE email='.$db->scape($email).' AND pass='.$db->scape($pass));
 		if ($obj) {
 			$this->id = $obj->id;
-			$this->name = $obj->name;
-			$this->username = $username;
+			$this->nombre = $obj->nombre;
+			$this->email = $email;
 			$this->loged = true;
 			Session::set(self::$PREFIX_KEY_ALIAS.$this->getUserType(), $this->id);
 			return true;
@@ -111,8 +111,8 @@ class User {
 	}
 	
 	private function clear() {
-		$this->name = "";
-		$this->username = "";
+		$this->nombre = "";
+		$this->email = "";
 		$this->id = 0;
 		$this->loged = false;
 	}
