@@ -78,15 +78,15 @@ $opinion = array('neutral', 'positiva', 'negativa');
 			</form>
 			<div class="seccion" id="comentarios_div" style="display:none">
 				<div> 
-					Desde <input class="date" type="text" name="desde" id="desde" />
-					Hasta <input class="date" type="text" name="hasta" id="hasta" />
 					<img src="imagenes/lupa.png" alt="lupa" />
 					<input type="text" placeholder="Buscar..." id="comentarios_buscar" name="comentarios_buscar" />
-					<br />
-					<button id="comentarios_buscar_boton">Buscar comentarios</button>
-					Opinión <select id="comentarios_opinion" name="comentarios_opinion">
+					Fecha <input class="date" type="text" name="desde" id="desde" />
+					- <input class="date" type="text" name="hasta" id="hasta" />
+					Opinión <select id="comentarios_opinion" name="comentarios_opinion" style="width:144px">
 						<option value="-1">Todas</option>
 					</select>
+					<br />
+					<button id="comentarios_buscar_boton">Buscar comentarios</button>
 				</div>
 				<br />
 				<div id="comentarios_data" style="display:none">

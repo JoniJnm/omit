@@ -7,6 +7,9 @@
 #comentarios_info {
 	font-weight:bold
 }
+#comentarios_opinion-button {
+	margin-top:-5px;
+}
 .comentario_extra {
 	text-align:right;
 	margin-top: 5px;
