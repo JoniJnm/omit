@@ -236,6 +236,7 @@ benefactor	1	pos
 beneficencia	4	pos
 beneficiar	2	pos
 benigno	1	pos
+besos	0	pos
 bezo	7	neg
 bien	2	pos
 bienintencionado	2	neg
@@ -954,7 +955,7 @@ fealdad	3	neg
 febril	2	pos
 fechoria	1	neg
 fecundidad	3	pos
-felicidad	7	neg
+felicidad	0	pos
 feo	1	neg
 fetido	2	neg
 ficcion	4	neg
@@ -1027,6 +1028,7 @@ golpazo	1	neg
 gonorrea	7	neg
 gracioso	2	pos
 gradual	2	neg
+gracias	0	pos
 grafico	2	pos
 grandilocuente	2	neg
 grandilocuo	2	neg

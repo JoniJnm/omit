@@ -37,7 +37,7 @@ class Opinion {
 					$mods[] = (object)array('peso' => $this->data[$word]->peso, 'contador' => $this->data[$word]->contador+1);
 				}
 				else {
-					$peso = $obj->peso;
+					$peso = 1; //debería coger el $obj->peso
 					foreach ($mods as $mod) {
 						$peso *= $mod->peso;
 					}
@@ -55,10 +55,9 @@ class Opinion {
 				$mods = $aux;
 			}
 		}
-		return array($pos, $neg);
 		$diff = abs($pos-$neg);
 		$max = $pos > $neg ? $pos : $neg;
-		if ($diff < $max*self::$MIN_DIFF) return self::NEUTRAL;
+		if ($diff <= $max*self::$MIN_DIFF) return self::NEUTRAL;
 		return $pos > $neg ? self::POSITIVO : self::NEGATIVO;
 	}
 	
