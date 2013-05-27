@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Controlador del profesor
+ */
+
 require_once(dirname(dirname(__file__)).'/init/init.php');
 
 if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
@@ -80,12 +84,12 @@ if (User::getInstance(User::TYPE_PROFESOR)->isLoged()) {
 			echo $r->getRawResponse();
 		}
 	}
-	elseif ($task == 'getRespuestas') {
+	elseif ($task == 'getValoraciones') {
 		$profesor = User::getInstance(User::TYPE_PROFESOR)->getId();
 		$asignatura = Request::post('asignatura');
 		if ($asignatura <= 0) exit;
 		load('models.solr');
-		$data = solr::getRespuestas($profesor, $asignatura);
+		$data = solr::getValoraciones($profesor, $asignatura);
 		header('Content-type: application/json');
 		echo json_encode($data);
 	}

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase para poder controlar de manera sencilla la variable $_SESSION de PHP
+ */
+
 class Session {
 	static function get($k, $def='') {
 		if (isset($_SESSION[$k])) {

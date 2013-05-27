@@ -22,8 +22,9 @@ class User {
 	}
 	
 	/**
-	 * 
-	 * @return User
+	 * Dado un tipo de usuario, comprueba si está logeado como tal y devuelve una instancia
+	 * de tipo usuario
+	 * @return User instancia de tipo usuario
 	 */
 	static function getInstance($userType) {
 		$userType = self::clearUserType($userType);
@@ -47,9 +48,22 @@ class User {
 		}
 		return self::$instances[$userType];
 	}
+	
+	/**
+	 * Devuelve un array con índice asociado al nombre del tipo de usuario
+	 * @return string[]
+	 */
 	static function getUserTypes() {
 		return self::$USER_TYPES;
 	}
+	
+	/**
+	 * Devuelve un tipo de usuario. La función se utiliza para asegurar
+	 * que el "tipo de usuario" existe. Si no existe se devuelve por defecto TIPO_ALUMNO
+	 * @param int|string $userType 
+	 * @param boolean $string la salida puede ser el número asociado al unserType o el string
+	 * @return int|string dependiendo de la variable $string se devuelve el userType de una forma u otra
+	 */
 	static function clearUserType($userType, $string=false) {
 		if (is_numeric($userType)) {
 			if (!array_key_exists($userType, self::$USER_TYPES))
@@ -57,7 +71,7 @@ class User {
 		}
 		else {
 			$keys = array_keys(self::$USER_TYPES, $userType, true);
-			$userType = $keys ? $keys[0] : 0;
+			$userType = $keys ? $keys[0] : self::TYPE_ALUMNO;
 		}
 		return $string ? self::$USER_TYPES[$userType] : $userType;
 	}
@@ -68,6 +82,13 @@ class User {
 	function getId() {
 		return $this->id;
 	}
+	
+	/**
+	 * Aplica acceso al usuario
+	 * @param string $email el email del usuario
+	 * @param string $pass la contraseña del usuario (debe estar en md5)
+	 * @return boolean true si todo fue bien, false en caso contrario
+	 */
 	function login($email, $pass) {
 		$db = Database::getInstance();
 		$obj = $db->loadObject('SELECT id,nombre FROM #__usuarios WHERE email='.$db->scape($email).' AND pass='.$db->scape($pass));
@@ -104,6 +125,11 @@ class User {
 	function toLogin() {
 		Redirect::_('login.php?userType='.$this->getUserTypeName());
 	}
+	
+	/**
+	 * Saca al usuario de todas las sesiones en las que esté logeado
+	 * @param int $userType para redirigir al página de login con ese userType
+	 */
 	static function logout($userType) {
 		$loged = false;
 		$types = User::getUserTypes();

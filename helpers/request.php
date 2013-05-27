@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase para controlar de manera sencilla las variables $_GET y $_POST de PHP
+ */
+
 Class Request {
 	static function get($k, $def='') {
 		return isset($_GET[$k]) ? $_GET[$k] : $def;

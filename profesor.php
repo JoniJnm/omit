@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * Página del profesor
+ */
+
 require_once(dirname(__file__).'/init/init.php');
 
 User::getInstance(User::TYPE_PROFESOR)->toLoginIfNotLoged();
 load('models.profesor');
 load('models.uni');
 
-$data = Profesor::getAsignaturas();
-$desde = Uni::getDefaultDesde();
-$hasta = Uni::getDefaultHasta();
+$data = Profesor::getAsignaturas(User::getInstance(User::TYPE_PROFESOR)->getId()); //obtiene las asignaturas de las que es profesor
+$desde = Uni::getDefaultDesde(); //obtener fecha "desde" por defecto (septiembre del curso)
+$hasta = Uni::getDefaultHasta(); //obtener fecha "hasta" por defecto (septiembre del curso siguiente)
 
 $opinion = array('neutral', 'positiva', 'negativa');
 ?>

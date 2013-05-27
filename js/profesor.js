@@ -302,7 +302,7 @@ function onLoadClusters(data) {
 		$('#comentarios_clusters').html('');
 		var html = '';
 		for (var i = 0; i < data.length; i++) {
-			html += '<button class="cluster" onclick="cargarComentariosPorCluster(this)">' + data[i].label + '</button> ';
+			html += '<button class="cluster" onclick="cargarComentariosPorCluster(this)">' + data[i] + '</button> ';
 		}
 		$('#comentarios_clusters').html(html);
 	}
@@ -344,14 +344,14 @@ function cargarGrafico() {
 	var asignatura = $('#asignatura').val();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getRespuestas&asignatura=' + asignatura,
+		data: 'task=getValoraciones&asignatura=' + asignatura,
 		type: 'post',
 		dataType: 'json',
-		success: onLoadRespuestas
+		success: onLoadValoraciones
 	});
 }
 
-function onLoadRespuestas(data) {
+function onLoadValoraciones(data) {
 	$('#cargando').hide();
 	$('#preguntas_estadisticas_parent').show();
 	preg_std_i = 0;

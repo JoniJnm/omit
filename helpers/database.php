@@ -1,9 +1,24 @@
 <?php
 
+/**
+ * Clase para el control de la base de datos MySQL
+ * 
+ * La configuración de acceso se encuentra en el archivo /init/config.php
+ */
+
 class Database {
+	/**
+	 * Variable con un string de error (si lo hubo) en la última operación MySQL
+	 * @var type 
+	 */
+	public $error = "";
+	
+	/**
+	 *
+	 * @var mysqli
+	 */
 	private $mysqli;
 	private $pre;
-	var $error = "";
 	
 	function __construct($server, $user, $pass, $db, $pre="") {
 		$this->mysqli = new mysqli($server, $user, $pass, $db);
@@ -17,7 +32,7 @@ class Database {
 	}
 	
 	/**
-	 * 
+	 * Obtiene la instancia de la clase (para crear un singlentón)
 	 * @return Database
 	 */
 	static function &getInstance() {
@@ -28,6 +43,11 @@ class Database {
 		return $class;
 	}
 	
+	/**
+	 * Ejecuta una sentencia MySQL
+	 * @param string $query Consulta a ejecutar
+	 * @return mixed El valor devuelto por mysqli::query()
+	 */
 	function query($query) {
 		if ($this->pre) {
 			$query = str_replace("#__", $this->pre, $query);
@@ -43,6 +63,11 @@ class Database {
 		return $return;
 	}
 	
+	/**
+	 * Carga la primera fila de un select en un objeto PHP
+	 * @param string $query
+	 * @return sdtclass
+	 */
     function loadObject($query){
 		$cur = $this->query($query);
         $ret = null;
@@ -53,6 +78,12 @@ class Database {
         return $ret;
     }
 	
+	/**
+	 * Carga el valor de la columna $col de la primera fila en una variable PHP
+	 * @param string $query
+	 * @param int $col Número de columna (por defecto 0, es decir, la primera)
+	 * @return mixed
+	 */
     function loadResult($query, $col=0) {
         $cur = $this->query($query);
         $ret = null;
@@ -63,6 +94,11 @@ class Database {
         return $ret;
     }
 	
+	/**
+	 * Carga las filas de respuesta en una lista de objetos PHP
+	 * @param string $query
+	 * @return stdclass[]
+	 */
     function loadObjectList($query) {
         $cur = $this->query($query);
         $array = array();
@@ -73,6 +109,12 @@ class Database {
         return $array;
     }
 
+	/**
+	 * Carga todos los valores de una columna en un array de PHP
+	 * @param string $query
+	 * @param int $col Número de columna (por defecto 0, es decir, la primera)
+	 * @return array
+	 */
     function loadResultArray($query, $col = 0) {
 		if (!($cur = $this->query($query))) {
 			return null;
@@ -85,6 +127,12 @@ class Database {
 		return $array;
 	}
 	
+	/**
+	 * Escapa un valor para poder ser insertado en una sentencia MySQL
+	 * Le añade las comillas
+	 * @param mixed $str Valor a escapar
+	 * @return string valor escapado
+	 */
 	function scape($str) {
 		return "'".$this->mysqli->real_escape_string($str)."'";
 	}

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Controlador del alumno
+ */
+
+
 require_once(dirname(dirname(__file__)).'/init/init.php');
 
 if (User::getInstance(User::TYPE_ALUMNO)->isLoged()) {
@@ -10,11 +15,11 @@ if (User::getInstance(User::TYPE_ALUMNO)->isLoged()) {
 		$profesor = intval(Request::post('profesor'));
 		$comentario = trim(Request::post('comentario'));
 		$usuario = User::getInstance(User::TYPE_ALUMNO);
-		$respuestas = Preguntas::parsearRespuestas(Request::post('respuestas'));
+		$valoraciones = Preguntas::parsearValoraciones(Request::post('respuestas'));
 		
 		if ($asignatura > 0 && $profesor > 0 && $comentario && $usuario) {
 			load('models.solr');
-			Solr::addComentario($usuario->getId(), $profesor, $asignatura, $comentario, $respuestas);
+			Solr::addComentario($usuario->getId(), $profesor, $asignatura, $comentario, $valoraciones);
 			echo "OK";
 		}
 	}

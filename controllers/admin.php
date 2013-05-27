@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Controlador del administrador
+ */
+
+
 require_once(dirname(dirname(__file__)).'/init/init.php');
 
 if (User::getInstance(User::TYPE_ADMIN)->isLoged()) {

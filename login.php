@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Página de login
+ */
+
 require_once(dirname(__file__).'/init/init.php');
 
 $userType = Request::both('userType');

@@ -1,11 +1,15 @@
 <?php
 
+/**
+ * Página de alumno
+ */
+
 require_once(dirname(__file__).'/init/init.php');
 
 User::getInstance(User::TYPE_ALUMNO)->toLoginIfNotLoged();
 
 load('models.alumno');
-$data = Alumno::getUniData();
+$data = Alumno::getUniData(User::getInstance(User::TYPE_ALUMNO)->getId()); //obtiene: titulaciones, cursos, asignaturas y profesores asociados al alumno
 ?>
 
 <!doctype html>
