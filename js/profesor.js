@@ -217,7 +217,7 @@ function cargarOpiniones() {
 	$('#comentarios_estadisticas_ajax_img').show();
 	$.ajax({
 		url: PROFESOR_CONTROLLER,
-		data: 'task=getComentarios&'+cargarComentariosParams(),
+		data: 'task=getOpiniones&'+cargarComentariosParams(),
 		type: 'post',
 		dataType: 'json',
 		success: onLoadOpiniones
