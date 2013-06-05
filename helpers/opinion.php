@@ -71,7 +71,7 @@ class Opinion {
 					$mods[] = (object)array('peso' => $this->data[$word]->peso, 'contador' => $this->data[$word]->contador+1);
 				}
 				else {
-					$peso = 1; //TODO: debería coger el $obj->peso pero el diccionario está mal
+					$peso = $obj->peso;
 					foreach ($mods as $mod) {
 						$peso *= $mod->peso; //aplicar al peso los modificadores
 					}

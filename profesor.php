@@ -20,7 +20,7 @@ $opinion = array('neutral', 'positiva', 'negativa');
 <html lang="es">
 <head>
 	<?php load('tpls.header-common'); ?>
-	<title>Sistema de comentarios - Profesor</title>
+	<title>OMIT - Profesor</title>
 	<link type="text/css" rel="stylesheet" href="css/profesor.css" />
 	<script type="text/javascript" src="js/profesor.js"></script>
 	<script type="text/javascript" src="js/highcharts/highcharts.js"></script>
@@ -38,7 +38,7 @@ $opinion = array('neutral', 'positiva', 'negativa');
 	<div id="main">
 		<?php load('tpls.mensajes'); ?>
 		<div id="title">
-			<h1>Sistema de comentarios - Profesor</h1>
+			<a href=""><h1>OMIT - Profesor</h1></a>
 		</div>
 		<div id="content">
 			<form id="csv_upload_form" method="post" action="<?php echo PROFESOR_CONTROLLER; ?>" enctype="multipart/form-data">

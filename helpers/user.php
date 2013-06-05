@@ -120,10 +120,10 @@ class User {
 			$this->toLogin();
 	}
 	function toHome() {
-		Redirect::_($this->getUserTypeName().'.php');
+		Utils::redirect($this->getUserTypeName().'.php');
 	}
 	function toLogin() {
-		Redirect::_('login.php?userType='.$this->getUserTypeName());
+		Utils::redirect('login.php?userType='.$this->getUserTypeName());
 	}
 	
 	/**

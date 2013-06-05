@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	$('#descargar_datos').click(function() {
-		location = ADMIN_CONTROLLER+'?task=getXML';
+		location = ADMIN_CONTROLLER+'?task=getCSV';
 	});
 	$('#cargar_datos').click(function() {
-		$('#xml_data_file').click();
+		$('#csv_data_file').click();
 	});
 });

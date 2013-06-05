@@ -4,7 +4,6 @@
  * Controlador del alumno
  */
 
-
 require_once(dirname(dirname(__file__)).'/init/init.php');
 
 if (User::getInstance(User::TYPE_ALUMNO)->isLoged()) {

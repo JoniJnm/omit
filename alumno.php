@@ -21,14 +21,14 @@ $data = Alumno::getUniData(User::getInstance(User::TYPE_ALUMNO)->getId()); //obt
 		/*]]>*/
 	</script>
 	<?php load('tpls.header-common'); ?>
-	<title>Sistemas de comentarios de asignaturas</title>
+	<title>OMIT - Alumno</title>
 	<script type="text/javascript" src="js/alumno.js"></script>
 </head>
 <body>
 	<div id="main">
 		<?php load('tpls.mensajes'); ?>
 		<div id="title">
-			<h1>Sistema de comentarios de asignaturas</h1>
+			<a href=""><h1>OMIT - Alumno</h1></a>
 		</div>
 		<div id="content">
 			<div id="parte1" style="display:none">

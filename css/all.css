@@ -56,7 +56,10 @@ span.highlight {
 #title {
 	border-bottom: 2px solid #000;
 	margin-bottom: 5px;
-	color: #F6931F
+}
+#title a {
+	color: #F6931F !important;
+	text-decoration: none
 }
 #mensajes {
 	position:relative

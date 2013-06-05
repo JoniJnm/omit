@@ -29,7 +29,7 @@ if (Request::post('login')) {
 <html lang="es">
 <head>
 	<?php load('tpls.header-common'); ?>
-	<title>Sistema de comentarios - Acceder</title>
+	<title>OMIT (Opinion Mining In Teaching) - Acceder</title>
 	<script type="text/javascript" src="js/jquery/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/login.js"></script>
 	<?php if ($error) : ?>
@@ -46,7 +46,7 @@ if (Request::post('login')) {
 	<div id="main">
 		<?php load('tpls.mensajes'); ?>
 		<div id="title">
-			<h1>Sistema de comentarios - Acceder</h1>
+			<a href=""><h1>OMIT (Opinion Mining In Teaching) - Acceder</h1></a>
 		</div>
 		<div id="content">
 			<h2>Acceder como <?php echo $userType; ?></h2>
