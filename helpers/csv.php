@@ -45,7 +45,7 @@ class CSV {
 	}
 	
 	/**
-	 * Convierte un archivo cvs subido al servidor a con la información de la universidad
+	 * Convierte un archivo cvs subido al servidor con la información de la universidad
 	 * a objeto php con arrays
 	 * @param string $name el nombre del valor del formación del archivo
 	 * @return array de arrays con la información del csv
