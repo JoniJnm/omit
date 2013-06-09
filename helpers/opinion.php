@@ -114,7 +114,7 @@ class Opinion {
 	/**
 	 * Quita los acentos de un string
 	 * @param string $word texto a convertir
-	 * @return string texto modificador
+	 * @return string texto modificado
 	 */
 	private function tokenize($word) {
 		return strtolower(strtr($word, self::$TOKENIZE_FROM, self::$TOKENIZE_TO));
