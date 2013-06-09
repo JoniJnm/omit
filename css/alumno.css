@@ -1,0 +1,15 @@
+#preguntas {
+	padding-left: 15px;
+}
+td.pregunta {
+	font-weight:bold;
+}
+.satisfaccion_td {
+	color: #F6931F;
+	white-space: nowrap;
+	width: 1px;
+	padding-left:20px;
+}
+.satisfaccion_slider_td {
+	padding-left:15px;
+}

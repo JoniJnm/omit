@@ -22,6 +22,7 @@ $data = Alumno::getUniData(User::getInstance(User::TYPE_ALUMNO)->getId()); //obt
 	</script>
 	<?php load('tpls.header-common'); ?>
 	<title>OMIT - Alumno</title>
+	<link type="text/css" rel="stylesheet" href="css/alumno.css" />
 	<script type="text/javascript" src="js/alumno.js"></script>
 </head>
 <body>
@@ -65,14 +66,15 @@ $data = Alumno::getUniData(User::getInstance(User::TYPE_ALUMNO)->getId()); //obt
 				</table>
 			</div>
 			<div id="parte2" style="display:none">
-				<h2>Marca tu valoración para cada una de las siguiente preguntas:</h2>
+				<h2>Preguntas personalizadas</h2>
 				<div>
-					Valorar preguntas
+					¿Desea valorar diferentes temas acerca del profesor y la asignatura?
 					<span class="radio" id="preguntasRadio">
 						<input type="radio" id="preguntasSi" name="preguntas" /><label for="preguntasSi">Sí</label>
 						<input type="radio" id="preguntasNo" name="preguntas" /><label for="preguntasNo">No</label>
 					</span>
 				</div>
+				<br />
 				<div id="preguntas">
 					
 				</div>
