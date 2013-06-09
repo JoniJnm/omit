@@ -296,7 +296,7 @@ $(document).ready(function() {
 
 function onLoadClusters(data) {
 	if (parseInt(data.length) === 0) {
-		$('#comentarios_clusters').html('No se han encontrado comentarios sobre los parámetros de búsqueda.');
+		$('#comentarios_clusters').html('No se han encontrado temas sobre los parámetros de búsqueda.');
 	}
 	else {
 		$('#comentarios_clusters').html('');
