@@ -19,6 +19,8 @@ $(document).ready(function() {
 	$('#preguntas_boton').click(function() {
 		$('#preguntas_estadisticas_parent').hide();
 		$('#preguntas_estadisticas').show();
+		$('#preguntas_editar').show();
+		$('#preguntas_guardar_parent').hide();
 		var id = parseInt($('#asignatura').val());
 		if (id <= 0) {
 			mensajes.alerta('Selecciona una asignatura');
@@ -39,7 +41,7 @@ $(document).ready(function() {
 		$('span.pregunta').hide();
 		$('input.pregunta').show();
 		$('#preguntas_editar').hide();
-		$('#preguntas_parent').show();
+		$('#preguntas_guardar_parent').show();
 		return false;
 	});
 	$('#preguntas_guardar').click(function() {

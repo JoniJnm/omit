@@ -76,7 +76,7 @@ $opinion = array('neutral', 'positiva', 'negativa');
 						<input type="hidden" name="task" value="guardarPreguntas" />
 						<button id="preguntas_editar">Editar</button>
 						<button id="preguntas_estadisticas">Estadísticas</button>
-						<span id="preguntas_parent" style="display:none">				
+						<span id="preguntas_guardar_parent" style="display:none">				
 							<button id="preguntas_guardar">Guardar</button>
 							<span style="color:red">Se perderán las valoraciones actuales si se modifican las preguntas</span>
 						</span>
