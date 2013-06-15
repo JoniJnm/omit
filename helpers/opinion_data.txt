@@ -358,7 +358,6 @@ citable	1	pos
 civico	1	pos
 clarividente	1	pos
 claro	1	pos
-clase	1	pos
 clasico	1	pos
 clemente	1	neg
 cobarde	1	neg
@@ -1098,6 +1097,7 @@ honorifico	1	pos
 honradez	1	pos
 hormigueo	1	pos
 hormiguilla	1	neg
+horrible	1	neg
 horridez	1	neg
 hosquedad	1	neg
 hostilidad	1	neg
