@@ -75,9 +75,14 @@ class Opinion {
 					foreach ($mods as $mod) {
 						$peso *= $mod->peso; //aplicar al peso los modificadores
 					}
-					if ($obj->tipo == 'pos') $pos += $peso;
-					elseif ($obj->tipo == 'neg') $neg += $peso;
-					else throw new Exception('Valor incorrecto para opinion ',print_r($obj, true));
+					$tipo = $obj->tipo;
+					if ($peso < 0) { //si el peso es negativo (porque un modificador como "no" lo cambió): 
+						$peso *= -1; //pasar peso a positivo
+						$tipo = $tipo == 'pos' ? 'neg' : 'pos'; //y cambiar el tipo de palabra
+					}
+					if ($tipo == 'pos') $pos += $peso;
+					elseif ($tipo == 'neg') $neg += $peso;
+					else throw new Exception('Valor incorrecto para opinion ', print_r($obj, true));
 				}
 			}
 			
