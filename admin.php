@@ -19,7 +19,7 @@ User::getInstance(User::TYPE_ADMIN)->toLoginIfNotLoged();
 			<a href=""><h1>OMIT - Administración</h1></a>
 		</div>
 		<div id="content">
-			<button id="descargar_datos">Descargar datos en csv</button> <button id="cargar_datos">Subir datos en csv</button>
+			<button id="descargar_datos">Descargar datos en CSV</button> <button id="cargar_datos">Subir datos en CSV</button>
 			<form id="csv_upload_form" method="post" action="<?php echo ADMIN_CONTROLLER; ?>" enctype="multipart/form-data">
 				<input type="file" id="csv_data_file" name="csv_data" style="display:none" onchange="$('#csv_upload_form').submit()" />
 				<input type="hidden" name="task" value="uploadDataCsv" />
