@@ -25,3 +25,4 @@ DEFINE('PHP_JARS', PHP_PATH.'/jars/');
 DEFINE('ALUMNO_CONTROLLER', HTML_URL.'controllers/alumno.php');
 DEFINE('PROFESOR_CONTROLLER', HTML_URL.'controllers/profesor.php');
 DEFINE('ADMIN_CONTROLLER', HTML_URL.'controllers/admin.php');
+DEFINE('LOGIN_CONTROLLER', HTML_URL.'controllers/login.php');

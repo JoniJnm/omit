@@ -5,6 +5,7 @@
 	var ALUMNO_CONTROLLER = '<?php echo ALUMNO_CONTROLLER; ?>';
 	var PROFESOR_CONTROLLER = '<?php echo PROFESOR_CONTROLLER; ?>';
 	var ADMIN_CONTROLLER = '<?php echo ADMIN_CONTROLLER; ?>';
+	var LOGIN_CONTROLLER = '<?php echo LOGIN_CONTROLLER; ?>';
 </script>
 <link type="text/css" rel="stylesheet" href="css/normalize.css" />
 <link type="text/css" rel="stylesheet" href="css/ui-darkness/jquery-ui-1.10.1.custom.min.css" />

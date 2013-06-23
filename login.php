@@ -8,21 +8,7 @@ require_once(dirname(__file__).'/init/init.php');
 
 $userType = Request::both('userType');
 $user = User::getInstance($userType);
-if (Request::get('salir')) {
-	User::logout($userType);
-}
 $user->toHomeIfLoged();
-
-$error = '';
-
-if (Request::post('login')) {
-	$email = Request::post('email');
-	$pass = Request::post('pass');
-	if ($user->login($email, $pass)) {
-		$user->toHome();
-	}
-	$error = 'Usuario o contraseña incorrectos.';
-}
 
 ?>
 <!doctype html>
@@ -32,15 +18,6 @@ if (Request::post('login')) {
 	<title>OMIT (Opinion Mining In Teaching) - Acceder</title>
 	<script type="text/javascript" src="js/jquery/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/login.js"></script>
-	<?php if ($error) : ?>
-	<script type="text/javascript">
-	/*<![CDATA[*/
-	$(document).ready(function() {
-		mensajes.alerta('<?php echo $error; ?>');
-	});
-	/*]]>*/
-	</script>
-	<?php endif; ?>
 </head>
 <body>
 	<div id="main">
@@ -72,10 +49,11 @@ if (Request::post('login')) {
 					<td><button id="acceder">Acceder</button></td>
 				</tr>
 			</table>
-			<form id="form" action="login.php?userType=<?php echo $userType; ?>" method="post" autocomplete="off" style="display:none">
+			<form id="form" action="<?php echo LOGIN_CONTROLLER; ?>" method="post" autocomplete="off" style="display:none">
 				<input type="hidden" name="email" id="email2" />
 				<input type="hidden" name="pass" id="password2" />
-				<input type="hidden" name="login" value="1" />
+				<input type="hidden" name="userType" value="<?php echo $userType; ?>" />
+				<input type="hidden" name="task" value="login" />
 			</form>
 		</div>
 		<?php load('tpls.footer'); ?>

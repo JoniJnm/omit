@@ -15,7 +15,7 @@
 				$loged = $loged || User::getInstance($type)->isLoged();
 			}
 			$userType = PHP_SCRIPT == 'login' ? Request::get('userType') : PHP_SCRIPT;
-			if ($loged) echo ' | <a href="'.HTML_URL.'login.php?userType='.User::clearUserType($userType, true).'&salir=1">Salir</a>';
+			if ($loged) echo ' | <a href="'.LOGIN_CONTROLLER.'?userType='.User::clearUserType($userType, true).'&task=salir">Salir</a>';
 		?>
 	</div>
 	<div style="float:right;width:450px;text-align:right">Jónatan Núñez - Soto Montalvo &copy; OMIT (Opinion Mining In Teaching) 2012 - 2013</div>
