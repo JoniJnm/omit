@@ -23,7 +23,11 @@ function irParte(from, to) {
 	}
 	else {
 		$('#parte'+from).fadeOut('slow', function() {
-			$('#parte'+to).fadeIn();
+			$('#parte'+to).fadeIn(function() {
+				if (to == 3) {
+					$('#comentario').focus();
+				}
+			});
 		});
 	}
 	if ($('#parte'+(to+1)).length == 0) $('#siguiente').hide();
