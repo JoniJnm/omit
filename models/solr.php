@@ -28,7 +28,7 @@ class Solr {
 	/**
 	 * Inicia el objeto $solr para poder hacer futuras conexiones
 	 */
-	static private function initSolr() {
+	public function initSolr() {
 		if (self::$solr === null) {
 			load('libs.solr.Service');
 			self::$solr = new Apache_Solr_Service(SOLR_SERVER, SOLR_PORT, SOLR_PATH);
@@ -45,7 +45,6 @@ class Solr {
 	 */
 	static function addComentario($usuario, $profesor, $asignatura, $comentario, $valoraciones) {
 		load('helpers.opinion');
-		self::initSolr(); 
 		
 		//buscar el último id de comentario en solr para aumentarlo en 1 y asignarselo al nuevo comentario
 		$r = self::$solr->search('*:*', 0, 1, array('sort' => 'id desc', 'fl' => 'id'));
@@ -73,7 +72,6 @@ class Solr {
 	 * @param int $asignatura id de la asignatura
 	 */
 	static function delValoraciones($profesor, $asignatura) {
-		self::initSolr();
 		$query = "profesor:$profesor AND asignatura:$asignatura AND respuesta:*";
 		$r = self::$solr->search($query, 0, 10000);
 		foreach ($r->response->docs as $doc) {
@@ -92,6 +90,15 @@ class Solr {
 	}
 	
 	/**
+	 * Borra todos los comentarios y valoraciones de la base de datos Lucene
+	 */
+	static function deleteAll() {
+		self::$solr->deleteByQuery('*:*');
+		self::$solr->commit();
+		self::$solr->optimize();
+	}
+	
+	/**
 	 * Obtiene los comentarios de solr dados unos parámetros
 	 * @param string $query consulta sobre la db
 	 * @param int $offset 
@@ -100,7 +107,6 @@ class Solr {
 	 * @return Apache_Solr_Response
 	 */
 	static function getComentarios($query, $offset = 0, $limit = 10, $params = array()) {
-		self::initSolr();
 		$r = self::$solr->search($query, $offset, $limit, $params);
 		return $r;
 	}
@@ -111,7 +117,6 @@ class Solr {
 	 * @return string[] array con las etiquetas
 	 */
 	static function getClusters($query) {
-		self::initSolr();
 		//aplica clustering sobre los 1000 primeros comentarios 
 		//además sólo devuelve los id de los comentarios
 		//para no tener que enviar el texto de cada comentario y demás información
@@ -232,3 +237,5 @@ class Solr {
 		return $query;
 	}
 }
+
+Solr::initSolr();

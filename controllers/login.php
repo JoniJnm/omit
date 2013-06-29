@@ -21,4 +21,6 @@ if ($task == 'login') {
 elseif ($task == 'salir') {
 	$userType = Request::both('userType');
 	User::logout($userType);
+	Mensajes::addInfo("Te has desconectado correctamente");
+	User::getInstance($userType)->toLogin();
 }

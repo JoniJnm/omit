@@ -91,7 +91,7 @@ class User {
 	 */
 	function login($email, $pass) {
 		$db = Database::getInstance();
-		$obj = $db->loadObject('SELECT id,nombre FROM #__usuarios WHERE email='.$db->scape($email).' AND pass='.$db->scape($pass));
+		$obj = $db->loadObject('SELECT id,nombre FROM #__usuarios WHERE email='.$db->scape($email).' AND pass='.$db->scape($pass).' AND type='.$db->scape($this->getUserType()));
 		if ($obj) {
 			$this->id = $obj->id;
 			$this->nombre = $obj->nombre;
@@ -131,17 +131,9 @@ class User {
 	 * @param int $userType para redirigir al página de login con ese userType
 	 */
 	static function logout($userType) {
-		$loged = false;
-		$types = User::getUserTypes();
-		foreach ($types as $type) {
-			$loged = User::getInstance($type)->isLoged();
-			if ($loged) break;
-		}
 		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_ALUMNO);
 		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_PROFESOR);
 		Session::clear(self::$PREFIX_KEY_ALIAS.self::TYPE_ADMIN);
-		if ($loged) Mensajes::addInfo("Te has desconectado correctamente");
-		self::getInstance($userType)->toLogin();
 	}
 	
 	private function clear() {

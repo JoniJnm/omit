@@ -56,4 +56,38 @@ if (User::getInstance(User::TYPE_ADMIN)->isLoged()) {
 		}
 		User::getInstance(User::TYPE_ADMIN)->toHome();
 	}
+	elseif ($task == 'borrarSistema') {
+		//se eliminará todo menos los usuarios administradores
+		$my_data = $db->loadObject('SELECT email, pass FROM #__usuarios WHERE id='.$db->scape(User::getInstance(User::TYPE_ADMIN)->getId()));
+		$admins = $db->loadObjectList('SELECT * FROM #__usuarios WHERE type='.$db->scape(User::TYPE_ADMIN));
+		
+		load('models.solr');
+		Solr::deleteAll();
+		
+		$db->query('TRUNCATE `#__asignaturas`');
+		$db->query('TRUNCATE `#__cursos`');
+		$db->query('TRUNCATE `#__preguntas`');
+		$db->query('TRUNCATE `#__usuarios`');
+		$db->query('TRUNCATE `#__usuarios_asignaturas`');
+		$db->query('TRUNCATE `#__titulaciones`');
+		
+		$keys = array();
+		foreach ($admins[0] as $key=>$values) {
+			if ($key != 'id') $keys[] = $key;
+		}
+		$keys = '`'.implode('`,`', $keys).'`';
+		foreach ($admins as $admin) {
+			$insert = array();
+			foreach ($admin as $key=>$value) {
+				if ($key != 'id') $insert[] = $db->scape($value);
+			}
+			$insert = implode(',', $insert);
+			$db->query('INSERT INTO #__usuarios ('.$keys.') VALUES ('.$insert.')');
+		}
+		
+		Mensajes::addInfo('¡Datos borrados!');
+		User::logout(User::TYPE_ADMIN);
+		User::getInstance(User::TYPE_ADMIN)->login($my_data->email, $my_data->pass);
+		User::getInstance(User::TYPE_ADMIN)->toHome();
+	}
 }

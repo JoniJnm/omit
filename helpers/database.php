@@ -134,6 +134,10 @@ class Database {
 	 * @return string valor escapado
 	 */
 	function scape($str) {
-		return "'".$this->mysqli->real_escape_string($str)."'";
+		if (is_numeric($str)) return $str;
+		elseif ($str === null) return 'null';
+		elseif ($str === false) return 'false';
+		elseif ($str === true) return 'true';
+		else return "'".$this->mysqli->real_escape_string($str)."'";
 	}
 }
