@@ -3,7 +3,7 @@ profundamente	3	mod	1
 bastante	2	mod	1
 gran	3	mod	2
 no	-1	mod	3
-nunca -1 mod 3
+nunca	-1	mod	3
 abarraganamiento	1	neg
 abarrancarse	1	neg
 abatido	1	neg
