@@ -180,4 +180,15 @@ echo "tps: $tps<br />";
 echo "tns: $tns<br />";
 echo "fps: $fps<br />";
 echo "fns: $fns<br />";
-echo "Precision: ".number_format(($tps+$tns)/($tps+$tns+$fps+$fns), 6);
+
+$exactitud = ($tps+$tns)/($tps+$tns+$fps+$fns);
+echo "Exactitud: ".number_format($exactitud, 6).'<br />';
+
+$precision = $tps/($tps+$fps);
+echo "Precision: ".number_format($precision, 6).'<br />';
+
+$exhaustividad = $tps/($tps+$fns);
+echo "Exhaustividad: ".number_format($exhaustividad, 6).'<br />';
+
+$f1 = 2*($precision*$exhaustividad)/($precision+$exhaustividad);
+echo "F1: ".number_format($f1, 6).'<br />';
