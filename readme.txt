@@ -14,3 +14,6 @@ El proyecto ha sido probado con:
 
 La estructura de la base de datos de MySQL encuentra en /init/estructura.sql
 La estructura de la base de datos de Lucene se encuentra en la carpeta /solr/
+
+El proyecto se encuentra en un repositorio Git:
+https://github.com/jonijnm/omit/
