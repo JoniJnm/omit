@@ -1,0 +1,288 @@
+<add>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Es una gran profesora, he aprendido mucho con ella y nos enseña muy bien. 
+
+La asignatura es necesaria para nuestra carrera]]>
+            </field>
+        <field name="respuesta">1:3</field>
+        <field name="respuesta">2:4</field>
+        <field name="respuesta">3:1</field>
+        <field name="respuesta">4:3</field>
+        <field name="respuesta">5:3</field>
+        <field name="respuesta">6:3</field>
+        <field name="respuesta">7:4</field>
+        <field name="respuesta">8:5</field>
+        <field name="respuesta">9:3</field>
+        <field name="id">1</field>
+        <field name="opinion">1</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Una de las peores profesoras que he tenido, explica muy mal y habla muy bajito.
+
+Debería dimitir!!]]>
+            </field>
+        <field name="respuesta">1:5</field>
+        <field name="respuesta">2:1</field>
+        <field name="respuesta">3:2</field>
+        <field name="respuesta">4:1</field>
+        <field name="respuesta">5:3</field>
+        <field name="respuesta">6:4</field>
+        <field name="respuesta">7:1</field>
+        <field name="respuesta">8:3</field>
+        <field name="respuesta">9:5</field>
+        <field name="id">2</field>
+        <field name="opinion">2</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Yo creo que los exámenes han sido de una dificultad media, no como dicen algunos compañeros (que no quiero nombrar) que han sido difíciles. Vamos todo normal]]>
+            </field>
+        <field name="respuesta">1:5</field>
+        <field name="respuesta">2:5</field>
+        <field name="respuesta">3:4</field>
+        <field name="respuesta">4:3</field>
+        <field name="respuesta">5:4</field>
+        <field name="respuesta">6:3</field>
+        <field name="respuesta">7:3</field>
+        <field name="respuesta">8:1</field>
+        <field name="respuesta">9:2</field>
+        <field name="id">3</field>
+        <field name="opinion">0</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[La profesora dijo que iba a entrar unos ejercicios en el examen y al final no entraron.................]]>
+            </field>
+        <field name="respuesta">1:3</field>
+        <field name="respuesta">2:1</field>
+        <field name="respuesta">3:1</field>
+        <field name="respuesta">4:1</field>
+        <field name="respuesta">5:2</field>
+        <field name="respuesta">6:2</field>
+        <field name="respuesta">7:2</field>
+        <field name="respuesta">8:1</field>
+        <field name="respuesta">9:2</field>
+        <field name="id">4</field>
+        <field name="opinion">2</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Siempres estás disponible para las tutorias y siempre respondes muy bien a las preguntas. ¡Eres una crack! Ánimo profe, eres la mejor del mundo mundial.]]>
+            </field>
+        <field name="respuesta">1:5</field>
+        <field name="respuesta">2:2</field>
+        <field name="respuesta">3:4</field>
+        <field name="respuesta">4:4</field>
+        <field name="respuesta">5:2</field>
+        <field name="respuesta">6:3</field>
+        <field name="respuesta">7:5</field>
+        <field name="respuesta">8:5</field>
+        <field name="respuesta">9:1</field>
+        <field name="id">5</field>
+        <field name="opinion">1</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Quién ha elegido los horarios? Cómo puede ser que demos 6 horas en un día y el resto de la semana nada? No sé si es de la profesora o de quién, pero deberían hacer algo]]>
+            </field>
+        <field name="respuesta">1:3</field>
+        <field name="respuesta">2:2</field>
+        <field name="respuesta">3:1</field>
+        <field name="respuesta">4:4</field>
+        <field name="respuesta">5:2</field>
+        <field name="respuesta">6:4</field>
+        <field name="respuesta">7:5</field>
+        <field name="respuesta">8:3</field>
+        <field name="respuesta">9:5</field>
+        <field name="id">6</field>
+        <field name="opinion">2</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[EH PROFE ME TIENES MANÍAAAAAAAAAAAAAAA K LO SE YO ¬¬]]>
+            </field>
+        <field name="respuesta">1:3</field>
+        <field name="respuesta">2:3</field>
+        <field name="respuesta">3:5</field>
+        <field name="respuesta">4:2</field>
+        <field name="respuesta">5:1</field>
+        <field name="respuesta">6:2</field>
+        <field name="respuesta">7:4</field>
+        <field name="respuesta">8:5</field>
+        <field name="respuesta">9:3</field>
+        <field name="id">7</field>
+        <field name="opinion">2</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[haber no se pk despidn ha los mejores profesores y...... a otros no tan buenos no...... (sto es anonimo no?)]]>
+            </field>
+        <field name="respuesta">1:3</field>
+        <field name="respuesta">2:5</field>
+        <field name="respuesta">3:3</field>
+        <field name="respuesta">4:4</field>
+        <field name="respuesta">5:4</field>
+        <field name="respuesta">6:2</field>
+        <field name="respuesta">7:2</field>
+        <field name="respuesta">8:3</field>
+        <field name="respuesta">9:5</field>
+        <field name="id">8</field>
+        <field name="opinion">0</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[me haces mucha gracia con tus metaforas tan buenas jajaja, grande profesora, MUY GRANDE jajajaja]]>
+            </field>
+        <field name="respuesta">1:1</field>
+        <field name="respuesta">2:3</field>
+        <field name="respuesta">3:4</field>
+        <field name="respuesta">4:4</field>
+        <field name="respuesta">5:2</field>
+        <field name="respuesta">6:1</field>
+        <field name="respuesta">7:3</field>
+        <field name="respuesta">8:3</field>
+        <field name="respuesta">9:4</field>
+        <field name="id">9</field>
+        <field name="opinion">1</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Profesora competente, se nota que se esfuerza y que le gusta su trabajo, pero te das cuenta que en algunas partes no tiene mucha idea. Se preocupa por los alumnos y aunque puede parecer borde al final es una buena persona. Diría que es un poco enfermiza en cuanto a su concepción del mundo POO. Ah, y muy guapa, ijiji]]>
+            </field>
+        <field name="respuesta">1:1</field>
+        <field name="respuesta">2:2</field>
+        <field name="respuesta">3:3</field>
+        <field name="respuesta">4:2</field>
+        <field name="respuesta">5:4</field>
+        <field name="respuesta">6:2</field>
+        <field name="respuesta">7:5</field>
+        <field name="respuesta">8:1</field>
+        <field name="respuesta">9:5</field>
+        <field name="id">10</field>
+        <field name="opinion">0</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Me encanta la profesora, ha sido de los mejores que he tenido. He aprendido un montón con ella y explica muy bien. Lo único que se puede echar en cara es que es un poco dura corrigiendo los exámenes, jejeje. Pero es mejor eso que sea blanda, porque así aprendemos más.
+
+¡Gracias por todo!]]>
+            </field>
+        <field name="respuesta">1:4</field>
+        <field name="respuesta">2:2</field>
+        <field name="respuesta">3:1</field>
+        <field name="respuesta">4:1</field>
+        <field name="respuesta">5:4</field>
+        <field name="respuesta">6:5</field>
+        <field name="respuesta">7:2</field>
+        <field name="respuesta">8:5</field>
+        <field name="respuesta">9:2</field>
+        <field name="id">11</field>
+        <field name="opinion">1</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[La asignatura en general me ha parecido bien, sin embargo creo que hubiera sido mejor para los alumnos el que hubiesen más horas de prácticas.]]>
+            </field>
+        <field name="respuesta">1:2</field>
+        <field name="respuesta">2:3</field>
+        <field name="respuesta">3:5</field>
+        <field name="respuesta">4:2</field>
+        <field name="respuesta">5:3</field>
+        <field name="respuesta">6:5</field>
+        <field name="respuesta">7:5</field>
+        <field name="respuesta">8:1</field>
+        <field name="respuesta">9:1</field>
+        <field name="id">12</field>
+        <field name="opinion">0</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[El horario de la asignatura era un infierno.]]>
+            </field>
+        <field name="respuesta">1:1</field>
+        <field name="respuesta">2:5</field>
+        <field name="respuesta">3:4</field>
+        <field name="respuesta">4:1</field>
+        <field name="respuesta">5:4</field>
+        <field name="respuesta">6:2</field>
+        <field name="respuesta">7:5</field>
+        <field name="respuesta">8:2</field>
+        <field name="respuesta">9:5</field>
+        <field name="id">13</field>
+        <field name="opinion">2</field>
+    </doc>
+    <doc>
+        <field name="fecha">NOW</field>
+        <field name="usuario">1</field>
+        <field name="profesor">1</field>
+        <field name="asignatura">1</field>
+        <field name="comentario">
+            <![CDATA[Ha sido la asignatura más difícil de la carrera]]>
+            </field>
+        <field name="respuesta">1:5</field>
+        <field name="respuesta">2:1</field>
+        <field name="respuesta">3:4</field>
+        <field name="respuesta">4:2</field>
+        <field name="respuesta">5:5</field>
+        <field name="respuesta">6:1</field>
+        <field name="respuesta">7:4</field>
+        <field name="respuesta">8:3</field>
+        <field name="respuesta">9:4</field>
+        <field name="id">14</field>
+        <field name="opinion">0</field>
+    </doc>
+</add>
