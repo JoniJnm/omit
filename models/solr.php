@@ -55,7 +55,7 @@ class Solr {
 		$d->usuario = $usuario;
 		$d->profesor = $profesor;
 		$d->asignatura = $asignatura;
-		$d->comentario = str_replace("\n", "<br />", htmlspecialchars($comentario));
+		$d->comentario = htmlspecialchars($comentario);
 		$d->opinion = Opinion::clasificar($d->comentario); //clasificar en negativa, neutral o positiva
 		$d->respuesta = $valoraciones;
 		$d->id = $id;

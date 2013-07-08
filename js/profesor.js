@@ -178,6 +178,9 @@ function onLoadComentarios(data) {
 	for (var i = 0; i < len; i++) {
 		doc = data.response.docs[i];
 		txt = doc.comentario.toString();
+		txt = txt.replace(/^[\s]+/, '');
+		txt = txt.replace(/[\s]+$/, '');
+		txt = txt.replace(/\n/g, '<br />');
 		txt = colorear(txt, buscar);
 		extra = '<div class="opinion"><span class="title">Opinión</span>: ';
 		extra += '<span class="' + OPINION[doc.opinion] + '">' + OPINION[doc.opinion] + '</span>';
